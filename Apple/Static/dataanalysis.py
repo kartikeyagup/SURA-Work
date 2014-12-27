@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import csv
-
+import scipy.signal
 
 fileread=[]
 with open('2014-12-25_20-41-08.csv','rb') as csvfile:
@@ -16,6 +16,13 @@ starttime=acceldata[0][0]
 timecorrected=map(lambda x: [x[0]-starttime]+map(lambda y: y*9.81,x[1:4]),acceldata )
 
 [timearr,ax,ay,az]= map(list,zip(*timecorrected))
+
+# Applying median filter
+ax=scipy.signal.medfilt(ax,5)
+ay=scipy.signal.medfilt(ay,5)
+az=scipy.signal.medfilt(az,5)
+
+
 
 sx=sum(ax)/len(ax)
 sy=sum(ay)/len(ay)
