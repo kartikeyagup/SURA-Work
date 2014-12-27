@@ -22,12 +22,9 @@ ax=scipy.signal.medfilt(ax,5)
 ay=scipy.signal.medfilt(ay,5)
 az=scipy.signal.medfilt(az,5)
 
-
-
 sx=sum(ax)/len(ax)
 sy=sum(ay)/len(ay)
 sz=sum(az)/len(az)
-
 
 ax= map(lambda x: x-sx, ax)
 ay= map(lambda x: x-sy, ay)

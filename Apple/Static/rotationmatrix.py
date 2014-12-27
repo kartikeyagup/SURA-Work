@@ -36,4 +36,7 @@ requiredMagnetic=map(lambda x: x[44:47], fileread)
 magneticData=map(lambda x: map(float,x),requiredMagnetic[1:]) #each element of gravityData is a list containing three values of geomagnetic
 
 rotMatrices=map(getRotMatrix,gravityData,magneticData) # mapping with the getRotMatrix function for each of the values of gavityData and magneticData
-print rotMatrices[20]	#each element of rotMatrices is a list containing 9 elements of the corresponding Rotation Matrix
+# print rotMatrices[20]	#each element of rotMatrices is a list containing 9 elements of the corresponding Rotation Matrix
+
+for elem in rotMatrices:
+	print elem
