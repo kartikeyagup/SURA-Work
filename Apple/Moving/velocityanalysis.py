@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from numpy.linalg import inv
 import csv
+import math
 
 #File reading part
 fileread=[]
@@ -9,9 +10,9 @@ with open('2014-12-26_22-37-07.csv','rb') as csvfile:
 	spamreader= csv.reader(csvfile)
 	for row in spamreader:
 		fileread.append(row)
-print fileread[0][35]
+
+print fileread[0]
 required=map(lambda x: x[18:22], fileread)
-# required=map(lambda x: x[32:36], fileread)
 acceldata=map(lambda x: map(float,x),required[1:])
 
 starttime=acceldata[0][0]
@@ -19,6 +20,8 @@ timecorrected=map(lambda x: [x[0]-starttime]+map(lambda y: y*9.81,x[1:4]),acceld
 
 [timearr,ax,ay,az] = map(list,zip(*timecorrected))
 
+
+# required = map(lambda x: x[26]+ x[33:36] + [41:47])
 
 #Functions part
 def findstaticbias(accelarrayx,lim=10):
@@ -56,6 +59,25 @@ def getdisplacement(velarrayx,timearray):
 	for i in xrange(len(velarrayx)):
 		disparrayx[i]=np.trapz(velarrayx[0:1+i],timearray[0:i+1])
 	return disparrayx
+
+def getRotationMatrix(thetap,thetar,thetay):
+	#For Rzxy
+	#thetap=theta pitch, (X axis)
+	#thetar=theta roll, (Yaxis)
+	#thetay=theta yaw, (Z axis)
+	Cp,Cr,Cy=math.cos(thetap),math.cos(thetar),math.cos(thetay)
+	Sp,Sr,Sy=math.sin(thetap),math.sin(thetar),math.sin(thetay)
+	R=[0.0]*9
+	R[0]=Cr*Cy+Sr*Sp*Sy
+	R[1]=Cp*Sy
+	R[2]=Cr*Sp*Sy -Sr*Cy
+	R[3]=Sr*Sp*Cy -Cr*Sy
+	R[4]=Cp*Cy
+	R[5]=Sr*Sy + Cr*Sp*Cy
+	R[6]=Sr*Cp
+	R[7]=-Sp
+	R[8]=Cr*Cp
+	return R
 
 def getRotMatrix(g,m):
 	Hx = m[1]*g[2] - m[2]*g[1]
