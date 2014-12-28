@@ -11,17 +11,33 @@ with open('2014-12-26_22-37-07.csv','rb') as csvfile:
 	for row in spamreader:
 		fileread.append(row)
 
-print fileread[0]
-required=map(lambda x: x[18:22], fileread)
-acceldata=map(lambda x: map(float,x),required[1:])
+# print fileread[0]
+# required=map(lambda x: x[18:22], fileread)
+# acceldata=map(lambda x: map(float,x),required[1:])
 
-starttime=acceldata[0][0]
-timecorrected=map(lambda x: [x[0]-starttime]+map(lambda y: y*9.81,x[1:4]),acceldata )
+# starttime=acceldata[0][0]
+# timecorrected=map(lambda x: [x[0]-starttime]+map(lambda y: y*9.81,x[1:4]),acceldata )
 
-[timearr,ax,ay,az] = map(list,zip(*timecorrected))
+# [timearr,ax,ay,az] = map(list,zip(*timecorrected))
 
+required = map(lambda x: x[26:30]+ x[33:36], fileread)
+alldata =map(lambda x: map(float,x),required[1:])
+starttime=alldata[0][0]
+timed=map(lambda x: [x[0]-starttime] + x[1:4] + map(lambda y: y*9.81,x[4:7]),alldata)
 
-# required = map(lambda x: x[26]+ x[33:36] + [41:47])
+print "Number or entries before the dupilicates removal: ", len(timed)
+
+#Removing the vlaues with same timestamp
+prevtime=timed[0][0]
+timecorrected=[timed[0]]
+for i in xrange(len(timed)):
+	if not(timed[i][0]==prevtime):
+		prevtime=timed[i][0]
+		timecorrected.append(timed[i])
+print "Number of values after duplicate removal: ", len(timecorrected)
+
+[timearr,ty,tr,tp,ax,ay,az]=map(list, zip(*timecorrected))
+
 
 #Functions part
 def findstaticbias(accelarrayx,lim=10):
@@ -51,7 +67,6 @@ def getvelocity(accelarrayx,timearray):
 	for i in xrange(len(fixed)):
 		velarray[i]=np.trapz(fixed[0:1+i],timearray[0:i+1])
 	return velarray
-
 
 def getdisplacement(velarrayx,timearray):
 	#TODO: Make this of order n instead of n*n
@@ -119,33 +134,70 @@ def applyRotationMatrix(rot_matrix_array,acc_array):
 
 
 #Applying functions
-fixedbias=fixstaticbias(az)
-# print np.trapz(fixedbias)
-velocity=getvelocity(az,timearr)
-displacement=getdisplacement(velocity,timearr)
+rotmatrices=map(getRotationMatrix,tp,tr,ty)
+invrotmatrices=map(invertMatrix,rotmatrices)
+accelerationxyz=list(zip(*[ax,ay,az]))
+accelerationXYZ=map(applyRotationMatrix,invrotmatrices,accelerationxyz)
+
+
+
+# fixedbiasz=fixstaticbias(az)
+
+# [ax,ay,az]=map(list,zip(*accelerationXYZ))
+velocityx=getvelocity(ax,timearr)
+velocityy=getvelocity(ay,timearr)
+velocityz=getvelocity(az,timearr)
+
+displacementx=getdisplacement(velocityx,timearr)
+displacementy=getdisplacement(velocityy,timearr)
+displacementz=getdisplacement(velocityz,timearr)
+
+
 
 #PLOTTING PART
 plt.figure(1)
 
-plt.subplot(411)
+plt.subplot(331)
 plt.ylabel('Ax (m/s2)')
 # plt.plot(xaxis,ax,'r--',xaxis,lx,'b--')
+plt.plot(ax)
+
+
+plt.subplot(332)
+plt.ylabel('Ay (m/s2)')
+plt.plot(ay)
+
+plt.subplot(333)
+plt.ylabel('Az (m/s2)')
 plt.plot(az)
 
-
-plt.subplot(412)
-plt.ylabel('Corrected Ax (m/s2)')
-# plt.plot(xaxis,ay,'r--',xaxis,lx,'b--')
-plt.plot(fixedbias)
-
-
-plt.subplot(413)
+plt.subplot(334)
 plt.ylabel('Vx (m/s)')
-plt.plot(velocity)
+plt.plot(velocityx)
 
-plt.subplot(414)
+
+plt.subplot(335)
+plt.ylabel('Vy (m/s)')
+plt.plot(velocityy)
+
+
+plt.subplot(336)
+plt.ylabel('Vx (m/s)')
+plt.plot(velocityz)
+
+plt.subplot(337)
 plt.ylabel('x (m)')
 plt.xlabel('Time : (100=1s)')
-plt.plot(displacement)
+plt.plot(displacementx)
+
+plt.subplot(338)
+plt.ylabel('y (m)')
+plt.xlabel('Time : (100=1s)')
+plt.plot(displacementy)
+
+plt.subplot(339)
+plt.ylabel('z (m)')
+plt.xlabel('Time : (100=1s)')
+plt.plot(displacementz)
 
 plt.show()
