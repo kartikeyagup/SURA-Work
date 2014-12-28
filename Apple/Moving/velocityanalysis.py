@@ -6,7 +6,7 @@ import math
 
 #File reading part
 fileread=[]
-with open('2014-12-26_22-37-07.csv','rb') as csvfile:
+with open('2014-12-28_17-53-15.csv','rb') as csvfile:
 	spamreader= csv.reader(csvfile)
 	for row in spamreader:
 		fileread.append(row)
@@ -135,15 +135,15 @@ def applyRotationMatrix(rot_matrix_array,acc_array):
 
 #Applying functions
 rotmatrices=map(getRotationMatrix,tp,tr,ty)
-invrotmatrices=map(invertMatrix,rotmatrices)
+# invrotmatrices=map(invertMatrix,rotmatrices)
 accelerationxyz=list(zip(*[ax,ay,az]))
-accelerationXYZ=map(applyRotationMatrix,invrotmatrices,accelerationxyz)
+accelerationXYZ=map(applyRotationMatrix,rotmatrices,accelerationxyz)
 
 
 
 # fixedbiasz=fixstaticbias(az)
 
-# [ax,ay,az]=map(list,zip(*accelerationXYZ))
+[ax,ay,az]=map(list,zip(*accelerationXYZ))
 velocityx=getvelocity(ax,timearr)
 velocityy=getvelocity(ay,timearr)
 velocityz=getvelocity(az,timearr)
