@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-a=open('accelerometer_pratsis.txt')
+a=open('accelerometer_shrey_dad.txt')
 lines=a.read().split('\n')
 splitted=[]
 for elem in lines:

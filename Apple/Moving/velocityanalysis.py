@@ -6,12 +6,12 @@ import math
 
 #File reading part
 fileread=[]
-with open('2014-12-28_17-53-15.csv','rb') as csvfile:
+with open('2014-12-28_18-02-14.csv','rb') as csvfile:
 	spamreader= csv.reader(csvfile)
 	for row in spamreader:
 		fileread.append(row)
 
-# print fileread[0]
+print fileread[0]
 # required=map(lambda x: x[18:22], fileread)
 # acceldata=map(lambda x: map(float,x),required[1:])
 
@@ -93,6 +93,7 @@ def getRotationMatrix(thetap,thetar,thetay):
 	R[7]=-Sp
 	R[8]=Cr*Cp
 	return R
+
 
 def getRotMatrix(g,m):
 	Hx = m[1]*g[2] - m[2]*g[1]

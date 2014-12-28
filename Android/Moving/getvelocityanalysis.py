@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 #FILE INPUT PART
-a=open('accelerometer_prateek_moving.txt')
+a=open('accelerometer_shrey_phone_moving.txt')
 lines=a.read().split('\n')
 splitted=[]
 for elem in lines:
@@ -26,6 +26,12 @@ print len(ax),len(time),time[-1]
 timeunit=0.1
 
 #FUNCTIONS PART
+def getlimitingvalue(accelarrayx,lim=10):
+	l1=map(abs,accelarrayx[0:lim])
+	l2=map(abs,accelarrayx[len(accelarrayx)-lim:len(accelarrayx)])
+	return max(max(l1),max(l2))
+
+
 
 def findstaticbias(accelarrayx,lim=3):
 	#Finds the static bias considering the the 1st lim readings and last lim readings default is 3 
@@ -35,6 +41,11 @@ def findstaticbias(accelarrayx,lim=3):
 def fixstaticbias(accelarrayx):
 	staticbias=findstaticbias(accelarrayx)				#calclulating the static bias
 	applied=map(lambda x: x-staticbias, accelarrayx)	#Applying it now	
+	limitvalue=getlimitingvalue(applied)
+	print "limitvalus is",limitvalue
+	for i in xrange(len(accelarrayx)):
+		if abs(applied[i])<limitvalue:
+			applied[i]=0
 	return applied
 
 def getvelocity(accelarrayx,timearray):
