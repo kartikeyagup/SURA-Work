@@ -4,10 +4,10 @@ import csv
 import matplotlib.pyplot as plt
 
 #File input part
-filename='Jan 5, 2015 11_20_17 AM.csv'
+filename='Jan 12, 2015 7:39:03 PM_SensorFusion3.csv'
 fileread=[]
 with open(filename,'rb') as csvfile:
-	spamreader= csv.reader(csvflie)
+	spamreader= csv.reader(csvfile)
 	for row in spamreader:
 		fileread.append(row)
 
@@ -29,34 +29,34 @@ print "Number of values after duplicate removal: ", len(timecorrected)
 
 timed=timecorrected
 
-startindex,done=0,False
-while not(done):
-	if np.prod(timed[startindex])>0:
-		done=True
-	else:
-		startindex+=1
+# startindex,done=0,False
+# while not(done):
+# 	if np.prod(timed[startindex])>0:
+# 		done=True
+# 	else:
+# 		startindex+=1
 
-starttime=timed[startindex][0]
-timed=map(lambda x: [x[0]-starttime] + x[1:], timed[startindex:])
+# starttime=timed[startindex][0]
+# timed=map(lambda x: [x[0]-starttime] + x[1:], timed[startindex:])
 
 
 print "Number of values after initialisation: ", len(timed)
 
-[timearr,wx,wy,wz,ax,ay,az,gravx,gravy,gravz,magx,magy,magz]=map(list, zip(*timed))
+[timearr,r0,r1,r2,r3,r4,r5,r6,r7,r8,wr0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,wr8,ax,ay,az,imid]=map(list, zip(*timed))
 
 #Functions
-def FindStaticBias(Elements, Size=50):
+def FindStaticBias(Elements, Size=25):
 	#Gets the average of the 1st Size number of elements in the Elements and the last Size default is 10.
 	# print Elements[:Size]
 	return (sum(Elements[:Size])+sum(Elements[-Size:]))/(2*Size)
 
-def GetLimitingValue(Elements, Size=50):
+def GetLimitingValue(Elements, Size=25):
 	#This is to get a limiting value under which the Elements will be truncated to 0
 	#Considering the 1st Size and last Size elements
 	#Returns the max absolute value in the first Size and Last Size elements
 	ElementsInBeginning=map(abs,Elements[:Size])
 	ElementsInEnd=map(abs,Elements[-Size:])
-	return max(max(ElementsInBeginning),max(ElementsInEnd))
+	return (max(ElementsInBeginning))
 
 def ApplyCorrections(Elements):
 	#This function applies corrections to Elements
@@ -72,7 +72,7 @@ def ApplyCorrections(Elements):
 	for i in xrange(len(Corrected)):
 		if abs(Corrected[i])<LimitingValue:
 			Corrected[i]=0
-	windowsSize=6
+	# windowsSize=6
 	return Corrected
 
 # def CorrectVelocityArray(VelocityElements,TimeElements):
@@ -110,50 +110,50 @@ def GetDisplacementArray(VelocityElements,TimeElements):
 		DisplacementArray[i]=DisplacementArray[i-1]+0.5*(VelocityElements[i]+VelocityElements[i-1])*(TimeElements[i]-TimeElements[i-1])
 	return DisplacementArray
 
-def GetRotationGyro(RotMatrix,(wx,wy,wz),timediff):
-	# RotMatrix is the present rotation matrix.
-	# wx,wy,wz are the gyroscope readings
-	# timediff is the time difference between the rotationmatrix and the present gx,gy,gz
-	# Returns the Rotation matrix obtained from them as a 9 elements array.	
-	# Keeping X axis along magnetic north, Z axis along gravity
-	RotationMatrix=[0.0]*9
-	#TODO: Put in trapezoidal Rule
-	DeltaR=[1.0]*9
-	DeltaR[1]=  wz*timediff
-	DeltaR[2]= -wy*timediff
-	DeltaR[3]= -wz*timediff
-	DeltaR[5]=  wx*timediff
-	DeltaR[6]=  wy*timediff
-	DeltaR[7]= -wx*timediff
-	RotationMatrix[0]=RotMatrix[0]*DeltaR[0]+RotMatrix[1]*DeltaR[3]+RotMatrix[2]*DeltaR[6]
-	RotationMatrix[1]=RotMatrix[0]*DeltaR[1]+RotMatrix[1]*DeltaR[4]+RotMatrix[2]*DeltaR[7]
-	RotationMatrix[2]=RotMatrix[0]*DeltaR[2]+RotMatrix[1]*DeltaR[5]+RotMatrix[2]*DeltaR[8]
-	RotationMatrix[3]=RotMatrix[3]*DeltaR[0]+RotMatrix[1]*DeltaR[3]+RotMatrix[2]*DeltaR[6]
-	RotationMatrix[4]=RotMatrix[3]*DeltaR[1]+RotMatrix[1]*DeltaR[4]+RotMatrix[2]*DeltaR[7]
-	RotationMatrix[5]=RotMatrix[3]*DeltaR[2]+RotMatrix[1]*DeltaR[5]+RotMatrix[2]*DeltaR[8]
-	RotationMatrix[6]=RotMatrix[6]*DeltaR[0]+RotMatrix[1]*DeltaR[3]+RotMatrix[2]*DeltaR[6]
-	RotationMatrix[7]=RotMatrix[6]*DeltaR[1]+RotMatrix[1]*DeltaR[4]+RotMatrix[2]*DeltaR[7]
-	RotationMatrix[8]=RotMatrix[6]*DeltaR[2]+RotMatrix[1]*DeltaR[5]+RotMatrix[2]*DeltaR[8]
-	#TODO put in corrective measures in this to 
-	return RotationMatrix
+# def GetRotationGyro(RotMatrix,(wx,wy,wz),timediff):
+# 	# RotMatrix is the present rotation matrix.
+# 	# wx,wy,wz are the gyroscope readings
+# 	# timediff is the time difference between the rotationmatrix and the present gx,gy,gz
+# 	# Returns the Rotation matrix obtained from them as a 9 elements array.	
+# 	# Keeping X axis along magnetic north, Z axis along gravity
+# 	RotationMatrix=[0.0]*9
+# 	#TODO: Put in trapezoidal Rule
+# 	DeltaR=[1.0]*9
+# 	DeltaR[1]=  wz*timediff
+# 	DeltaR[2]= -wy*timediff
+# 	DeltaR[3]= -wz*timediff
+# 	DeltaR[5]=  wx*timediff
+# 	DeltaR[6]=  wy*timediff
+# 	DeltaR[7]= -wx*timediff
+# 	RotationMatrix[0]=RotMatrix[0]*DeltaR[0]+RotMatrix[1]*DeltaR[3]+RotMatrix[2]*DeltaR[6]
+# 	RotationMatrix[1]=RotMatrix[0]*DeltaR[1]+RotMatrix[1]*DeltaR[4]+RotMatrix[2]*DeltaR[7]
+# 	RotationMatrix[2]=RotMatrix[0]*DeltaR[2]+RotMatrix[1]*DeltaR[5]+RotMatrix[2]*DeltaR[8]
+# 	RotationMatrix[3]=RotMatrix[3]*DeltaR[0]+RotMatrix[1]*DeltaR[3]+RotMatrix[2]*DeltaR[6]
+# 	RotationMatrix[4]=RotMatrix[3]*DeltaR[1]+RotMatrix[1]*DeltaR[4]+RotMatrix[2]*DeltaR[7]
+# 	RotationMatrix[5]=RotMatrix[3]*DeltaR[2]+RotMatrix[1]*DeltaR[5]+RotMatrix[2]*DeltaR[8]
+# 	RotationMatrix[6]=RotMatrix[6]*DeltaR[0]+RotMatrix[1]*DeltaR[3]+RotMatrix[2]*DeltaR[6]
+# 	RotationMatrix[7]=RotMatrix[6]*DeltaR[1]+RotMatrix[1]*DeltaR[4]+RotMatrix[2]*DeltaR[7]
+# 	RotationMatrix[8]=RotMatrix[6]*DeltaR[2]+RotMatrix[1]*DeltaR[5]+RotMatrix[2]*DeltaR[8]
+# 	#TODO put in corrective measures in this to 
+# 	return RotationMatrix
 
-def GetRotationMagGrav(mx,my,mz,gx,gy,gz):
-	# mx,my,mz are the magnetic readings
-	# gx,gy,gz are the gravity readings
-	# Returns the Rotation matrix obtained from them as a 9 elements array.	
-	# Keeping X axis along magnetic north, Z axis along gravity
-	m_mag=(mx**2+my**2+mz**2)**0.5
-	g_mag=(gx**2+gy**2+gz**2)**0.5
-	M=map(lambda x: x/m_mag, [mx,my,mz])
-	G=map(lambda x: x/g_mag, [gx,gy,gz])
-	H=[0.0]*3
-	H[0]=my*gz-mz*gy
-	H[1]=mz*gx-mx*gz
-	H[2]=mx*gy-my*gx
-	h_mag=(H[0]**2+H[1]**2+H[2]**2)**0.5
-	H=map(lambda x: x/h_mag, H)
-	RotMatrix=M+H+G
-	return RotMatrix
+# def GetRotationMagGrav(mx,my,mz,gx,gy,gz):
+# 	# mx,my,mz are the magnetic readings
+# 	# gx,gy,gz are the gravity readings
+# 	# Returns the Rotation matrix obtained from them as a 9 elements array.	
+# 	# Keeping X axis along magnetic north, Z axis along gravity
+# 	m_mag=(mx**2+my**2+mz**2)**0.5
+# 	g_mag=(gx**2+gy**2+gz**2)**0.5
+# 	M=map(lambda x: x/m_mag, [mx,my,mz])
+# 	G=map(lambda x: x/g_mag, [gx,gy,gz])
+# 	H=[0.0]*3
+# 	H[0]=my*gz-mz*gy
+# 	H[1]=mz*gx-mx*gz
+# 	H[2]=mx*gy-my*gx
+# 	h_mag=(H[0]**2+H[1]**2+H[2]**2)**0.5
+# 	H=map(lambda x: x/h_mag, H)
+# 	RotMatrix=M+H+G
+# 	return RotMatrix
 
 def ApplyRotationMatrix(RotMatrix,(ax,ay,az)):
 	# RotMatrix is a 1*9 array having the 9 elements of the rotation matrix
@@ -167,50 +167,79 @@ def ApplyRotationMatrix(RotMatrix,(ax,ay,az)):
 
 #Applying Part
 
-rotmatrices=map(GetRotationMagGrav,magx,magy,magz,gravx,gravy,gravz)
-accelerationxyz=list(zip(*[ax,ay,az]))
-accelerationXYZ=map(ApplyRotationMatrix,rotmatrices,accelerationxyz)
+# rotmatrices=map(GetRotationMagGrav,magx,magy,magz,gravx,gravy,gravz)
 
-[ax,ay,az]=map(list,zip(*accelerationxyz))
+accelerationxyz=list(zip(*[ax,ay,az]))
+gravmagrotmatrices=list(zip(*[r0,r1,r2,r3,r4,r5,r6,r7,r8]))
+omegarotmatrices=list(zip(*[wr0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,wr8]))
+
+gravmagaccelerationXYZ=map(ApplyRotationMatrix,gravmagrotmatrices,accelerationxyz)
+omegaaccelerationXYZ=map(ApplyRotationMatrix,omegarotmatrices,accelerationxyz)
+
+[gravmagax,gravmagay,gravmagaz]=map(list,zip(*gravmagaccelerationXYZ))
+[omegaax,omegaay,omegaaz]=map(list,zip(*omegaaccelerationXYZ))
+
+
+# accelerationXYZ=map(ApplyRotationMatrix,rotmatrices,accelerationxyz)
+
+# [ax,ay,az]=map(list,zip(*accelerationxyz))
+
 
 correctedax=ApplyCorrections(ax)
 correcteday=ApplyCorrections(ay)
 correctedaz=ApplyCorrections(az)
-
 velocityx=GetVeleocityArray(ax,timearr)
 velocityy=GetVeleocityArray(ay,timearr)
 velocityz=GetVeleocityArray(az,timearr)
-
-# displacementx=CorrectVelocityArray(velocityx,timearr)
-# displacementy=CorrectVelocityArray(velocityy,timearr)
-# displacementz=CorrectVelocityArray(velocityz,timearr)
-
 displacementx=GetDisplacementArray(velocityx,timearr)
 displacementy=GetDisplacementArray(velocityy,timearr)
 displacementz=GetDisplacementArray(velocityz,timearr)
 
 
-[ax2,ay2,az2]=map(list,zip(*accelerationXYZ))
-correctedax2=ApplyCorrections(ax2)
-correcteday2=ApplyCorrections(ay2)
-correctedaz2=ApplyCorrections(az2)
 
-velocityx2=GetVeleocityArray(ax2,timearr)
-velocityy2=GetVeleocityArray(ay2,timearr)
-velocityz2=GetVeleocityArray(az2,timearr)
+
+
+
+
+
+gravmagcorrectedax=ApplyCorrections(gravmagax)
+gravmagcorrecteday=ApplyCorrections(gravmagay)
+gravmagcorrectedaz=ApplyCorrections(gravmagaz)
+
+gravmagvelocityx=GetVeleocityArray(gravmagax,timearr)
+gravmagvelocityy=GetVeleocityArray(gravmagay,timearr)
+gravmagvelocityz=GetVeleocityArray(gravmagaz,timearr)
+
+
+gravmagdisplacementx=GetDisplacementArray(gravmagvelocityx,timearr)
+gravmagdisplacementy=GetDisplacementArray(gravmagvelocityy,timearr)
+gravmagdisplacementz=GetDisplacementArray(gravmagvelocityz,timearr)
+
+
+# [ax2,ay2,az2]=map(list,zip(*accelerationXYZ))
+omegacorrectedax=ApplyCorrections(omegaax)
+omegacorrecteday=ApplyCorrections(omegaay)
+omegacorrectedaz=ApplyCorrections(omegaaz)
+
+omegavelocityx=GetVeleocityArray(omegaax,timearr)
+omegavelocityy=GetVeleocityArray(omegaay,timearr)
+omegavelocityz=GetVeleocityArray(omegaaz,timearr)
 
 # displacementx=CorrectVelocityArray(velocityx,timearr)
 # displacementy=CorrectVelocityArray(velocityy,timearr)
 # displacementz=CorrectVelocityArray(velocityz,timearr)
 
-displacementx2=GetDisplacementArray(velocityx2,timearr)
-displacementy2=GetDisplacementArray(velocityy2,timearr)
-displacementz2=GetDisplacementArray(velocityz2,timearr)
+omegadisplacementx=GetDisplacementArray(omegavelocityx,timearr)
+omegadisplacementy=GetDisplacementArray(omegavelocityy,timearr)
+omegadisplacementz=GetDisplacementArray(omegavelocityz,timearr)
 
 
 #Plotting Part
 
-plt.figure(1)
+
+
+
+plt.figure(3)
 
 plt.subplot(4,3,1)
 plt.ylabel('Ax (m/s2)')
@@ -264,58 +293,115 @@ plt.ylabel('z (m)')
 plt.plot(displacementz)
 
 
-plt.figure(2)
+
+
+
+plt.figure(1)
 
 plt.subplot(4,3,1)
 plt.ylabel('Ax (m/s2)')
-plt.plot(ax2)
+plt.plot(gravmagax)
 
 plt.subplot(4,3,2)
 plt.ylabel('Ay (m/s2)')
-plt.plot(ay2)
+plt.plot(gravmagay)
 
 plt.subplot(4,3,3)
 plt.ylabel('Az (m/s2)')
-plt.plot(az2)
+plt.plot(gravmagaz)
 
 plt.subplot(4,3,4)
 plt.ylabel('Corr Ax')
-plt.plot(correctedax2)
+plt.plot(gravmagcorrectedax)
 
 plt.subplot(4,3,5)
 plt.ylabel('Corr Ay')
-plt.plot(correcteday2)
+plt.plot(gravmagcorrecteday)
 
 plt.subplot(4,3,6)
 plt.ylabel('Corr Az')
-plt.plot(correctedaz2)
+plt.plot(gravmagcorrectedaz)
 
 plt.subplot(4,3,7)
 plt.ylabel('Vx (m/s)')
-plt.plot(velocityx2)
+plt.plot(gravmagvelocityx)
 
 plt.subplot(4,3,8)
 plt.ylabel('Vy (m/s)')
-plt.plot(velocityy2)
+plt.plot(gravmagvelocityy)
 
 plt.subplot(4,3,9)
 plt.ylabel('Vz (m/s)')
-plt.plot(velocityz2)
+plt.plot(gravmagvelocityz)
 
 plt.subplot(4,3,10)
 plt.ylabel('x (m)')
 # plt.xlabel('Time : (100=1s)')
-plt.plot(displacementx2)
+plt.plot(gravmagdisplacementx)
 
 plt.subplot(4,3,11)
 plt.ylabel('y (m)')
 # plt.xlabel('Time : (100=1s)')
-plt.plot(displacementy2)
+plt.plot(gravmagdisplacementy)
 
 plt.subplot(4,3,12)
 plt.ylabel('z (m)')
 # plt.xlabel('Time : (100=1s)')
-plt.plot(displacementz2)
+plt.plot(gravmagdisplacementz)
+
+
+plt.figure(2)
+
+plt.subplot(4,3,1)
+plt.ylabel('Ax (m/s2)')
+plt.plot(omegaax)
+
+plt.subplot(4,3,2)
+plt.ylabel('Ay (m/s2)')
+plt.plot(omegaay)
+
+plt.subplot(4,3,3)
+plt.ylabel('Az (m/s2)')
+plt.plot(omegaaz)
+
+plt.subplot(4,3,4)
+plt.ylabel('Corr Ax')
+plt.plot(omegacorrectedax)
+
+plt.subplot(4,3,5)
+plt.ylabel('Corr Ay')
+plt.plot(omegacorrecteday)
+
+plt.subplot(4,3,6)
+plt.ylabel('Corr Az')
+plt.plot(omegacorrectedaz)
+
+plt.subplot(4,3,7)
+plt.ylabel('Vx (m/s)')
+plt.plot(omegavelocityx)
+
+plt.subplot(4,3,8)
+plt.ylabel('Vy (m/s)')
+plt.plot(omegavelocityy)
+
+plt.subplot(4,3,9)
+plt.ylabel('Vz (m/s)')
+plt.plot(omegavelocityz)
+
+plt.subplot(4,3,10)
+plt.ylabel('x (m)')
+# plt.xlabel('Time : (100=1s)')
+plt.plot(omegadisplacementx)
+
+plt.subplot(4,3,11)
+plt.ylabel('y (m)')
+# plt.xlabel('Time : (100=1s)')
+plt.plot(omegadisplacementy)
+
+plt.subplot(4,3,12)
+plt.ylabel('z (m)')
+# plt.xlabel('Time : (100=1s)')
+plt.plot(omegadisplacementz)
 
 
 plt.show()
