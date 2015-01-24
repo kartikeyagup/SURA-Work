@@ -12,18 +12,10 @@ with open('2014-12-28_18-02-14.csv','rb') as csvfile:
 		fileread.append(row)
 
 print fileread[0]
-# required=map(lambda x: x[18:22], fileread)
-# acceldata=map(lambda x: map(float,x),required[1:])
 
-# starttime=acceldata[0][0]
-# timecorrected=map(lambda x: [x[0]-starttime]+map(lambda y: y*9.81,x[1:4]),acceldata )
-
-# [timearr,ax,ay,az] = map(list,zip(*timecorrected))
-
-required = map(lambda x: x[26:30]+ x[33:36], fileread)
-alldata =map(lambda x: map(float,x),required[1:])
-starttime=alldata[0][0]
-timed=map(lambda x: [x[0]-starttime] + x[1:4] + map(lambda y: y*9.81,x[4:7]),alldata)
+timed =map(lambda x: map(float,x),fileread[1:])
+timinit=timed[0][0]
+timed=map(lambda x: [x[0]-timinit] + x[1:],timed)
 
 print "Number or entries before the dupilicates removal: ", len(timed)
 
@@ -34,10 +26,11 @@ for i in xrange(len(timed)):
 	if not(timed[i][0]==prevtime):
 		prevtime=timed[i][0]
 		timecorrected.append(timed[i])
+
+timed=timecorrected
 print "Number of values after duplicate removal: ", len(timecorrected)
 
-[timearr,ty,tr,tp,ax,ay,az]=map(list, zip(*timecorrected))
-
+[timearr,r0,r1,r2,r3,r4,r5,r6,r7,r8,wx,wy,wz,mx,my,mz,gx,gy,gz,ax,ay,az]=map(list, zip(*timed))
 
 #Functions part
 def findstaticbias(accelarrayx,lim=10):
@@ -135,70 +128,82 @@ def applyRotationMatrix(rot_matrix_array,acc_array):
 
 
 #Applying functions
-rotmatrices=map(getRotationMatrix,tp,tr,ty)
-# invrotmatrices=map(invertMatrix,rotmatrices)
+
+
 accelerationxyz=list(zip(*[ax,ay,az]))
-accelerationXYZ=map(applyRotationMatrix,rotmatrices,accelerationxyz)
+rotmatrices=list(zip(*[r0,r1,r2,r3,r4,r5,r6,r7,r8]))
 
-
-
-# fixedbiasz=fixstaticbias(az)
+accelerationXYZ=map(ApplyRotationMatrix,rotmatrices,accelerationxyz)
 
 [ax,ay,az]=map(list,zip(*accelerationXYZ))
-velocityx=getvelocity(ax,timearr)
-velocityy=getvelocity(ay,timearr)
-velocityz=getvelocity(az,timearr)
 
-displacementx=getdisplacement(velocityx,timearr)
-displacementy=getdisplacement(velocityy,timearr)
-displacementz=getdisplacement(velocityz,timearr)
 
+correctedax=ApplyCorrections(ax)
+correcteday=ApplyCorrections(ay)
+correctedaz=ApplyCorrections(az)
+
+velocityx=GetVeleocityArray(ax,timearr)
+velocityy=GetVeleocityArray(ay,timearr)
+velocityz=GetVeleocityArray(az,timearr)
+
+displacementx=GetDisplacementArray(velocityx,timearr)
+displacementy=GetDisplacementArray(velocityy,timearr)
+displacementz=GetDisplacementArray(velocityz,timearr)
 
 
 #PLOTTING PART
 plt.figure(1)
 
-plt.subplot(331)
+plt.subplot(4,3,1)
 plt.ylabel('Ax (m/s2)')
-# plt.plot(xaxis,ax,'r--',xaxis,lx,'b--')
 plt.plot(ax)
 
-
-plt.subplot(332)
+plt.subplot(4,3,2)
 plt.ylabel('Ay (m/s2)')
 plt.plot(ay)
 
-plt.subplot(333)
+plt.subplot(4,3,3)
 plt.ylabel('Az (m/s2)')
 plt.plot(az)
 
-plt.subplot(334)
+plt.subplot(4,3,4)
+plt.ylabel('Corr Ax')
+plt.plot(correctedax)
+
+plt.subplot(4,3,5)
+plt.ylabel('Corr Ay')
+plt.plot(correcteday)
+
+plt.subplot(4,3,6)
+plt.ylabel('Corr Az')
+plt.plot(correctedaz)
+
+plt.subplot(4,3,7)
 plt.ylabel('Vx (m/s)')
 plt.plot(velocityx)
 
-
-plt.subplot(335)
+plt.subplot(4,3,8)
 plt.ylabel('Vy (m/s)')
 plt.plot(velocityy)
 
-
-plt.subplot(336)
-plt.ylabel('Vx (m/s)')
+plt.subplot(4,3,9)
+plt.ylabel('Vz (m/s)')
 plt.plot(velocityz)
 
-plt.subplot(337)
+plt.subplot(4,3,10)
 plt.ylabel('x (m)')
-plt.xlabel('Time : (100=1s)')
+# plt.xlabel('Time : (100=1s)')
 plt.plot(displacementx)
 
-plt.subplot(338)
+plt.subplot(4,3,11)
 plt.ylabel('y (m)')
-plt.xlabel('Time : (100=1s)')
+# plt.xlabel('Time : (100=1s)')
 plt.plot(displacementy)
 
-plt.subplot(339)
+plt.subplot(4,3,12)
 plt.ylabel('z (m)')
-plt.xlabel('Time : (100=1s)')
+# plt.xlabel('Time : (100=1s)')
 plt.plot(displacementz)
+
 
 plt.show()
