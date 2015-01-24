@@ -6,7 +6,7 @@ import math
 
 #File reading part
 fileread=[]
-with open('2014-12-28_18-02-14.csv','rb') as csvfile:
+with open('24-Jan-2015 1700.csv','rb') as csvfile:
 	spamreader= csv.reader(csvfile)
 	for row in spamreader:
 		fileread.append(row)
@@ -30,7 +30,51 @@ for i in xrange(len(timed)):
 timed=timecorrected
 print "Number of values after duplicate removal: ", len(timecorrected)
 
-[timearr,r0,r1,r2,r3,r4,r5,r6,r7,r8,wx,wy,wz,mx,my,mz,gx,gy,gz,ax,ay,az]=map(list, zip(*timed))
+
+requiredpoints=[]
+imid1=0
+for elem in timed:
+	# print elem[19]
+	# print elem
+	if (elem[22])==imid1:
+		requiredpoints.append(elem)
+		# print elem
+		imid1+=1
+requiredpoints.append(timed[-1])
+
+
+def get33matrix(arr):
+	ans=[]
+	for i in xrange(3):
+		ans+=[arr[3*i:3*(i+1)]]
+	return np.matrix(ans)
+
+
+def getangles(matrixa):
+	ans=[0]*3
+	listed=matrixa.tolist()
+	ans[0]=math.atan2(listed[2][1],listed[2][2])
+	ans[1]=math.atan2(-listed[2][0],math.sqrt(listed[2][1]**2 + listed[2][2]**2))
+	ans[2]=math.atan2(listed[1][0],listed[0][0])
+	ans=map(lambda x: x*180/math.pi,ans)
+	return ans
+
+
+relmatrices=map(lambda x: map(float,x[1:10]), requiredpoints)
+matrices=map(get33matrix,relmatrices)
+
+relmatrices=[0]*(len(matrices)-1)
+for i in xrange(len(matrices)-1):
+	relmatrices[i]=matrices[i+1].getT() * matrices[i]
+	
+# print relmatrices
+relangles=map(getangles, relmatrices)
+
+for angles in relangles:
+	print angles
+
+
+[timearr,r0,r1,r2,r3,r4,r5,r6,r7,r8,wx,wy,wz,mx,my,mz,gx,gy,gz,ax,ay,az,imid]=map(list, zip(*timed))
 
 #Functions part
 def findstaticbias(accelarrayx,lim=10):
@@ -133,22 +177,25 @@ def applyRotationMatrix(rot_matrix_array,acc_array):
 accelerationxyz=list(zip(*[ax,ay,az]))
 rotmatrices=list(zip(*[r0,r1,r2,r3,r4,r5,r6,r7,r8]))
 
-accelerationXYZ=map(ApplyRotationMatrix,rotmatrices,accelerationxyz)
+accelerationXYZ=map(applyRotationMatrix,rotmatrices,accelerationxyz)
 
 [ax,ay,az]=map(list,zip(*accelerationXYZ))
+ax=map(lambda x: x*9.818,ax)
+ay=map(lambda x: x*9.818,ay)
+az=map(lambda x: x*9.818,az)
 
 
-correctedax=ApplyCorrections(ax)
-correcteday=ApplyCorrections(ay)
-correctedaz=ApplyCorrections(az)
+correctedax=fixstaticbias(ax)
+correcteday=fixstaticbias(ay)
+correctedaz=fixstaticbias(az)
 
-velocityx=GetVeleocityArray(ax,timearr)
-velocityy=GetVeleocityArray(ay,timearr)
-velocityz=GetVeleocityArray(az,timearr)
+velocityx=getvelocity(ax,timearr)
+velocityy=getvelocity(ay,timearr)
+velocityz=getvelocity(az,timearr)
 
-displacementx=GetDisplacementArray(velocityx,timearr)
-displacementy=GetDisplacementArray(velocityy,timearr)
-displacementz=GetDisplacementArray(velocityz,timearr)
+displacementx=getdisplacement(velocityx,timearr)
+displacementy=getdisplacement(velocityy,timearr)
+displacementz=getdisplacement(velocityz,timearr)
 
 
 #PLOTTING PART
