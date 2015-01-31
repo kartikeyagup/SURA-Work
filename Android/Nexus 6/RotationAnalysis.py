@@ -6,7 +6,7 @@ import csv
 import matplotlib.pyplot as plt
 
 #File input part
-filename='Jan 10, 2015 5:51:42 PM_SensorFusion3.csv'
+filename='11 Jan 2015 005127_SensorFusion3.csv'
 fileread=[]
 with open(filename,'rb') as csvfile:
 	spamreader= csv.reader(csvfile)

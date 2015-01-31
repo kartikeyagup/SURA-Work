@@ -12,7 +12,7 @@ def getRotMatrix(g,m):
 	if(H<0.1):
 		return false
 		#device is close to free fall (or in space?), or close to
-        #magnetic north pole. Typical values are  > 100.
+		#magnetic north pole. Typical values are  > 100.
 	invH=1.0 / H
 	h=map(lambda x: x*invH, h)
 	invA = 1.0/ math.sqrt(g[0]*g[0] + g[1]*g[1] + g[2]*g[2])
