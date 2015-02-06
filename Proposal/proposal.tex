@@ -1,21 +1,21 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
-\title{\vspace*{\fill} Dense 3D Reconstruction on a Mobile Device}
+\title{\vspace*{\fill} \textbf{3D Reconstruction on a Mobile Device}}
 \author{
-	Kartikeya Gupta\\ 
+	\textbf{Kartikeya Gupta}\\ 
 	2013CS10231\\
 	Computer Science\\
 	Mob: 9899134337\\
 	CGPA: 9.78
 	\and
-	Prateek Kumar Verma\\ 
+	\textbf{Prateek Kumar Verma}\\ 
 	2013CS10246\\
 	Computer Science\\
 	Mob: 9911577289\\
 	CGPA: 8.87
 }
-\date{Prof. Subhashis Banerjee \vspace*{\fill}}
+\date{\textbf{Prof. Subhashis Banerjee} \\ Computer Science Department \vspace*{\fill}}
 
 \begin{document}
 	\maketitle
@@ -23,23 +23,61 @@
 	\newpage
 	\section{Objectives}
 		\begin{enumerate}
-			\item Fill in some things here soccer.
-			\item
 			\item 
+				To get accurate position and orientation estimate based on readings of IMU (Inertial Measurement Unit) sensors in smartphones. 
+			\item
+				To use the camera feed in smartphones to enhance the position estimate based on visual tracking of objects.
+			\item 
+				To do sparse 3D reconstruction based on sensor fusion data and image processing.
+			\item
+				To enhance the quality and efficiency of 3D reconstruction by adding more detailing and moving towards dense 3D reconstruction.
+			\item
+				We will ultimately be fusing digital signal processing and computer vision based techniques that will enable us to perform near real time 3D reconstructions on mobile or hand-held devices.
 		\end{enumerate}
 	\section{Approach to the Project}
 		\begin{enumerate}
-			\item We will use the IMU sensors present in smart-phones to get a position estimation.
-			\item We will use the Camera in smart-phones to perform image tracking to get an estimate of position.
-			\item Based on all the methods, we will obtain the most accurate position estimate by fusing them appropriately.
-			\item 
+			\item Position and Orientation Estimation
+			\begin{enumerate}
+				\item
+					Get accelerometer data and orientation data at real time using the IMU sensors like: Accelerometer, Gyroscope, Gravity Sensor, Magnetometer present on the smart phone.
+				\item
+					The orientation data has been made much more accurate by infusing the higher frequency components from the gyroscope orientation after drift correction as the data output has a lot of noise infused.
+				\item
+					The displacement and orientation data is to be obtained from the camera feed on the device using visual tracking methods.
+				\item
+					A comparitive study is to be done between the position estimates obtained by the 2 methods along with the ground truth and fusing the results to obtain an enhanced position and orientation estimate.
+			\end{enumerate}
+			% • All these data along with the clicking of pictures are synchronised to a single system clock.
+			% \item We will use the IMU sensors present in smart-phones to get a position estimation.
+			\item 3D Reconstruction
+			\begin{enumerate}
+				\item 
+					Obtain sparse 3D reconstruction based on rotation and translation matrices obtained previously.
+				\item
+					Use tracking data from different tracking methods like ``Good Features to Track'' or ``KL Tracker'' for obtaining dense correspondance of points.
+				\item
+					Use guided matching by indirect computation of fundamental Matrix from estimated camera motion from sensors to further enrich the correspondences.
+				\item
+					Triangulate the dense correspondences and do a final global refinement.					
+			\end{enumerate}
+			\item Further Possibilites TODO: SOCCER.
+			\begin{itemize}
+				\item Releasing applications for Apple, Android and Windows platforms for near real time 3D reconstruction on the device itself.
+			\end{itemize}
 
+			\item Uses and Applications
+			\begin{itemize}
+				\item Using the device as an accurate measuring device.
+				\item Doing real time dense 3D reconstructions on mobile phones and other handheld devices. 
+				\item Allowing user to genrate a 3D printable file on his mobile device. As 3D printers are becoming cheaper and more common, this feature will reduce the need of the person to use a 3D scanner to be able to generate prototypes of objects. This will allow engineers and students to work more effeciently as they can generate copies of 3D objects easily.  
+				\item Localisation at tourist sites and providing real time directions to landmark locations. 
+			\end{itemize}
 		\end{enumerate}
 	\section{Budget, Duration and Facilities}	
 		\subsection{Budget}
-			Need to talk to Suban sir about this
+			Rs. 25,000 will be needed to purchase an android smart phone having high quality sensors and a high resolution camera.
 		\subsection{Duration}
-			Have to ask Suban sir what date to fill in here
+			We will try to complete this project during the summer break ie. till the end of July, 2015. 
 		\subsection{Facilities}
-			Need to discuss with Suban sir again.
+			Facilities needed will be access to the Vision Lab.
 \end{document}
