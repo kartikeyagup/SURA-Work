@@ -3,7 +3,7 @@
 
 \title{\vspace*{\fill} \textbf{3D Reconstruction on a Mobile Device}
 	  \\ {\large \textbf{Summer Undergraduate Research Award}}
-	  \\ {\large \textbf{Indian Institue of Technology, Delhi}}}
+	  \\ {\large \textbf{Indian Institute of Technology, Delhi}}}
 
 \author{
 	\textbf{Kartikeya Gupta}\\ 
@@ -24,7 +24,7 @@
 	\maketitle
 
 	\newpage
-	\section{Objectives}
+	\section{Objectives} Our main objective is to perform 3D reconstruction in near real time on a mobile device. This can be further divided into following points.
 		\begin{enumerate}
 			\item 
 				To get accurate position and orientation estimate based on readings of IMU (Inertial Measurement Unit) sensors in smartphones. 
@@ -37,7 +37,7 @@
 			\item
 				We will ultimately be fusing digital signal processing and computer vision based techniques that will enable us to perform near real time 3D reconstructions on mobile or hand-held devices.
 		\end{enumerate}
-	\section{Approach to the Project}
+	\section{Approach to the Project} First, we shall perform accurate position and orientation estimation of the mobile device. Then we will move on to 3D reconstruction, which has two parts. First part is to obtain sparse 3D reconstruction and then use different tracking methods to obtain dense correspondence of points.
 		\begin{enumerate}
 			\item Position and Orientation Estimation
 			\begin{enumerate}
@@ -48,7 +48,7 @@
 				\item
 					The displacement and orientation data is to be obtained from the camera feed on the device using visual tracking methods.
 				\item
-					A comparative study is to be done between the position estimates obtained by the 2 methods along with the ground truth and fusing the results to obtain an enhanced position and orientation estimate.
+					A comparative study is to be done between the position estimates obtained by the two methods along with the ground truth and fusing the results to obtain an enhanced position and orientation estimate.
 			\end{enumerate}
 			% • All these data along with the clicking of pictures are synchronised to a single system clock.
 			% \item We will use the IMU sensors present in smart-phones to get a position estimation.
@@ -57,14 +57,17 @@
 				\item 
 					Obtain sparse 3D reconstruction based on rotation and translation matrices obtained previously.
 				\item
-					Use tracking data from different tracking methods like ``Good Features to Track'' or ``KL Tracker'' for obtaining dense correspondance of points.
+					Use tracking data from different tracking methods like ``Good Features to Track'' or ``KL Tracker'' for obtaining dense correspondence of points.
 				\item
 					Use guided matching by indirect computation of fundamental Matrix from estimated camera motion from sensors to further enrich the correspondences.
 				\item
 					Triangulate the dense correspondences and do a final global refinement.					
 			\end{enumerate}
-			\item Further Possibilites TODO: SOCCER.
+			\item Further Possibilities
 			\begin{itemize}
+			    \item Getting a more detailed texture mapping of the object.
+			    \item Making a object recognition software on the basis of this 3D reconstruction.
+			    \item Improving the algorithm for a quicker and more efficient 3D reconstruction. 
 				\item Releasing applications for Apple, Android and Windows platforms for near real time 3D reconstruction on the device itself.
 			\end{itemize}
 
@@ -72,16 +75,21 @@
 			\begin{itemize}
 				\item Using the device as an accurate measuring device. This can be of particular interest to blind as they will be able to measure distances and angles accurately with great ease.
 				\item Doing real time dense 3D reconstructions on mobile phones and other handheld devices. 
-				\item Allowing user to generate a 3D printable file on his mobile device. As 3D printers are becoming cheaper and more common, this feature will reduce the need of the person to use a 3D scanner to be able to generate prototypes of objects. This will allow engineers and students to work more effeciently as they can generate copies of 3D objects easily.
-				\item This can have applications in the field of archaelogy. It can be used to generate replica of artifacts and fragile objects for further studies.
-				\item Localisation at tourist sites and providing real time directions to landmark locations. This will involve the use of GPS as well to get a rough location of the user.
+				\item Allowing the user to generate a 3D printable file on his mobile device. As 3D printers are becoming cheaper and more common, this feature will reduce the need of the person to use a 3D scanner to be able to generate prototypes of objects. This will allow engineers and students to work more efficiently as they can generate copies of 3D objects easily.
+				\item The project can have applications in the field of archaeology. It can be used to generate replica of artifacts and fragile objects for further studies, without harming its integrity.
+				\item The project can also be applied in the field of medical sciences, especially for orthopedics and joint replacement surgery. The part to be replaced can be made with high accuracy using this project.
+				\item The project can also be used by the astronauts up in the space. With the help of this project, the parts to be changed can be easily made using a 3D printer.
+				\item Localisation at tourist sites and providing real time directions to landmark locations. This will involve the use of GPS(Global Positioning System) as well to get a rough location of the user.
 			\end{itemize}
 		\end{enumerate}
 	\section{Budget, Duration and Facilities}	
 		\subsection{Budget}
 			Rs. 25,000 will be needed to purchase an android smart phone having high quality sensors and a high resolution camera.
 		\subsection{Duration}
-			We will try to complete this project during the summer break ie. till the end of July, 2015. 
+			We will try to complete this project by the end of the summer break i.e. the end of July, 2015. 
 		\subsection{Facilities}
-			Facilities needed will be access to the Vision Lab.
+		    \begin{itemize}
+		    \item Access to the Vision Lab.
+		    \item Access to a computer in Vision Lab.
+		    \end{itemize}
 \end{document}
