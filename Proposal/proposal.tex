@@ -1,9 +1,16 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{titlepic}
+% \documentclass{beamer}
 
 \title{\vspace*{\fill} \textbf{3D Reconstruction on a Mobile Device}
-	  \\ {\large \textbf{Summer Undergraduate Research Award}}
-	  \\ {\large \textbf{Indian Institute of Technology, Delhi}}}
+	  \\ {\large \textbf{Summer Undergraduate Research Award}}}
+
+	  % \\ {\large \textbf{Indian Institute of Technology, Delhi}}}
+
+
+% \titlegraphic{\includegraphics{logo.png}}
 
 \author{
 	\textbf{Kartikeya Gupta}\\ 
@@ -18,13 +25,33 @@
 	Mob: 9911577289\\
 	CGPA: 8.87
 }
-\date{\textbf{Prof. Subhashis Banerjee} \\ Computer Science And Engineering \vspace*{\fill}}
+\date{\textbf{Subhashis Banerjee} \\ Professor \\ Department of CSE \\ IIT Delhi \vspace*{\fill}}
 
 \begin{document}
+		% \includegraphics{logo.png}
 	\maketitle
 
 	\newpage
-	\section{Objectives} Our main objective is to perform 3D reconstruction in near real time on a mobile device. This can be further divided into following points.
+	% \begin{figure}
+% \end{figure}
+
+	\textbf{\Large Introduction \\}
+		\begin{itemize}
+			\item 
+				Sparse 3D Reconstruction definition. TODO SOCCER
+			
+			\item 
+				Camera Matrix or Camera Projection Matrix is a $3 \times 4$ matrix which describes the mapping of a pinhole camera from 3D points in the world to 2D points in an image. The camera parameters depend on 2 parts, intrinsic and extrinsic parameters. Intrinsic are dependent on the focal length and principal points. The extrinisic parameters are dependent on the rotations and translations camera coordinate system and the world coordinate system.
+
+			\item
+				IMU sensors are electronic devices which consist of a collection of accelerometers, gyroscopes, magnetometers which are present in modern day smart phones and other gadgets. The data from them can be used to obtain the orientation and other physical properties of the device.
+
+			\item 
+				In the case of a smartphone or any device having a camera and IMU sensors, we wish to use  the IMU sensors to obtain extrinsic camera parameters. This will help in reducing the load on conventional 3D reconstruction methods and get it in near real time.
+		\end{itemize}
+
+	\section{Objectives} 
+		Our main objective is to perform 3D reconstruction in near real time on a mobile device. This can be further divided into following points.
 		\begin{enumerate}
 			\item 
 				To get accurate position and orientation estimate based on readings of IMU (Inertial Measurement Unit) sensors in smartphones. 
@@ -44,9 +71,9 @@
 				\item
 					Get accelerometer data and orientation data at real time using the IMU sensors like: Accelerometer, Gyroscope, Gravity Sensor, Magnetometer present on the smart phone.
 				\item
-					The orientation data has been made much more accurate by infusing the higher frequency components from the gyroscope orientation after drift correction as the data output has a lot of noise infused.
+					Making the orientation data more accurate by infusing the higher frequency components from the gyroscope orientation after drift correction.
 				\item
-					The displacement and orientation data is to be obtained from the camera feed on the device using visual tracking methods.
+					Obtaining the displacement and orientation data from the camera feed on the device using visual tracking methods.
 				\item
 					A comparative study is to be done between the position estimates obtained by the two methods along with the ground truth and fusing the results to obtain an enhanced position and orientation estimate.
 			\end{enumerate}
@@ -70,8 +97,10 @@
 			    \item Improving the algorithm for a quicker and more efficient 3D reconstruction. 
 				\item Releasing applications for Apple, Android and Windows platforms for near real time 3D reconstruction on the device itself.
 			\end{itemize}
+		\end{enumerate}
 
-			\item Uses and Applications
+	\section{Uses and Application}
+	% \item Uses and Applications
 			\begin{itemize}
 				\item Using the device as an accurate measuring device. This can be of particular interest to blind as they will be able to measure distances and angles accurately with great ease.
 				\item Doing real time dense 3D reconstructions on mobile phones and other handheld devices. 
@@ -81,7 +110,6 @@
 				\item The project can also be used by the astronauts up in the space. With the help of this project, the parts to be changed can be easily made using a 3D printer.
 				\item Localisation at tourist sites and providing real time directions to landmark locations. This will involve the use of GPS(Global Positioning System) as well to get a rough location of the user.
 			\end{itemize}
-		\end{enumerate}
 	\section{Budget, Duration and Facilities}	
 		\subsection{Budget}
 			Rs. 25,000 will be needed to purchase an android smart phone having high quality sensors and a high resolution camera.
@@ -90,6 +118,6 @@
 		\subsection{Facilities}
 		    \begin{itemize}
 		    \item Access to the Vision Lab.
-		    \item Access to a computer in Vision Lab.
+		    % \item Access to a computer in Vision Lab.
 		    \end{itemize}
 \end{document}
