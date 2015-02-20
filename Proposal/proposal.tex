@@ -21,7 +21,7 @@
 	Mob: 9911577289\\
 	CGPA: 8.87
 }
-\date{\textbf{Subhashis Banerjee} \\ Professor \\ Department of CSE \\ IIT Delhi \vspace*{\fill}}
+\date{\textbf{Supervisor:-} \\ \textbf{Subhashis Banerjee} \\ Professor \\ Department of CSE \\ IIT Delhi \vspace*{\fill}}
 
 \begin{document}
 		% \includegraphics{logo.png}
@@ -30,26 +30,6 @@
 	\newpage
 	% \begin{figure}
 % \end{figure}
-
-	\section{Introduction} 
-		%\begin{itemize}
-		
-
-			\subsection{Camera calibration}
-				The camera parameters can further be subdivided into intrinsic and extrinsic parameters. \textbf{Camera intrinsic parameter} $K$ is dependent on the focal length of the camera and principal point (which in most cases is the center of the image). The \textbf{camera extrinsic parameter} is composed of the rotation $R$ and translation $t$ between camera coordinate system and the world coordinate system. Together they form the camera projection matrix $P$, a $3 \times 4$ matrix which describes the mapping of a pinhole camera from 3D points in the world to 2D points in an image.
-				\begin{equation}
-				P = K[R|t]
-				\end{equation}
-			
-			\subsection{Sparse 3D Reconstruction} 
-				Given two different images of the same scene from different angles, the position of a 3D point can be found as the intersection of the two projection rays which is commonly referred to as \textbf{triangulation}. For this first point correspondences have to be established. Then using this point correspondences a RANSAC based voting framework is used to estimate the camera intrinsic and extrinsic parameters. Finally, a joint non-linear optimization is used to further refine the camera parameters and the 3D points in a \textbf{bundle adjustment} framework. This method is computationally very expensive and hence done only for very sparse set of points. This is known as sparse 3D reconstruction.
-
-			\section{Mobile IMU sensors}
-				IMU (Inertial Measurement Unit) sensors are on-chip devices embedded in most of the smart phones or hand-held devices today. It mainly consists of a series of motion sensors: accelerometer, gyroscope, magnetometer and gravitation sensor. The data from these sensors can be fused to obtain the orientation and the position of the device in the world coordinate system.
-
-			\section{Conventional vs mobile 3D reconstruction}
-				In the case of a smart-phone or any hand-held device having a camera and IMU sensors, we wish to use  the IMU sensors to obtain extrinsic camera parameters in real time. This will help in reducing the load on conventional 3D reconstruction methods and get it in near real time.
-		%\end{itemize}
 
 	\section{Objectives} 
 		Our main objective is to perform 3D reconstruction in near real time using a mobile device. This can be further be subdivided into following points:
@@ -65,6 +45,7 @@
 			\item
 				We will ultimately be fusing digital signal processing and computer vision based techniques that will enable us to perform near real time 3D reconstructions on mobile or hand-held devices.
 		\end{enumerate}
+
 	\section{Approach to the Project} 
 		First, we shall be using sensor fusion to obtain accurate estimates for camera position and orientation of the mobile device. Then we will move on to 3D reconstruction, which further has two parts: i.e. sparse 3D reconstruction and then use tracking to obtain dense correspondence of points for dense 3D reconstruction.
 		\begin{enumerate}
@@ -72,6 +53,28 @@
 			\begin{enumerate}
 				\item
 					Get accelerometer data and orientation data at real time using the IMU sensors like accelerometer, gyroscope, gravity sensor and magnetometer present on the smart phone.
+					This data is highly noisy. The following figure shows the static accelerometer data of various devices.
+
+					\newpage
+
+					\begin{figure}[ht!]
+					\centering
+					\includegraphics[width=10cm]{graph.jpg}
+					\caption{Static Accelerometer Data\label{overflow1}}
+					\end{figure}
+
+					As evident from the graph, this data cannot be directly used for calculation of position and orientation. 
+					The following figure shows the integration of static accelerometer data to obtain velocity and displacement.
+
+					\begin{figure}[ht!]
+					\centering
+					\includegraphics[width=10cm]{integration.jpg}
+					\caption{Static Accelerometer Data\label{overflow2}}
+					\end{figure}
+
+					The graph of both velocity and displacement shows significant deviation from the actual value which is zero.
+					Thus, signal processing and smoothening is required to get a better estimate.
+
 				\item
 					Making the orientation data more accurate by infusing the higher frequency components from the gyroscope orientation after drift correction.
 				\item
@@ -100,6 +103,28 @@
 				\item Releasing applications for Apple, Android and Windows platforms for near real time 3D reconstruction on the device itself.
 			\end{itemize}
 		\end{enumerate}
+
+	\section{Concepts} 
+		%\begin{itemize}
+		
+
+			\subsection{Camera calibration}
+				The camera parameters can further be subdivided into intrinsic and extrinsic parameters. \textbf{Camera intrinsic parameter} $K$ is dependent on the focal length of the camera and principal point (which in most cases is the center of the image). The \textbf{camera extrinsic parameter} is composed of the rotation $R$ and translation $t$ between camera coordinate system and the world coordinate system. Together they form the camera projection matrix $P$, a $3 \times 4$ matrix which describes the mapping of a pinhole camera from 3D points in the world to 2D points in an image.
+				\begin{equation}
+				P = K[R|t]
+				\end{equation}
+			
+			\subsection{Sparse 3D Reconstruction} 
+				Given two different images of the same scene from different angles, the position of a 3D point can be found as the intersection of the two projection rays which is commonly referred to as \textbf{triangulation}. For this first point correspondences have to be established. Then using this point correspondences a RANSAC based voting framework is used to estimate the camera intrinsic and extrinsic parameters. Finally, a joint non-linear optimization is used to further refine the camera parameters and the 3D points in a \textbf{bundle adjustment} framework. This method is computationally very expensive and hence done only for very sparse set of points. This is known as sparse 3D reconstruction.
+
+			\section{Mobile IMU sensors}
+				IMU (Inertial Measurement Unit) sensors are on-chip devices embedded in most of the smart phones or hand-held devices today. It mainly consists of a series of motion sensors: accelerometer, gyroscope, magnetometer and gravitation sensor. The data from these sensors can be fused to obtain the orientation and the position of the device in the world coordinate system.
+
+			\section{Conventional vs mobile 3D reconstruction}
+				In the case of a smart-phone or any hand-held device having a camera and IMU sensors, we wish to use  the IMU sensors to obtain extrinsic camera parameters in real time. This will help in reducing the load on conventional 3D reconstruction methods and get it in near real time.
+		%\end{itemize}
+
+	
 
 	\section{Uses and Application}
 	% \item Uses and Applications
