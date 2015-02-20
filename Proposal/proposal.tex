@@ -40,7 +40,7 @@
 		\begin{itemize}
 		
 			\item 
-				Camera Matrix or Camera Projection Matrix is a $3 \times 4$ matrix which describes the mapping of a pinhole camera from 3D points in the world to 2D points in an image. The camera parameters depend on 2 parts, intrinsic and extrinsic parameters. Intrinsic are dependent on the focal length and principal points. The extrinisic parameters are dependent on the rotations and translations camera coordinate system and the world coordinate system.
+				Camera Matrix or Camera Projection Matrix is a $3 \times 4$ matrix which describes the mapping of a pinhole camera from 3D points in the world to 2D points in an image. The camera parameters depend on 2 parts, intrinsic and extrinsic parameters. Intrinsic are dependent on the focal length and principal points. The extrinsic parameters are dependent on the rotations and translations camera coordinate system and the world coordinate system.
 			
 			\item 
 				Given two different images of the same scene from different angles, then the position of a 3D point can be found as the intersection of the two projection rays. This method is computationally expensive and hence done only for some number of points. Using these `sparse' points, the Camera Projection Matrix is calculated. This is known as Sparse 3D reconstruction.
