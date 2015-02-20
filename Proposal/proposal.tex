@@ -32,7 +32,7 @@
 % \end{figure}
 
 	\section{Objectives} 
-		Our main objective is to perform 3D reconstruction in near real time using a mobile device. This can be further be subdivided into following points:
+		3D reconstruction is the process of capturing the shape and appearance of real objects. The conventional methods for 3D reconstruction are computationally expensive. Our main objective is to perform 3D reconstruction in near real time using a mobile device. This can be further be subdivided into following points:
 		\begin{enumerate}
 			\item 
 				To get accurate position and orientation estimate based on readings of IMU sensors in smart-phones. 
@@ -45,6 +45,28 @@
 			\item
 				We will ultimately be fusing digital signal processing and computer vision based techniques that will enable us to perform near real time 3D reconstructions on mobile or hand-held devices.
 		\end{enumerate}
+
+\section{Concepts} 
+		%\begin{itemize}
+		
+
+			\subsection{Camera calibration}
+				The camera parameters can further be subdivided into intrinsic and extrinsic parameters. \textbf{Camera intrinsic parameter} $K$ is dependent on the focal length of the camera and principal point (which in most cases is the center of the image). The \textbf{camera extrinsic parameter} is composed of the rotation $R$ and translation $t$ between camera coordinate system and the world coordinate system. Together they form the camera projection matrix $P$, a $3 \times 4$ matrix which describes the mapping of a pinhole camera from 3D points in the world to 2D points in an image.
+				\begin{equation}
+				P = K[R|t]
+				\end{equation}
+			
+			\subsection{Sparse 3D Reconstruction} 
+				Given two different images of the same scene from different angles, the position of a 3D point can be found as the intersection of the two projection rays which is commonly referred to as \textbf{triangulation}. For this first point correspondences have to be established. Then using this point correspondences a RANSAC based voting framework is used to estimate the camera intrinsic and extrinsic parameters. Finally, a joint non-linear optimization is used to further refine the camera parameters and the 3D points in a \textbf{bundle adjustment} framework. This method is computationally very expensive and hence done only for very sparse set of points. This is known as sparse 3D reconstruction.
+
+			\section{Mobile IMU sensors}
+				IMU (Inertial Measurement Unit) sensors are on-chip devices embedded in most of the smart phones or hand-held devices today. It mainly consists of a series of motion sensors: accelerometer, gyroscope, magnetometer and gravitation sensor. The data from these sensors can be fused to obtain the orientation and the position of the device in the world coordinate system.
+
+			\section{Conventional versus mobile 3D reconstruction}
+				In the case of a smart-phone or any hand-held device having a camera and IMU sensors, we wish to use  the IMU sensors to obtain extrinsic camera parameters in real time. This will help in reducing the load on conventional 3D reconstruction methods and get it in near real time.
+		%\end{itemize}
+
+
 
 	\section{Approach to the Project} 
 		First, we shall be using sensor fusion to obtain accurate estimates for camera position and orientation of the mobile device. Then we will move on to 3D reconstruction, which further has two parts: i.e. sparse 3D reconstruction and then use tracking to obtain dense correspondence of points for dense 3D reconstruction.
@@ -104,26 +126,7 @@
 			\end{itemize}
 		\end{enumerate}
 
-	\section{Concepts} 
-		%\begin{itemize}
-		
-
-			\subsection{Camera calibration}
-				The camera parameters can further be subdivided into intrinsic and extrinsic parameters. \textbf{Camera intrinsic parameter} $K$ is dependent on the focal length of the camera and principal point (which in most cases is the center of the image). The \textbf{camera extrinsic parameter} is composed of the rotation $R$ and translation $t$ between camera coordinate system and the world coordinate system. Together they form the camera projection matrix $P$, a $3 \times 4$ matrix which describes the mapping of a pinhole camera from 3D points in the world to 2D points in an image.
-				\begin{equation}
-				P = K[R|t]
-				\end{equation}
-			
-			\subsection{Sparse 3D Reconstruction} 
-				Given two different images of the same scene from different angles, the position of a 3D point can be found as the intersection of the two projection rays which is commonly referred to as \textbf{triangulation}. For this first point correspondences have to be established. Then using this point correspondences a RANSAC based voting framework is used to estimate the camera intrinsic and extrinsic parameters. Finally, a joint non-linear optimization is used to further refine the camera parameters and the 3D points in a \textbf{bundle adjustment} framework. This method is computationally very expensive and hence done only for very sparse set of points. This is known as sparse 3D reconstruction.
-
-			\section{Mobile IMU sensors}
-				IMU (Inertial Measurement Unit) sensors are on-chip devices embedded in most of the smart phones or hand-held devices today. It mainly consists of a series of motion sensors: accelerometer, gyroscope, magnetometer and gravitation sensor. The data from these sensors can be fused to obtain the orientation and the position of the device in the world coordinate system.
-
-			\section{Conventional vs mobile 3D reconstruction}
-				In the case of a smart-phone or any hand-held device having a camera and IMU sensors, we wish to use  the IMU sensors to obtain extrinsic camera parameters in real time. This will help in reducing the load on conventional 3D reconstruction methods and get it in near real time.
-		%\end{itemize}
-
+	
 	
 
 	\section{Uses and Application}
