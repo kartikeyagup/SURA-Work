@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{titlepic}
+\usepackage{caption}
+\usepackage{subcaption}
 % \documentclass{beamer}
 
 \title{\vspace*{\fill} \textbf{3D Reconstruction using an IMU enabled Mobile Device}
@@ -30,9 +32,51 @@
 	\newpage
 	% \begin{figure}
 % \end{figure}
+	
+	\section{Introduction}
+		\textit{\textbf{3D reconstruction}} is the process of capturing the shape and appearance of real objects. The conventional methods for 3D reconstruction is based on \textit{multiple images}. In this method, 3D models are constructed from a set of images. It can be considered as a reverse process of obtaining 2D images from 3D scenes.
+		\newline
+		3D reconstruction has a wide variety of applications. It allows engineers and students to work more efficiently as they can generate copies of 3D objects easily. In orthopedics and joint replacement surgery, the complicated parts to be replaced can be made with high accuracy. Also, it can be used to generate replica of artifacts and fragile objects for further studies, without harming its integrity.
 
+		\begin{figure}[ht!]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+			  	\centering
+			  	\includegraphics[width=1.0\linewidth]{sparse_chariot.png}
+			  	\caption{Sparse Construction}
+			  	\label{fig:sub1}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+			  	\centering
+			  	\includegraphics[width=1.0\linewidth]{dense_chariot.png}
+			  	\caption{Dense Construction}
+			  	\label{fig:sub2}
+			\end{subfigure}
+			\caption{3D Construction}
+			\label{figstart}
+		\end{figure}
+
+
+		The Figure~\ref{fig:sub1} shows the first step towards 3D construction i.e. \textit{Sparse Construction}, which is done for some set of points. The Figure~\ref{fig:sub2} is the final reconstructed 3D model of the object. The \textit{traditional pipeline} is as shown in the Figure~\ref{fig3}.
+
+		\begin{figure}[ht!]
+		\centering
+		\includegraphics[width=14cm]{traditional_pipeline2.png}
+		\caption{Traditional Pipeline\label{fig3}}
+		\end{figure}
+
+		The red-highlighted part of the pipeline is \textit{\textbf{computationally expensive}}. Thus, our project aims to reduce this computation and perform 3D reconstruction in near real-time.
+
+		The processing parts are:
+			\begin{itemize}
+			\item \textit{Intrinsic and Extrinsic Parameters}: A camera matrix or (camera) projection matrix is a $3 \times 4$ matrix which describes the mapping of a pinhole camera from 3D points in the world to 2D points in an image. This matrix depends on extrinsic and intrinsic parameters. The intrinsic parameters encompass focal length, image sensor format, and principal point. The extrinsic parameters define the position of the camera center and the camera's heading in world coordinates. 
+			\item \textit{Stereo Correspondence Generation}: Given two or more images of the same 3D scene, taken from different points of view, the correspondence problem refers to the task of finding a set of points in one image which can be identified as the same points in another image. To do this, points or features in one image are matched with the corresponding points or features in another image. The images can be taken from a different point of view, at different times, or with objects in the scene in general motion relative to the camera(s).
+			\item \textit{Triangulation}: Triangulation refers to the process of determining a point in 3D space given its projections onto two, or more, images. This point is found as the intersection of the two projection rays.
+			\item \textit{Initial Point Cloud and 3D Sparse Construction}: As the word suggests, \textit{3D sparse construction} is done for only some set of data points in the given coordinate system called \textit{Initial Point Cloud}. The Figure~\ref{fig:sub1} illustrates a 3D sparse construction of a chariot. The Figure~\ref{fig:sub2} illustrates 3D dense construction of the same initial point cloud.
+
+			\end{itemize}
 	\section{Objectives} 
-		3D reconstruction is the process of capturing the shape and appearance of real objects. The conventional methods for 3D reconstruction are computationally expensive. Our main objective is to perform 3D reconstruction in near real time using a mobile device. This can be further be subdivided into following points:
+		Our main objective is to perform 3D reconstruction in near real time using a mobile device. This can be further be subdivided into following points:
 		\begin{enumerate}
 			\item 
 				To get accurate position and orientation estimate based on readings of IMU sensors in smart-phones. 
@@ -46,10 +90,8 @@
 				We will ultimately be fusing digital signal processing and computer vision based techniques that will enable us to perform near real time 3D reconstructions on mobile or hand-held devices.
 		\end{enumerate}
 
-\section{Concepts} 
+\section{Basic Concepts} 
 		%\begin{itemize}
-		
-
 			\subsection{Camera calibration}
 				The camera parameters can further be subdivided into intrinsic and extrinsic parameters. \textbf{Camera intrinsic parameter} $K$ is dependent on the focal length of the camera and principal point (which in most cases is the center of the image). The \textbf{camera extrinsic parameter} is composed of the rotation $R$ and translation $t$ between camera coordinate system and the world coordinate system. Together they form the camera projection matrix $P$, a $3 \times 4$ matrix which describes the mapping of a pinhole camera from 3D points in the world to 2D points in an image.
 				\begin{equation}
@@ -75,23 +117,21 @@
 			\begin{enumerate}
 				\item
 					Get accelerometer data and orientation data at real time using the IMU sensors like accelerometer, gyroscope, gravity sensor and magnetometer present on the smart phone.
-					This data is highly noisy. The following figure shows the static accelerometer data of various devices.
-
-					\newpage
+					This data is highly noisy. The Figure~\ref{fig1} shows the static accelerometer data of various devices.
 
 					\begin{figure}[ht!]
 					\centering
 					\includegraphics[width=10cm]{graph.jpg}
-					\caption{Static Accelerometer Data\label{overflow1}}
+					\caption{Static Accelerometer Data\label{fig1}}
 					\end{figure}
 
 					As evident from the graph, this data cannot be directly used for calculation of position and orientation. 
-					The following figure shows the integration of static accelerometer data to obtain velocity and displacement.
+					The Figure~\ref{fig2} shows the integration of static accelerometer data to obtain velocity and displacement.
 
 					\begin{figure}[ht!]
 					\centering
 					\includegraphics[width=10cm]{integration.jpg}
-					\caption{Static Accelerometer Data\label{overflow2}}
+					\caption{Static Accelerometer Data\label{fig2}}
 					\end{figure}
 
 					The graph of both velocity and displacement shows significant deviation from the actual value which is zero.
