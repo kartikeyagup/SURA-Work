@@ -13,7 +13,7 @@
   \end{tabular}
 }
 
-\title{\vspace*{\fill} \textbf{3D Reconstruction using an IMU enabled Mobile Device}
+\title{\vspace*{\fill} \textbf{3D reconstruction using an IMU enabled mobile device}
 	  \\ {\large \textbf{Summer Undergraduate Research Award}}
 	  \\  \vspace{3mm} \includegraphics[width=5cm]{logo.png}}
 
@@ -74,36 +74,36 @@
 			\begin{subfigure}{.5\textwidth}
 			  	\centering
 			  	\includegraphics[width=1.0\linewidth]{sparse_chariot.png}
-			  	\caption{Sparse Reconstruction}
+			  	\caption{Sparse reconstruction}
 			  	\label{fig:sub1}
 			\end{subfigure}%
 			\begin{subfigure}{.5\textwidth}
 			  	\centering
 			  	\includegraphics[width=1.0\linewidth]{dense_chariot.png}
-			  	\caption{Dense Reconstruction}
+			  	\caption{Dense reconstruction}
 			  	\label{fig:sub2}
 			\end{subfigure}
-			\caption{3D Reconstruction}
+			\caption{3D reconstruction}
 			\label{figstart}
 		\end{figure}
 
 
-		The Figure~\ref{fig:sub1} shows the first step towards 3D construction i.e. \textit{Sparse Construction}, which is done for some set of points. The Figure~\ref{fig:sub2} is the final reconstructed 3D model of the object. The \textit{traditional pipeline} is as shown in the Figure~\ref{fig3}.
+		Figure~\ref{fig:sub1} shows the first step towards 3D construction i.e. \textit{Sparse reconstruction}, which is done for some set of points. Figure~\ref{fig:sub2} is the final reconstructed 3D model of the object. The \textit{traditional pipeline} is shown in Figure~\ref{fig3}.
 
 		\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=14cm]{traditional_pipeline2.png}
-		\caption{Traditional Pipeline\label{fig3}}
+		\caption{Traditional pipeline\label{fig3}}
 		\end{figure}
 
 		The red-highlighted part of the pipeline is \textit{\textbf{computationally expensive}}. Thus, our project aims to reduce this computation and perform 3D reconstruction in near real-time.
 
 		The processing parts are:
 			\begin{itemize}
-			\item \textit{Intrinsic and Extrinsic Parameters}: A camera matrix or (camera) projection matrix is a $3 \times 4$ matrix which describes the mapping of a pinhole camera from 3D points in the world to 2D points in an image. This matrix depends on extrinsic and intrinsic parameters. The intrinsic parameters encompass focal length, image sensor format, and principal point. The extrinsic parameters define the position of the camera center and the camera's heading in world coordinates. 
-			\item \textit{Stereo Correspondence Generation}: Given two or more images of the same 3D scene, taken from different points of view, the correspondence problem refers to the task of finding a set of points in one image which can be identified as the same points in another image. To do this, points or features in one image are matched with the corresponding points or features in another image. The images can be taken from a different point of view, at different times, or with objects in the scene in general motion relative to the camera(s).
-			\item \textit{Triangulation}: Triangulation refers to the process of determining a point in 3D space given its projections onto two, or more, images. This point is found as the intersection of the two projection rays.
-			\item \textit{Initial Point Cloud and 3D Sparse Construction}: As the word suggests, \textit{3D sparse construction} is done for only some set of data points in the given coordinate system called \textit{Initial Point Cloud}. The Figure~\ref{fig:sub1} illustrates a 3D sparse construction of a chariot. The Figure~\ref{fig:sub2} illustrates 3D dense construction of the same initial point cloud.
+			\item \textit{Intrinsic and extrinsic parameters}: The camera projection matrix is a $3 \times 4$ matrix which represents the pinhole geometry of a camera for mapping 3D points in the world coordinates to 2D points on images. This matrix depends on extrinsic and intrinsic parameters. The intrinsic parameters mainly comprises of focal length, image sensor format, and principal points. The extrinsic parameters define the position of the camera center and the camera's heading in world coordinates in terms of a rigid rotation and translation. 
+			\item \textit{Stereo correspondence generation}: Given two or more images of the same 3D scene, taken from different points of view, the correspondence problem refers to the task of finding a set of points in one image which can be identified as the same points in another image. To do this, points or features in one image are matched with the corresponding points or features in another image. The images can be taken from a different point of view, at different times, or with objects in the scene in general motion relative to the camera(s).
+			\item \textit{Triangulation}: Triangulation refers to the process of determining a point in 3D space given, its projections onto two or more images and their corresponding camera projection matrices. This point is found as the intersection of the two or more projection rays formed from the inverse projection of the 2D image points representing that 3D point in space.
+			\item \textit{Initial point cloud and 3D sparse reconstruction}: As the word suggests, \textit{3D sparse construction} is done for only some set of data points in the given coordinate system called \textit{initial point cloud}. Figure~\ref{fig:sub1} illustrates a 3D sparse construction of a chariot. Figure~\ref{fig:sub2} illustrates 3D dense construction of the same initial point cloud.
 
 			\end{itemize}
 	\section{Objectives} 
@@ -141,28 +141,28 @@
 
 
 
-	\section{Approach to the Project} 
+	\section{Approach to the project} 
 		First, we shall be using sensor fusion to obtain accurate estimates for camera position and orientation of the mobile device. Then we will move on to 3D reconstruction, which further has two parts: i.e. sparse 3D reconstruction and then use tracking to obtain dense correspondence of points for dense 3D reconstruction.
 		\begin{enumerate}
-			\item Position and Orientation Estimation
+			\item Position and orientation estimation
 			\begin{enumerate}
 				\item
 					Get accelerometer data and orientation data at real time using the IMU sensors like accelerometer, gyroscope, gravity sensor and magnetometer present on the smart phone.
-					This data is highly noisy. The Figure~\ref{fig1} shows the static accelerometer data of various devices.
+					This data is highly noisy. Figure~\ref{fig1} shows the position estimate from accelerometer data across various devices.
 
 					\begin{figure}[ht!]
 					\centering
 					\includegraphics[width=10cm]{graph.jpg}
-					\caption{Static Accelerometer Data\label{fig1}}
+					\caption{Accuracy of accelerometer data across different devices (scale cm)\label{fig1}}
 					\end{figure}
 
 					As evident from the graph, this data cannot be directly used for calculation of position and orientation. 
-					The Figure~\ref{fig2} shows the integration of static accelerometer data to obtain velocity and displacement.
+					Figure~\ref{fig2} shows the integration of static accelerometer data to obtain velocity and displacement.
 
 					\begin{figure}[ht!]
 					\centering
 					\includegraphics[width=10cm]{integration.jpg}
-					\caption{Static Accelerometer Data\label{fig2}}
+					\caption{Obtaining velocity and displacement from static accelerometer data\label{fig2}}
 					\end{figure}
 
 					The graph of both velocity and displacement shows significant deviation from the actual value which is zero.
@@ -177,21 +177,21 @@
 			\end{enumerate}
 			% • All these data along with the clicking of pictures are synchronised to a single system clock.
 			% \item We will use the IMU sensors present in smart-phones to get a position estimation.
-			\item 3D Reconstruction
+			\item 3D reconstruction
 			\begin{enumerate}
 				\item 
 					Obtain sparse 3D reconstruction based on camera rotation and position parameters obtained previously.
 				\item
-					Use tracking data from different tracking methods like ``Good Features to Track'' or ``KL Tracker'' for obtaining dense correspondence of points.
+					Use tracking data from different tracking methods like ``Good features to track'' or ``KL tracker'' for obtaining dense correspondence of points.
 				\item
-					Use guided matching by indirect computation of fundamental Matrix from estimated camera motion from sensors to further enrich the correspondences.
+					Use guided matching by indirect computation of fundamental matrix from estimated camera motion from sensors to further enrich the correspondences.
 				\item
 					Triangulate the dense correspondences and do a final global refinement.					
 			\end{enumerate}
-			\item Further Possibilities
+			\item Further possibilities
 			\begin{itemize}
 			    \item Getting a more detailed texture mapping of the object.
-			    \item Making a object recognition software on the basis of this 3D reconstruction.
+			    \item Making an object recognition software on the basis of this 3D reconstruction.
 			    \item Improving the algorithm for a quicker and more efficient 3D reconstruction. 
 				\item Releasing applications for Apple, Android and Windows platforms for near real time 3D reconstruction on the device itself.
 			\end{itemize}
@@ -200,19 +200,19 @@
 	
 	
 
-	\section{Uses and Application}
+	\section{Uses and applications}
 	% \item Uses and Applications
 			\begin{itemize}
 				\item Using the device as an accurate measuring device. This can be of particular interest to blind as they will be able to measure distances and angles accurately with great ease.
 				\item Doing real time dense 3D reconstructions on mobile phones and other hand-held devices. 
 				\item Allowing the user to generate a 3D printable file on his mobile device. As 3D printers are becoming cheaper and more common, this feature will reduce the need of the person to use a 3D scanner to be able to generate prototypes of objects. This will allow engineers and students to work more efficiently as they can generate copies of 3D objects easily.
 				\item This project can have applications in the field of archeology. It can be used to generate replica of artifacts and fragile objects for further studies, without harming its integrity.
-				\item Our approach can also be applied in the field of medical sciences, especially for orthopedics and joint replacement surgery. The part to be replaced can be made with high accuracy using this.
-				\item The method can also be used by the astronauts up in the space. With the help of our approach the parts to be changed can be easily made using a 3D printer.
-				\item Localization at tourist sites and providing real time directions to landmark locations. This will involve the use of GPS (Global Positioning System) as well to get a rough location of the user.
+				\item Our approach can also be applied in the field of medical sciences, especially for orthopedics and joint replacement surgery. The part to be replaced can be made with high accuracy using this project.
+				\item The method can also be used by the astronauts up in space. With the help of our approach the parts to be changed can be easily made using a 3D printer.
+				\item Localization at tourist sites and providing real time directions to landmark locations. This will involve the use of GPS (Global positioning system) as well to get a rough location of the user.
 			\end{itemize}
 	\newpage
-	\section{Budget, Duration and Facilities}	
+	\section{Budget, duration and facilities}	
 		\subsection{Budget}
 			Rs. 25,000 will be needed to purchase an android smart phone having high quality sensors and a high resolution camera.
 		\subsection{Duration}
