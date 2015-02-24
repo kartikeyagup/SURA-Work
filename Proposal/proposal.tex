@@ -6,6 +6,13 @@
 \usepackage{subcaption}
 % \documentclass{beamer}
 
+\newcommand{\namesigdate}[2][5cm]{%
+  \begin{tabular}{@{}p{#1}@{}}
+    #2 \\[0.4\normalbaselineskip] \hrule \\[0pt]
+    {\small } \\[2\normalbaselineskip] 
+  \end{tabular}
+}
+
 \title{\vspace*{\fill} \textbf{3D Reconstruction using an IMU enabled Mobile Device}
 	  \\ {\large \textbf{Summer Undergraduate Research Award}}
 	  \\  \vspace{3mm} \includegraphics[width=5cm]{logo.png}}
@@ -23,7 +30,10 @@
 	Mob: 9911577289\\
 	CGPA: 8.87
 }
-\date{\textbf{Supervisor:-} \\ \textbf{Subhashis Banerjee} \\ Professor \\ Department of CSE \\ IIT Delhi \vspace*{\fill}}
+\date{\textbf{Supervisor:-} \\ \textbf{Subhashis Banerjee} \\ Professor \\ Department of CSE \\ suban@cse.iitd.ac.in\\ IIT Delhi\\ 
+\noindent \namesigdate{} 
+\vspace*{\fill}}
+
 
 \begin{document}
 		% \includegraphics{logo.png}
