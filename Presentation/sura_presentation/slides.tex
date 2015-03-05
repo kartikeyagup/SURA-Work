@@ -1,0 +1,215 @@
+\documentclass[english,handout]{beamer}
+\usetheme{Copenhagen}
+\usepackage{babel}
+\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+%\usepackage{pgfpages}
+%\setbeameroption{show notes}
+%\setbeameroption{show notes on second screen=right}
+
+
+\institute[IITD]{Indian Institute Of Technology, Delhi}
+\author[Harsh \and Alankrit]{Harsh Gupta \and Alankrit Chona}
+\title{Plagiarism Detection Tool}
+\date[\today]{\today}
+
+\begin{document}
+
+\begin{frame}[plain]
+\maketitle
+%\begin{center}
+\underline{Project Facilitator} \\
+Huzur Saran,\\
+Professor,\\
+Department of Computer Science \& Engineering,\\
+Indian Institute of Technology, Delhi\\
+%\end{center}
+\note{\textcolor{red}{Harsh}}
+\end{frame}
+\begin{frame}
+\frametitle{Objective}
+\begin{itemize}
+\item{Identify similarity of code written in a variety of languages.}
+\end{itemize}
+\note{\textcolor{red}{Harsh\\}}
+\note{Emphasise the importance of such software. In both academic and law enforcement domains}
+\end{frame}
+
+\begin{frame}
+\frametitle{Activity in this Field}
+\begin{block}{MOSS:Measure Of Software Similarity}
+\begin{itemize}
+\item{``We give an upper bound on the performance of winnowing, expressed as a \textcolor{red}{ trade-off between the number of fingerprints that must be selected and the shortest match that we are guaranteed to detect}''}
+\item{``The service currently uses robust winnowing, which is more \textcolor{red}{efficient and scalable} than previous algorithms we have tried.''}
+\end{itemize}
+\end{block}
+\note{\textcolor{red}{Harsh\\}}
+\note{
+    \begin{itemize}
+    \item{in use for 13 years}
+    \item{used by most of our professors}
+    \item{uses hashing algorithm:winnowing which is more efficient and scalable}
+    \item{They select some hashes to represent a document,calling it the document's fingerprint and as with any selection criterion, they lose info.'}
+    \item{emphasis of this algorithm is on efficiency and scalability but we believe that our algo can take into account both the factors without losing any info}
+    \end{itemize}
+    }
+\end{frame}
+
+\begin{frame}
+\frametitle{Activity in this Field}
+\begin{block}{XPlag}
+\begin{itemize}
+\item{``To detect plagiarism involving \textcolor{red}{multiple languages} using intermediate program code produced by a compiler suite.''}
+\item{``Relies on the components of an existing generic compiler suite.''}
+\end{itemize}
+\end{block}
+\note{\textcolor{red}{Alankrit\\}}
+\note{
+    \begin{itemize}
+    \item{A completely different approach to this problem}
+    \item{Emphasis on the fact that the same logic can be used in different programming languages}
+    \end{itemize}
+    }
+\end{frame}
+
+\begin{frame}
+\frametitle{Proposed Approach}
+%%%%%tikx
+\begin{center}
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=2cm,
+    minimum height=2em]
+\tikzstyle{incloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+\begin{tikzpicture}[node distance = 2cm, auto]
+    % Place nodes
+    \node [block] (fe) {Front End};
+    \node [incloud, left of=fe] (input) {Input};
+    \node [cloud, below of=fe] (AST) {Abstract Syntax Tree};
+    \node [block, below of=AST] (identify) {Back End};
+    \node [incloud, right of=identify] (output) {Output};
+    % Draw edges
+    \path [line] (fe) -- (AST);
+    \path [line] (AST) -- (identify);
+    \path [line,dashed] (input) -- (fe);
+    \path [line,dashed] (identify) -- (output);
+\end{tikzpicture}
+
+\end{center}
+%%%%%tikx
+\note{\textcolor{red}{Alankrit\\}}
+\note{
+    \begin{itemize}
+    \item{Input= source code for detection}
+    \item{FE= scanner and CUSTOM parser for the input language}
+    \item{AST= a generic AST which will be similar for all languages}
+    \item{BE= the computation intensive matching algorithm}
+    \item{Results: matching pairs}
+
+    \end{itemize}
+    }
+\end{frame}
+
+\begin{frame}
+\frametitle{FRONT END}
+\begin{itemize}
+\item{Language dependent.}
+\item{Takes input as the source code.}
+\item{Creates an intermediate abstract syntax tree.}
+\end{itemize}
+\note{\textcolor{red}{Harsh\\}}
+\note{
+    \begin{itemize}
+    \item{implementation of a lexer and a CUSTOM parser for the language}
+    \item{emphasize that no significant syntactical information is lost .}
+    \item{point out that this information will be used throughout the entire computation.}
+    \end{itemize}
+    }
+\end{frame}
+\begin{frame}
+\frametitle{BACK END}
+\begin{itemize}
+\item{Independent of input language.}
+\item{Uses the Longest Common Subsequence Algorithm(LCS).}
+\item{Uses a similarity metric that can be configured.}
+\end{itemize}
+\note{\textcolor{red}{Harsh\\}}
+\note{
+    \begin{itemize}
+    \item{while independent of the input language,syntactical information will be retained and used throughout the code}
+    \item{use of LCS algo to check for similarity}
+    \item{ use of LCS algo in the diff program commonly used in versioning systems like git}
+    \item{the similarity metric can be configured to provide for a loose or strict metric.}
+    \end{itemize}
+    }
+\end{frame}
+\begin{frame}
+\frametitle{OUR EXPERIENCE SO FAR}
+\begin{itemize}
+\item{Analyzed source code plagiarism dispute (Delhi High Court Case)}
+\item{Problems faced:}
+\begin{itemize}
+\item{Unrealistic runtimes}
+\item{High rate of false positives}
+\end{itemize}
+\end{itemize}
+\note{\textcolor{red}{Alankrit\\}}
+\note{
+    \begin{itemize}
+    \item{stress the fact that we have learnt the importance of intelligently applying LCS rather than a greedy algo}
+    \item{backtracking,}
+    \begin{itemize}
+    \item{assuming a root and its children to be a match and then verifying correctness of assumption}
+    \item{increasing tightness of similarity metric as we move down the tree}
+    \end{itemize}
+    \end{itemize}
+    }
+\end{frame}
+\begin{frame}
+\frametitle{A NEW APPROACH}
+\begin{itemize}
+\item{Use of LCS algorithm.}
+\item{Retaining the syntactic structure throughout computation.}
+\item{No loss of information by selection criterion (as in the case of MOSS and others).}
+\item{Configurable Similarity Metric.}
+\end{itemize}
+\note{\textcolor{red}{Harsh\\}}
+\note{
+    \begin{itemize}
+    \item{we like the lcs algo and wonder why people have not used it before}
+    \item{striking difference from others: no loss of syntactical information to the last stage of computation}
+    \item{by appling LCS intelligently we can ensure that no loss of info is incurred and runtimes are reasonable}
+    \item{configurable system will allow it to be used in variety of enviroments--academic, legal etc.}
+    \end{itemize}
+    }
+\end{frame}
+\begin{frame}
+\frametitle{Phases of the project}
+\begin{block}{Timeline}
+\begin{enumerate}
+\item{\textbf{Initial Phase:}}
+Development of tool for foxpro language.
+\item{\textbf{Phase 1:}}
+Implementation of algorithm in easily extensible manner.
+\item{\textbf{Phase 2:}}
+Improvement of the user-interface.
+\end{enumerate}
+\end{block}
+\begin{block}{Budget}
+No financial requirements are anticipated.
+\end{block}
+\end{frame}
+\begin{frame}
+\vfill
+\begin{center}
+\huge{Thank You}
+\end{center}
+\vfill
+\end{frame}
+\end{document}
