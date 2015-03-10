@@ -1,6 +1,6 @@
 \beamer@endinputifotherversion {3.24pt}
 \beamer@sectionintoc {1}{First Main Section}{2}{0}{1}
 \beamer@subsectionintoc {1}{1}{First Subsection}{2}{0}{1}
-\beamer@subsectionintoc {1}{2}{Present Pipeline}{5}{0}{1}
-\beamer@sectionintoc {2}{Second Main Section}{20}{0}{2}
-\beamer@subsectionintoc {2}{1}{Another Subsection}{20}{0}{2}
+\beamer@subsectionintoc {1}{2}{Present Pipeline}{4}{0}{1}
+\beamer@sectionintoc {2}{Second Main Section}{22}{0}{2}
+\beamer@subsectionintoc {2}{1}{Another Subsection}{22}{0}{2}

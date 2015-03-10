@@ -11,7 +11,7 @@
 % notice. 
 
 \documentclass{beamer}
-
+\usepackage{subcaption}
 % There are many different themes available for Beamer. A comprehensive
 % list with examples is given here:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -24,7 +24,7 @@
 % \usetheme{Berlin}
 % \usetheme{Boadilla}
 % \usetheme{boxes}
-% \usetheme{CambridgeUS}
+\usetheme{CambridgeUS}
 % \usetheme{Copenhagen}
 % \usetheme{Darmstadt}
 % \usetheme{default}
@@ -34,7 +34,7 @@
 % \usetheme{Ilmenau}
 % \usetheme{JuanLesPins}
 % \usetheme{Luebeck}
-\usetheme{Madrid}
+% \usetheme{Madrid}
 % \usetheme{Malmoe}
 % \usetheme{Marburg}
 % \usetheme{Montpellier}
@@ -60,7 +60,8 @@
   Department of Computer Science and Engineering\\
   IIT Delhi
   \and
-  Prof. Subhashis Banerjee \\
+  Under supervision of \\
+  \textbf{Prof. Subhashis Banerjee} \\
   Department of Computer Science and Engineering
 }
 % - Use the \inst command only if there are several affiliations.
@@ -121,43 +122,142 @@
   3D reconstruction on an IMU enabled mobile device.
 \end{frame}
 
-\begin{frame}{What is 3D reconstruction?}{Sparse}
-  Put in a image on sparse reconstruction
+\begin{frame}{What is 3D reconstruction?}{}
+    \begin{figure}[ht!]
+      \centering
+      \begin{subfigure}{.5\textwidth}
+          \centering
+          \includegraphics[width=1.0\linewidth]{sparse_chariot.png}
+          \caption{Sparse reconstruction}
+          \label{fig:sub1}
+      \end{subfigure}%
+      \begin{subfigure}{.5\textwidth}
+          \centering
+          \includegraphics[width=1.0\linewidth]{dense_chariot.png}
+          \caption{Dense reconstruction}
+          \label{fig:sub2}
+      \end{subfigure}
+      % \caption{3D reconstruction}
+      \label{figstart}
+    \end{figure}
 \end{frame}
 
-\begin{frame}{What is 3D reconstruction?}{Dense}
-  Put in an image of dense
-\end{frame}
 
 \subsection{Present Pipeline}
 
-\begin{frame}{3D reconstruction method}{Intrinsic and Extrinsic Camera Parameters}
-  Write about both little bit
+\begin{frame}{3D reconstruction method}{Intrinsic Camera Parameters}
+  \begin{itemize} 
+    \item Internal calibration matrix  $K$ is internal to the camera itself and is defined in terms of the  camera focal length $f$ and the principal points $c_x$ and  $c_y$ defined as image centers in pixels.
+  \begin{equation}
+   \mathbf{K}  = 
+    \begin{bmatrix}
+    f & 0 & c_x \\ 0 & f & c_y \\
+    0 & 0 & 1 
+    \end{bmatrix}
+  \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{3D reconstruction method}{Extrinsic Camera Parameters}
+ \begin{itemize}
+  \item External calibration matrix $[R|\textbf{t}]$ constitute the rigid transformations viz. the rotation and translation between the camera coordinate system and the world coordinate system.
+  \begin{figure}
+    \centering
+    %\begin{tabular}{ccc}
+    \includegraphics[width=0.3\textwidth]{CameraWorld.png}
+    \caption{External calibration}
+    %\end{tabular}
+  \end{figure}
+  \item Together they form the projection matrix $P$
+  \begin{equation*}
+    P = K[R|\textbf{t}]
+    \end{equation*}
+    s.t. \begin{equation*} \mathbf{x} = P\mathbf{X} \end{equation*}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{3D reconstruction method}{Stereo Correspondance Generation}
-  TODO
+  \begin{itemize}
+    \item Use image descriptors like SIFT for finding set of matching feature points $\mathbf{x}'$ and $\mathbf{x}$ in between a pair of images.
+  \begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\linewidth]{siftcorres.jpg}
+    % \caption{Accuracy of accelerometer data across different devices (scale cm)\label{fig1}}
+  \end{figure}
+    \item Lots of false matches
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{3D reconstruction method}{Triangulation}
-  TODO
+  \begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.6\linewidth]{triangulation.png}
+    % \caption{Accuracy of accelerometer data across different devices (scale cm)\label{fig1}}
+  \end{figure}
 \end{frame}
 
-\begin{frame}{3D reconstruction method}{Initial Point Cloud and 3D sparse generation}
-  TODO
+\begin{frame}{3D reconstruction method}{Present Pipeline}
+  \begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\linewidth]{traditional_paipeline.png}
+    % \caption{Accuracy of accelerometer data across different devices (scale cm)\label{fig1}}
+  \end{figure}
 \end{frame}
 
 \begin{frame}{Proposed Framework}{}
-  Put in image of the framework with red
+  \begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\linewidth]{our_pipeline.png}
+    % \caption{Accuracy of accelerometer data across different devices (scale cm)\label{fig1}}
+  \end{figure}
 \end{frame}
 
 \begin{frame}{Phases of the Project}{}
 \end{frame}
 
+\begin{frame}{Our experience so far}{}
+
+    \begin{figure}[ht!]
+      \centering
+      \begin{subfigure}{.5\textwidth}
+          \centering
+          \includegraphics[width=1.0\linewidth]{graph.jpg}
+          \caption{Accuracy of accelerometer data across different devices (scale cm)}
+          % \label{fig:sub1}
+      \end{subfigure}%
+      \begin{subfigure}{.5\textwidth}
+          \centering
+          \includegraphics[width=1.0\linewidth]{integration.jpg}
+          \caption{Obtaining velocity and displacement from static accelerometer data}
+          % \label{fig:sub2}
+      \end{subfigure}
+      % \caption{3D reconstruction}
+      % \label{figstart}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}{}{}
+  \begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\linewidth]{Corrected.jpeg}
+    \caption{Applying smoothening techniques}
+  \end{figure}
+\end{frame}
+
 \begin{frame}{More Applications}{}
+  \begin{itemize}
+    \item Quick 3D printable file
+    \item Field of medical science
+    \item Archaeological application
+    \item Localization of tourist sites
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Budget}{}
+\begin{block}{Budget}
+Rs. 25000 to purchase an android smart phone having high quality sensors and a high resolution camera.
+\end{block}
 \end{frame}
 
 
