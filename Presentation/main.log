@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.31)  11 APR 2015 21:22
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.31)  11 APR 2015 21:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -590,7 +590,34 @@ Package caption Info: Hyperref support is turned off
 )
 \c@subfigure=\count154
 \c@subtable=\count155
+) (/usr/share/texmf/tex/latex/pgf/utilities/pgfpages.sty
+Package: pgfpages 2004/11/05 ver 0.01
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count156
+\calc@Bcount=\count157
+\calc@Adimen=\dimen192
+\calc@Bdimen=\dimen193
+\calc@Askip=\skip57
+\calc@Bskip=\skip58
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count158
+\calc@Cskip=\skip59
 )
+\pgf@logicalpages=\count159
+\pgf@firstshipout=\count160
+\pgf@lastshipout=\count161
+\pgf@currentshipout=\count162
+\pgf@cpn=\count163
+\pgf@shipoutnextto=\count164
+\pgfphysicalheight=\dimen194
+\pgfphysicalwidth=\dimen195
+\pgfpages@shipoutbox=\box53
+)
+\pgfpages@box@1=\box54
+\pgfpages@box@2=\box55
+
 (/usr/share/texmf/tex/latex/beamer/base/themes/theme/beamerthemeCambridgeUS.sty
 Package: beamerthemeCambridgeUS 2010/06/17  (rcs-revision d02a7cf4d8ae)
 
@@ -604,23 +631,39 @@ Package: beamerouterthemeinfolines 2012/10/16  (rcs-revision 51a8c72084af)
 )
 (/usr/share/texmf/tex/latex/beamer/base/themes/color/beamercolorthemebeaver.sty
 Package: beamercolorthemebeaver 2010/06/17  (rcs-revision d02a7cf4d8ae)
-)) (/home/kartikeya/Desktop/SURA-Work/Presentation/main.aux)
+)) (/home/kartikeya/Desktop/SURA-Work/Presentation/main.aux
+
+LaTeX Warning: Label `fig:sub1' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:sub1' multiply defined.
+
+
+LaTeX Warning: Label `fig:sub2' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:sub2' multiply defined.
+
+
+LaTeX Warning: Label `figstart' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -657,16 +700,16 @@ LaTeX Font Info:    ... okay on input line 96.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count156
-\scratchdimen=\dimen192
-\scratchbox=\box53
-\nofMPsegments=\count157
-\nofMParguments=\count158
+\scratchcounter=\count165
+\scratchdimen=\dimen196
+\scratchbox=\box56
+\nofMPsegments=\count166
+\nofMParguments=\count167
 \everyMPshowfont=\toks40
-\MPscratchCnt=\count159
-\MPscratchDim=\dimen193
-\MPnumerator=\count160
-\makeMPintoPDFobject=\count161
+\MPscratchCnt=\count168
+\MPscratchDim=\dimen197
+\MPnumerator=\count169
+\makeMPintoPDFobject=\count170
 \everyMPtoPDFconversion=\toks41
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -681,65 +724,65 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 )) ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box54
-Package hyperref Info: Link coloring OFF on input line 96.
+\AtBeginShipoutBox=\box57
+Package hyperref Info: Link coloring OFF on input line 103.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count162
+\c@section@level=\count171
 )
-LaTeX Info: Redefining \ref on input line 96.
-LaTeX Info: Redefining \pageref on input line 96.
-LaTeX Info: Redefining \nameref on input line 96.
+LaTeX Info: Redefining \ref on input line 103.
+LaTeX Info: Redefining \pageref on input line 103.
+LaTeX Info: Redefining \nameref on input line 103.
 (/home/kartikeya/Desktop/SURA-Work/Presentation/main.out) (/home/kartikeya/Desk
 top/SURA-Work/Presentation/main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 96.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 103.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 96.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 103.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 96.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 96.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 103.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 96.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 96.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 96.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 103.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 96.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 96.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 96.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 103.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 96.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 96.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 96.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 103.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 96.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 96.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 103.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 96.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 103.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 96.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 96.
+(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 96.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 96.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 96.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 103.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 96.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 103.
 
 (/usr/share/texmf/tex/latex/beamer/base/translator/dicts/translator-basic-dicti
 onary/translator-basic-dictionary-English.dict
@@ -765,105 +808,148 @@ Dictionary: translator-numbers-dictionary, Language: English
 tionary/translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
-LaTeX Info: Redefining \includegraphics on input line 96.
+LaTeX Info: Redefining \includegraphics on input line 103.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 (/home/kartikeya/Desktop/SURA-Work/Presentation/main.nav)
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 100.
+(Font)              size <5> substituted on input line 107.
 
-[1
+[2
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
-] <sparse_chariot.png, id=79, 392.96812pt x 366.61969pt>
+] <sparse_chariot.png, id=77, 392.96812pt x 366.61969pt>
 File: sparse_chariot.png Graphic file (type png)
 <use sparse_chariot.png>
-Package pdftex.def Info: sparse_chariot.png used on input line 143.
+Package pdftex.def Info: sparse_chariot.png used on input line 154.
 (pdftex.def)             Requested size: 171.14764pt x 159.67407pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 143.
+LaTeX Font Info:    Try loading font information for U+msa on input line 154.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 143.
+LaTeX Font Info:    Try loading font information for U+msb on input line 154.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) <dense_chariot.png, id=80, 392.96812pt x 366.61969pt>
+) <dense_chariot.png, id=78, 392.96812pt x 366.61969pt>
 File: dense_chariot.png Graphic file (type png)
 <use dense_chariot.png>
-Package pdftex.def Info: dense_chariot.png used on input line 143.
+Package pdftex.def Info: dense_chariot.png used on input line 154.
 (pdftex.def)             Requested size: 171.14764pt x 159.67407pt.
 [3
 
- <./sparse_chariot.png> <./dense_chariot.png>] [4
 
-] <CameraWorld.png, id=145, 500.62032pt x 291.33844pt>
+] [4
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{fig:sub1}) ha
+s been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.172 \end{frame}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{sub@fig:sub1}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.172 \end{frame}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{fig:sub2}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.172 \end{frame}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{sub@fig:sub2}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.172 \end{frame}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{figstart}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.172 \end{frame}
+                  <./sparse_chariot.png> <./dense_chariot.png>] <CameraWorld.pn
+g, id=139, 500.62032pt x 291.33844pt>
 File: CameraWorld.png Graphic file (type png)
 <use CameraWorld.png>
-Package pdftex.def Info: CameraWorld.png used on input line 177.
+Package pdftex.def Info: CameraWorld.png used on input line 192.
 (pdftex.def)             Requested size: 102.68962pt x 59.76033pt.
 [5
 
- <./CameraWorld.png>] <siftcorres.jpg, id=173, 965.10562pt x 362.10281pt>
+
+] <siftcorres.jpg, id=172, 965.10562pt x 362.10281pt>
 File: siftcorres.jpg Graphic file (type jpg)
 <use siftcorres.jpg>
-Package pdftex.def Info: siftcorres.jpg used on input line 189.
+Package pdftex.def Info: siftcorres.jpg used on input line 206.
 (pdftex.def)             Requested size: 320.39525pt x 120.20705pt.
 [6
 
- <./siftcorres.jpg>] <triangulation.png, id=201, 316.51096pt x 179.3562pt>
+
+ <./CameraWorld.png>] <triangulation.png, id=201, 316.51096pt x 179.3562pt>
 File: triangulation.png Graphic file (type png)
 <use triangulation.png>
-Package pdftex.def Info: triangulation.png used on input line 197.
+Package pdftex.def Info: triangulation.png used on input line 217.
 (pdftex.def)             Requested size: 205.37926pt x 116.38309pt.
 [7
 
- <./triangulation.png>] <traditional_paipeline.png, id=231, 555.57562pt x 216.8
-1pt>
+
+ <./siftcorres.jpg>] <traditional_paipeline.png, id=231, 555.57562pt x 216.81pt
+>
 File: traditional_paipeline.png Graphic file (type png)
 <use traditional_paipeline.png>
-Package pdftex.def Info: traditional_paipeline.png used on input line 205.
+Package pdftex.def Info: traditional_paipeline.png used on input line 227.
 (pdftex.def)             Requested size: 342.2953pt x 133.5805pt.
 [8
 
- <./traditional_paipeline.png>] <our_pipeline.png, id=260, 563.10374pt x 232.61
-906pt>
+
+ <./triangulation.png>] <our_pipeline.png, id=261, 563.10374pt x 232.61906pt>
 File: our_pipeline.png Graphic file (type png)
 <use our_pipeline.png>
-Package pdftex.def Info: our_pipeline.png used on input line 213.
+Package pdftex.def Info: our_pipeline.png used on input line 238.
 (pdftex.def)             Requested size: 342.2953pt x 141.40404pt.
 [9
 
- <./our_pipeline.png>] [10
 
-] [11
+ <./traditional_paipeline.png>] [10
 
-] <graph.jpg, id=339, 663.22781pt x 398.23781pt>
+
+ <./our_pipeline.png>] [11
+
+
+] <graph.jpg, id=345, 663.22781pt x 398.23781pt>
 File: graph.jpg Graphic file (type jpg)
 <use graph.jpg>
-Package pdftex.def Info: graph.jpg used on input line 251.
+Package pdftex.def Info: graph.jpg used on input line 288.
 (pdftex.def)             Requested size: 171.14764pt x 102.76158pt.
-<integration.jpg, id=340, 815.045pt x 614.295pt>
+<integration.jpg, id=346, 815.045pt x 614.295pt>
 File: integration.jpg Graphic file (type jpg)
 <use integration.jpg>
-Package pdftex.def Info: integration.jpg used on input line 251.
+Package pdftex.def Info: integration.jpg used on input line 288.
 (pdftex.def)             Requested size: 171.14764pt x 128.987pt.
 [12
 
- <./graph.jpg> <./integration.jpg>] <Corrected.jpeg, id=368, 2007.5pt x 1006.76
-125pt>
+
+] <Corrected.jpeg, id=374, 2007.5pt x 1006.76125pt>
 File: Corrected.jpeg Graphic file (type jpg)
 <use Corrected.jpeg>
-Package pdftex.def Info: Corrected.jpeg used on input line 259.
+Package pdftex.def Info: Corrected.jpeg used on input line 298.
 (pdftex.def)             Requested size: 342.2953pt x 171.65408pt.
 [13
 
- <./Corrected.jpeg>] [14
 
-] [15
+ <./graph.jpg> <./integration.jpg>] [14
+
+
+ <./Corrected.jpeg>] [15
+
 
 ] [16
+
 
 ]
 \tf@nav=\write6
@@ -875,27 +961,34 @@ Package pdftex.def Info: Corrected.jpeg used on input line 259.
 \tf@snm=\write8
 \openout8 = `main.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 386.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 386.
+[17
+
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 429.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 429.
 (/home/kartikeya/Desktop/SURA-Work/Presentation/main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 386.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 386.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 429.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 429.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 386.
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 429.
  ) 
 Here is how much of TeX's memory you used:
- 16899 strings out of 495028
- 314990 string characters out of 6181497
- 387181 words of memory out of 5000000
- 19672 multiletter control sequences out of 15000+600000
+ 17146 strings out of 495028
+ 321003 string characters out of 6181497
+ 407593 words of memory out of 5000000
+ 19913 multiletter control sequences out of 15000+600000
  12057 words of font info for 44 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 49i,17n,57p,463b,631s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,17n,57p,463b,637s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texl
@@ -908,10 +1001,10 @@ blic/amsfonts/cm/cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmsy8.pfb>
 Output written on /home/kartikeya/Desktop/SURA-Work/Presentation/main.pdf (16 p
-ages, 1325713 bytes).
+ages, 1336086 bytes).
 PDF statistics:
- 523 PDF objects out of 1000 (max. 8388607)
- 465 compressed objects within 5 object streams
+ 539 PDF objects out of 1000 (max. 8388607)
+ 481 compressed objects within 5 object streams
  38 named destinations out of 1000 (max. 500000)
  123 words of extra memory for PDF output out of 10000 (max. 10000000)
 

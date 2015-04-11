@@ -12,6 +12,13 @@
 
 \documentclass{beamer}
 \usepackage{subcaption}
+
+% Comment these 3 lines out for without notes
+\usepackage{pgfpages}
+\setbeameroption{show notes}
+\setbeameroption{show notes on second screen=right}
+
+
 % There are many different themes available for Beamer. A comprehensive
 % list with examples is given here:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -140,6 +147,10 @@
       % \caption{3D reconstruction}
       \label{figstart}
     \end{figure}
+    \note{\textcolor{red}{Kartikeya\\}}
+    \note{Tell about sparse reconstruction\\}
+    \note{\textcolor{green}{Soccer\\}}
+    \note{Tell about dense reconstruction\\}
 \end{frame}
 
 
@@ -156,6 +167,8 @@
     \end{bmatrix}
   \end{equation}
   \end{itemize}
+  \note{\textcolor{green}{Soccer\\}}
+  \note{Speak about internal camera parameters}
 \end{frame}
 
 \begin{frame}{3D reconstruction method}{Extrinsic Camera Parameters}
@@ -174,6 +187,8 @@
     \end{equation*}
     s.t. \begin{equation*} \mathbf{x} = P\mathbf{X} \end{equation*}
   \end{itemize}
+  \note{\textcolor{red}{Kartikeya\\}}
+  \note{Speak about extrinsic camera parameters}
 \end{frame}
 
 \begin{frame}{3D reconstruction method}{Stereo Correspondence Generation}
@@ -186,6 +201,8 @@
   \end{figure}
     \item Lots of false matches
   \end{itemize}
+  \note{\textcolor{red}{Kartikeya\\}}
+  \note{speak about the false matches that are taking place which need to be removed}
 \end{frame}
 
 \begin{frame}{3D reconstruction method}{Triangulation}
@@ -193,6 +210,9 @@
     \centering
     \includegraphics[width=0.6\linewidth]{triangulation.png}
     % \caption{Accuracy of accelerometer data across different devices (scale cm)\label{fig1}}
+  \note{\textcolor{green}{Soccer\\}}
+  \note{About triangulation and pairwise image correspondence}
+
   \end{figure}
 \end{frame}
 
@@ -202,6 +222,8 @@
     \includegraphics[width=\linewidth]{traditional_paipeline.png}
     % \caption{Accuracy of accelerometer data across different devices (scale cm)\label{fig1}}
   \end{figure}
+  \note{\textcolor{red}{Kartikeya\\}}
+  \note{Explain about the expensive red box}
 \end{frame}
 
 \begin{frame}{Proposed Framework}{}
@@ -210,6 +232,9 @@
     \includegraphics[width=\linewidth]{our_pipeline.png}
     % \caption{Accuracy of accelerometer data across different devices (scale cm)\label{fig1}}
   \end{figure}
+  \note{\textcolor{green}{Prateek\\}}
+  \note{Explain about the entire framework and how this is better than earlier}
+
 \end{frame}
 
 \begin{frame}{Phases of the Project}{1) Position and structure estimation}
@@ -218,6 +243,9 @@
         \item Incorporating gyroscope reading to reduce drift.
         \item Using the camera feed to obtain displacement and orientation from visual tracking.
   \end{enumerate}
+  \note{\textcolor{green}{Prateek\\}}
+  \note{Give an overview about the part}
+
 \end{frame}
 \begin{frame}{Phases of the Project}{2) 3D Reconstruction}
   \begin{enumerate}
@@ -226,6 +254,8 @@
         \item Use guided matching by indirect computation of fundamental matrix from estimated camera motion from sensor data to enrich the correspondences.
         \item Triangulate dense correspondences and do global refinement. 
       \end{enumerate}
+  \note{\textcolor{red}{Kartikeya\\}}
+  \note{Give an explanation about the 3d reconstruction part}
 \end{frame}
 
 \begin{frame}{Our experience so far}{}
@@ -247,6 +277,13 @@
       % \caption{3D reconstruction}
       % \label{figstart}
     \end{figure}
+    \note{\textcolor{red}{Kartikeya\\}}
+    \note{Explain figure 1\\
+          3 devices taken, for 20 readings each ad the distance calculated is plotted.\\
+          The accuracy can be seen, macbook pro gives the best accuracy followed by nexus and then S4\\}
+    \note{\textcolor{green}{Prateek\\}}
+    \note{Explain figure 2\\
+          TODO SOCCER}
 
 \end{frame}
 
@@ -256,6 +293,8 @@
     \includegraphics[width=\linewidth]{Corrected.jpeg}
     \caption{Applying smoothening techniques}
   \end{figure}
+  \note{\textcolor{red}{Kartikeya\\}}
+  \note{Explain about the smoothening taking place, static bias removal and drift correction }
 \end{frame}
 
 \begin{frame}{More Applications}{}
@@ -265,12 +304,15 @@
     \item Archaeological application
     \item Localization of tourist sites
   \end{itemize}
+  \note{\textcolor{green}{Prateek\\}}
+  \note{Fundae pel :P}
 \end{frame}
 
 \begin{frame}{Budget}{}
 \begin{block}{Budget}
 Rs. 25000 to purchase an android smart phone having high quality sensors and a high resolution camera.
 \end{block}
+  \note{\textcolor{red}{Kartikeya\\}}
 \end{frame}
 
 
@@ -280,6 +322,7 @@ Rs. 25000 to purchase an android smart phone having high quality sensors and a h
 \huge{Thank You}
 \end{center}
 \vfill
+\note{MISSION ACCOMPLISHED}
 \end{frame}
 
 % % You can reveal the parts of a slide one at a time
