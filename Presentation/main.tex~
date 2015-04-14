@@ -31,7 +31,7 @@
 % \usetheme{Berlin}
 % \usetheme{Boadilla}
 % \usetheme{boxes}
-% \usetheme{CambridgeUS}
+\usetheme{CambridgeUS}
 % \usetheme{Copenhagen}
 % \usetheme{Darmstadt}
 % \usetheme{default}
@@ -41,7 +41,7 @@
 % \usetheme{Ilmenau}
 % \usetheme{JuanLesPins}
 % \usetheme{Luebeck}
-\usetheme{Madrid}
+% \usetheme{Madrid}
 % \usetheme{Malmoe}
 % \usetheme{Marburg}
 % \usetheme{Montpellier}
@@ -57,7 +57,7 @@
 % A subtitle is optional and this may be deleted
 \subtitle{Summer Undergraduate Research Award - 2015}
 
-\author[Kartikeya \and Prateek]{\hspace{.063\textwidth} Kartikeya Gupta \and Prateek Kumar Verma \\\small 2013CS10231 \hspace{.1\textwidth} \and \small 2013CS10246}
+\author[Kartikeya \and Prateek]{\hspace{.063\textwidth} Kartikeya Gupta \and Prateek Kumar Verma \\\small CGPA:9.78 \hspace{.1\textwidth} \and \small CGPA:8.87}
 % - Give the names in the same order as the appear in the paper.
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
