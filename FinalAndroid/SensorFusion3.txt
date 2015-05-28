@@ -1,0 +1,28 @@
+Name 	 Vendor 	 Resolution 	 MinDelay 	 Version 
+ Accelerometer	STMicroelectronics	0.0011901855	8333	1
+Magnetometer	AKM	0.14953613	16666	1
+Magnetometer Uncalibrated	AKM	0.14953613	16666	1
+Gyroscope	STMicroelectronics	1.5258789E-4	5000	1
+Gyroscope Uncalibrated	STMicroelectronics	1.5258789E-4	5000	1
+Proximity Sensor	TAOS	5.000305	0	1
+Ambient Light Sensor	TAOS	0.19999695	0	1
+Barometer Sensor	BOSCH	0.009994507	5988	1
+Temperature Sensor	BOSCH	0.009994507	5988	1
+Gravity	Qualcomm	0.0011901855	8333	1
+Linear Acceleration	Qualcomm	0.0011901855	8333	1
+Rotation Vector	Qualcomm	5.9604645E-8	8333	1
+Step Detector	Qualcomm	1.0	0	1
+Step Counter	Qualcomm	1.0	0	1
+Significant Motion Detector	Qualcomm	1.0	-1	1
+Game Rotation Vector	Qualcomm	5.9604645E-8	8333	1
+Geomagnetic Rotation Vector	Qualcomm	5.9604645E-8	16666	1
+Orientation	Qualcomm	0.1	8333	1
+AMD	Qualcomm	1.0	0	1
+RMD	Qualcomm	1.0	0	1
+Basic Gestures	Qualcomm	1.0	0	1
+Facing	Qualcomm	1.0	0	1
+Tilt	Qualcomm	0.1	10000	1
+Pedometer	Qualcomm	1.0	0	1
+PEDESTRIAN-ACTIVITY-MONITOR	Qualcomm	1.0	0	1
+Motion Accel	Qualcomm	0.0011901855	0	1
+Temperature Sensor	BOSCH	0.009994507	5988	1

@@ -1,0 +1,144 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<SurfaceView android:id="@+id/surfaceView"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"></SurfaceView>-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/editText1"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="14dp"-->
+    <!--android:ems="10"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:hint="@string/log_file_name_hint" />-->
+
+    <TextView
+        android:id="@+id/mess"
+        android:gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/message"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/fx"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/mess"
+        android:layout_marginTop="14dp"
+        android:textColor="#00FF00"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/fy"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/fx"
+        android:layout_marginTop="5dp"
+        android:textColor="#00FF00"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/fz"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/fy"
+        android:layout_marginTop="5dp"
+        android:textColor="#00FF00"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/ox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/fz"
+        android:layout_marginTop="25dp"
+        android:textColor="#FF00FF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/oy"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/ox"
+        android:layout_marginTop="5dp"
+        android:textColor="#FF00FF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/oz"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/oy"
+        android:layout_marginTop="5dp"
+        android:textColor="#FF00FF"
+        android:textSize="16sp" />
+
+
+
+
+
+    <TableRow
+        android:id="@+id/buttonRow"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/startButtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/clickButtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/aboutButtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_button" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:id="@+id/cbutton" />
+
+        <Button
+            android:id="@+id/quitButtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </TableRow>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do not filter data"
+        android:id="@+id/checkBox1"
+        android:layout_above="@+id/buttonRow"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="91dp" />
+
+
+</RelativeLayout>

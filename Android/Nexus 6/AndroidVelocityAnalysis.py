@@ -4,7 +4,7 @@ import csv
 import matplotlib.pyplot as plt
 
 #File input part
-filename='Jan 12, 2015 7:39:03 PM_SensorFusion3.csv'
+filename='-1964083099SensorFusion3.csv'
 fileread=[]
 with open(filename,'rb') as csvfile:
 	spamreader= csv.reader(csvfile)
@@ -42,7 +42,7 @@ timed=timecorrected
 
 print "Number of values after initialisation: ", len(timed)
 
-[timearr,r0,r1,r2,r3,r4,r5,r6,r7,r8,wr0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,wr8,ax,ay,az,imid]=map(list, zip(*timed))
+[timearr,r0,r1,r2,r3,r4,r5,r6,r7,r8,wr0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,wr8,ax,ay,az,gx,gy,gz,gyx,gyy,gyz,mgx,mgy,mgz,imid,gp0,gp1,gp2,gp3]=map(list, zip(*timed))
 
 #Functions
 def FindStaticBias(Elements, Size=25):
@@ -169,239 +169,259 @@ def ApplyRotationMatrix(RotMatrix,(ax,ay,az)):
 
 # rotmatrices=map(GetRotationMagGrav,magx,magy,magz,gravx,gravy,gravz)
 
-accelerationxyz=list(zip(*[ax,ay,az]))
-gravmagrotmatrices=list(zip(*[r0,r1,r2,r3,r4,r5,r6,r7,r8]))
-omegarotmatrices=list(zip(*[wr0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,wr8]))
+# accelerationxyz=list(zip(*[ax,ay,az]))
+# gravmagrotmatrices=list(zip(*[r0,r1,r2,r3,r4,r5,r6,r7,r8]))
+# omegarotmatrices=list(zip(*[wr0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,wr8]))
 
-gravmagaccelerationXYZ=map(ApplyRotationMatrix,gravmagrotmatrices,accelerationxyz)
-omegaaccelerationXYZ=map(ApplyRotationMatrix,omegarotmatrices,accelerationxyz)
+# gravmagaccelerationXYZ=map(ApplyRotationMatrix,gravmagrotmatrices,accelerationxyz)
+# omegaaccelerationXYZ=map(ApplyRotationMatrix,omegarotmatrices,accelerationxyz)
 
-[gravmagax,gravmagay,gravmagaz]=map(list,zip(*gravmagaccelerationXYZ))
-[omegaax,omegaay,omegaaz]=map(list,zip(*omegaaccelerationXYZ))
-
-
-# accelerationXYZ=map(ApplyRotationMatrix,rotmatrices,accelerationxyz)
-
-# [ax,ay,az]=map(list,zip(*accelerationxyz))
+# [gravmagax,gravmagay,gravmagaz]=map(list,zip(*gravmagaccelerationXYZ))
+# [omegaax,omegaay,omegaaz]=map(list,zip(*omegaaccelerationXYZ))
 
 
-correctedax=ApplyCorrections(ax)
-correcteday=ApplyCorrections(ay)
-correctedaz=ApplyCorrections(az)
-velocityx=GetVeleocityArray(ax,timearr)
-velocityy=GetVeleocityArray(ay,timearr)
-velocityz=GetVeleocityArray(az,timearr)
-displacementx=GetDisplacementArray(velocityx,timearr)
-displacementy=GetDisplacementArray(velocityy,timearr)
-displacementz=GetDisplacementArray(velocityz,timearr)
+# # accelerationXYZ=map(ApplyRotationMatrix,rotmatrices,accelerationxyz)
+
+# # [ax,ay,az]=map(list,zip(*accelerationxyz))
 
 
+# correctedax=ApplyCorrections(ax)
+# correcteday=ApplyCorrections(ay)
+# correctedaz=ApplyCorrections(az)
+# velocityx=GetVeleocityArray(ax,timearr)
+# velocityy=GetVeleocityArray(ay,timearr)
+# velocityz=GetVeleocityArray(az,timearr)
+# displacementx=GetDisplacementArray(velocityx,timearr)
+# displacementy=GetDisplacementArray(velocityy,timearr)
+# displacementz=GetDisplacementArray(velocityz,timearr)
 
 
 
 
 
 
-gravmagcorrectedax=ApplyCorrections(gravmagax)
-gravmagcorrecteday=ApplyCorrections(gravmagay)
-gravmagcorrectedaz=ApplyCorrections(gravmagaz)
-
-gravmagvelocityx=GetVeleocityArray(gravmagax,timearr)
-gravmagvelocityy=GetVeleocityArray(gravmagay,timearr)
-gravmagvelocityz=GetVeleocityArray(gravmagaz,timearr)
 
 
-gravmagdisplacementx=GetDisplacementArray(gravmagvelocityx,timearr)
-gravmagdisplacementy=GetDisplacementArray(gravmagvelocityy,timearr)
-gravmagdisplacementz=GetDisplacementArray(gravmagvelocityz,timearr)
+# gravmagcorrectedax=ApplyCorrections(gravmagax)
+# gravmagcorrecteday=ApplyCorrections(gravmagay)
+# gravmagcorrectedaz=ApplyCorrections(gravmagaz)
+
+# gravmagvelocityx=GetVeleocityArray(gravmagax,timearr)
+# gravmagvelocityy=GetVeleocityArray(gravmagay,timearr)
+# gravmagvelocityz=GetVeleocityArray(gravmagaz,timearr)
 
 
-# [ax2,ay2,az2]=map(list,zip(*accelerationXYZ))
-omegacorrectedax=ApplyCorrections(omegaax)
-omegacorrecteday=ApplyCorrections(omegaay)
-omegacorrectedaz=ApplyCorrections(omegaaz)
+# gravmagdisplacementx=GetDisplacementArray(gravmagvelocityx,timearr)
+# gravmagdisplacementy=GetDisplacementArray(gravmagvelocityy,timearr)
+# gravmagdisplacementz=GetDisplacementArray(gravmagvelocityz,timearr)
 
-omegavelocityx=GetVeleocityArray(omegaax,timearr)
-omegavelocityy=GetVeleocityArray(omegaay,timearr)
-omegavelocityz=GetVeleocityArray(omegaaz,timearr)
 
-# displacementx=CorrectVelocityArray(velocityx,timearr)
-# displacementy=CorrectVelocityArray(velocityy,timearr)
-# displacementz=CorrectVelocityArray(velocityz,timearr)
+# # [ax2,ay2,az2]=map(list,zip(*accelerationXYZ))
+# omegacorrectedax=ApplyCorrections(omegaax)
+# omegacorrecteday=ApplyCorrections(omegaay)
+# omegacorrectedaz=ApplyCorrections(omegaaz)
 
-omegadisplacementx=GetDisplacementArray(omegavelocityx,timearr)
-omegadisplacementy=GetDisplacementArray(omegavelocityy,timearr)
-omegadisplacementz=GetDisplacementArray(omegavelocityz,timearr)
+# omegavelocityx=GetVeleocityArray(omegaax,timearr)
+# omegavelocityy=GetVeleocityArray(omegaay,timearr)
+# omegavelocityz=GetVeleocityArray(omegaaz,timearr)
+
+# # displacementx=CorrectVelocityArray(velocityx,timearr)
+# # displacementy=CorrectVelocityArray(velocityy,timearr)
+# # displacementz=CorrectVelocityArray(velocityz,timearr)
+
+# omegadisplacementx=GetDisplacementArray(omegavelocityx,timearr)
+# omegadisplacementy=GetDisplacementArray(omegavelocityy,timearr)
+# omegadisplacementz=GetDisplacementArray(omegavelocityz,timearr)
 
 
 #Plotting Part
 
+plt.figure(0)
 
-
-
-plt.figure(3)
-
-plt.subplot(4,3,1)
-plt.ylabel('Ax (m/s2)')
+plt.subplot(2,3,1)
 plt.plot(ax)
 
-plt.subplot(4,3,2)
-plt.ylabel('Ay (m/s2)')
+plt.subplot(2,3,2)
+plt.plot(gx)
+
+plt.subplot(2,3,3)
 plt.plot(ay)
 
-plt.subplot(4,3,3)
-plt.ylabel('Az (m/s2)')
+plt.subplot(2,3,4)
+plt.plot(gy)
+
+plt.subplot(2,3,5)
 plt.plot(az)
 
-plt.subplot(4,3,4)
-plt.ylabel('Corr Ax')
-plt.plot(correctedax)
-
-plt.subplot(4,3,5)
-plt.ylabel('Corr Ay')
-plt.plot(correcteday)
-
-plt.subplot(4,3,6)
-plt.ylabel('Corr Az')
-plt.plot(correctedaz)
-
-plt.subplot(4,3,7)
-plt.ylabel('Vx (m/s)')
-plt.plot(velocityx)
-
-plt.subplot(4,3,8)
-plt.ylabel('Vy (m/s)')
-plt.plot(velocityy)
-
-plt.subplot(4,3,9)
-plt.ylabel('Vz (m/s)')
-plt.plot(velocityz)
-
-plt.subplot(4,3,10)
-plt.ylabel('x (m)')
-# plt.xlabel('Time : (100=1s)')
-plt.plot(displacementx)
-
-plt.subplot(4,3,11)
-plt.ylabel('y (m)')
-# plt.xlabel('Time : (100=1s)')
-plt.plot(displacementy)
-
-plt.subplot(4,3,12)
-plt.ylabel('z (m)')
-# plt.xlabel('Time : (100=1s)')
-plt.plot(displacementz)
+plt.subplot(2,3,6)
+plt.plot(gz)
 
 
 
 
+# plt.figure(3)
 
-plt.figure(1)
+# plt.subplot(4,3,1)
+# plt.ylabel('Ax (m/s2)')
+# plt.plot(ax)
 
-plt.subplot(4,3,1)
-plt.ylabel('Ax (m/s2)')
-plt.plot(gravmagax)
+# plt.subplot(4,3,2)
+# plt.ylabel('Ay (m/s2)')
+# plt.plot(ay)
 
-plt.subplot(4,3,2)
-plt.ylabel('Ay (m/s2)')
-plt.plot(gravmagay)
+# plt.subplot(4,3,3)
+# plt.ylabel('Az (m/s2)')
+# plt.plot(az)
 
-plt.subplot(4,3,3)
-plt.ylabel('Az (m/s2)')
-plt.plot(gravmagaz)
+# plt.subplot(4,3,4)
+# plt.ylabel('Corr Ax')
+# plt.plot(correctedax)
 
-plt.subplot(4,3,4)
-plt.ylabel('Corr Ax')
-plt.plot(gravmagcorrectedax)
+# plt.subplot(4,3,5)
+# plt.ylabel('Corr Ay')
+# plt.plot(correcteday)
 
-plt.subplot(4,3,5)
-plt.ylabel('Corr Ay')
-plt.plot(gravmagcorrecteday)
+# plt.subplot(4,3,6)
+# plt.ylabel('Corr Az')
+# plt.plot(correctedaz)
 
-plt.subplot(4,3,6)
-plt.ylabel('Corr Az')
-plt.plot(gravmagcorrectedaz)
+# plt.subplot(4,3,7)
+# plt.ylabel('Vx (m/s)')
+# plt.plot(velocityx)
 
-plt.subplot(4,3,7)
-plt.ylabel('Vx (m/s)')
-plt.plot(gravmagvelocityx)
+# plt.subplot(4,3,8)
+# plt.ylabel('Vy (m/s)')
+# plt.plot(velocityy)
 
-plt.subplot(4,3,8)
-plt.ylabel('Vy (m/s)')
-plt.plot(gravmagvelocityy)
+# plt.subplot(4,3,9)
+# plt.ylabel('Vz (m/s)')
+# plt.plot(velocityz)
 
-plt.subplot(4,3,9)
-plt.ylabel('Vz (m/s)')
-plt.plot(gravmagvelocityz)
+# plt.subplot(4,3,10)
+# plt.ylabel('x (m)')
+# # plt.xlabel('Time : (100=1s)')
+# plt.plot(displacementx)
 
-plt.subplot(4,3,10)
-plt.ylabel('x (m)')
-# plt.xlabel('Time : (100=1s)')
-plt.plot(gravmagdisplacementx)
+# plt.subplot(4,3,11)
+# plt.ylabel('y (m)')
+# # plt.xlabel('Time : (100=1s)')
+# plt.plot(displacementy)
 
-plt.subplot(4,3,11)
-plt.ylabel('y (m)')
-# plt.xlabel('Time : (100=1s)')
-plt.plot(gravmagdisplacementy)
-
-plt.subplot(4,3,12)
-plt.ylabel('z (m)')
-# plt.xlabel('Time : (100=1s)')
-plt.plot(gravmagdisplacementz)
+# plt.subplot(4,3,12)
+# plt.ylabel('z (m)')
+# # plt.xlabel('Time : (100=1s)')
+# plt.plot(displacementz)
 
 
-plt.figure(2)
 
-plt.subplot(4,3,1)
-plt.ylabel('Ax (m/s2)')
-plt.plot(omegaax)
 
-plt.subplot(4,3,2)
-plt.ylabel('Ay (m/s2)')
-plt.plot(omegaay)
 
-plt.subplot(4,3,3)
-plt.ylabel('Az (m/s2)')
-plt.plot(omegaaz)
+# plt.figure(1)
 
-plt.subplot(4,3,4)
-plt.ylabel('Corr Ax')
-plt.plot(omegacorrectedax)
+# plt.subplot(4,3,1)
+# plt.ylabel('Ax (m/s2)')
+# plt.plot(gravmagax)
 
-plt.subplot(4,3,5)
-plt.ylabel('Corr Ay')
-plt.plot(omegacorrecteday)
+# plt.subplot(4,3,2)
+# plt.ylabel('Ay (m/s2)')
+# plt.plot(gravmagay)
 
-plt.subplot(4,3,6)
-plt.ylabel('Corr Az')
-plt.plot(omegacorrectedaz)
+# plt.subplot(4,3,3)
+# plt.ylabel('Az (m/s2)')
+# plt.plot(gravmagaz)
 
-plt.subplot(4,3,7)
-plt.ylabel('Vx (m/s)')
-plt.plot(omegavelocityx)
+# plt.subplot(4,3,4)
+# plt.ylabel('Corr Ax')
+# plt.plot(gravmagcorrectedax)
 
-plt.subplot(4,3,8)
-plt.ylabel('Vy (m/s)')
-plt.plot(omegavelocityy)
+# plt.subplot(4,3,5)
+# plt.ylabel('Corr Ay')
+# plt.plot(gravmagcorrecteday)
 
-plt.subplot(4,3,9)
-plt.ylabel('Vz (m/s)')
-plt.plot(omegavelocityz)
+# plt.subplot(4,3,6)
+# plt.ylabel('Corr Az')
+# plt.plot(gravmagcorrectedaz)
 
-plt.subplot(4,3,10)
-plt.ylabel('x (m)')
-# plt.xlabel('Time : (100=1s)')
-plt.plot(omegadisplacementx)
+# plt.subplot(4,3,7)
+# plt.ylabel('Vx (m/s)')
+# plt.plot(gravmagvelocityx)
 
-plt.subplot(4,3,11)
-plt.ylabel('y (m)')
-# plt.xlabel('Time : (100=1s)')
-plt.plot(omegadisplacementy)
+# plt.subplot(4,3,8)
+# plt.ylabel('Vy (m/s)')
+# plt.plot(gravmagvelocityy)
 
-plt.subplot(4,3,12)
-plt.ylabel('z (m)')
-# plt.xlabel('Time : (100=1s)')
-plt.plot(omegadisplacementz)
+# plt.subplot(4,3,9)
+# plt.ylabel('Vz (m/s)')
+# plt.plot(gravmagvelocityz)
+
+# plt.subplot(4,3,10)
+# plt.ylabel('x (m)')
+# # plt.xlabel('Time : (100=1s)')
+# plt.plot(gravmagdisplacementx)
+
+# plt.subplot(4,3,11)
+# plt.ylabel('y (m)')
+# # plt.xlabel('Time : (100=1s)')
+# plt.plot(gravmagdisplacementy)
+
+# plt.subplot(4,3,12)
+# plt.ylabel('z (m)')
+# # plt.xlabel('Time : (100=1s)')
+# plt.plot(gravmagdisplacementz)
+
+
+# plt.figure(2)
+
+# plt.subplot(4,3,1)
+# plt.ylabel('Ax (m/s2)')
+# plt.plot(omegaax)
+
+# plt.subplot(4,3,2)
+# plt.ylabel('Ay (m/s2)')
+# plt.plot(omegaay)
+
+# plt.subplot(4,3,3)
+# plt.ylabel('Az (m/s2)')
+# plt.plot(omegaaz)
+
+# plt.subplot(4,3,4)
+# plt.ylabel('Corr Ax')
+# plt.plot(omegacorrectedax)
+
+# plt.subplot(4,3,5)
+# plt.ylabel('Corr Ay')
+# plt.plot(omegacorrecteday)
+
+# plt.subplot(4,3,6)
+# plt.ylabel('Corr Az')
+# plt.plot(omegacorrectedaz)
+
+# plt.subplot(4,3,7)
+# plt.ylabel('Vx (m/s)')
+# plt.plot(omegavelocityx)
+
+# plt.subplot(4,3,8)
+# plt.ylabel('Vy (m/s)')
+# plt.plot(omegavelocityy)
+
+# plt.subplot(4,3,9)
+# plt.ylabel('Vz (m/s)')
+# plt.plot(omegavelocityz)
+
+# plt.subplot(4,3,10)
+# plt.ylabel('x (m)')
+# # plt.xlabel('Time : (100=1s)')
+# plt.plot(omegadisplacementx)
+
+# plt.subplot(4,3,11)
+# plt.ylabel('y (m)')
+# # plt.xlabel('Time : (100=1s)')
+# plt.plot(omegadisplacementy)
+
+# plt.subplot(4,3,12)
+# plt.ylabel('z (m)')
+# # plt.xlabel('Time : (100=1s)')
+# plt.plot(omegadisplacementz)
 
 
 plt.show()
