@@ -4,7 +4,7 @@ import csv
 import matplotlib.pyplot as plt
 
 #File input part
-filename='-1799864448SensorFusion3.csv'
+filename='1432897681787SensorFusion3.csv'
 fileread=[]
 with open(filename,'rb') as csvfile:
 	spamreader= csv.reader(csvfile)
@@ -43,6 +43,21 @@ timed=timecorrected
 print "Number of values after initialisation: ", len(timed)
 
 [timearr,r0,r1,r2,r3,r4,r5,r6,r7,r8,wr0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,wr8,ax,ay,az,gx,gy,gz,gyx,gyy,gyz,mgx,mgy,mgz,imid,gp0,gp1,gp2,gp3]=map(list, zip(*timed))
+
+s1="time,ax,ay,az,imid,cf\n"
+s2="time,r0,r1,r2,r3,r4,r5,r6,r7,r8,imid,cf\n"
+for i in xrange(0,len(timearr)):
+	s1+=str(timearr[i])+','+str(ax[i])+','+ str(ay[i])+','+ str(az[i]) +','+ str(imid[i]+1) + ',0\n'
+	s2 += str(timearr[i]) + ',' + str(r0[i]) + ',' + str(r1[i])+','+str(r2[i])+','+str(r3[i])+ ','+str(r4[i])+','+str(r5[i])+','+str(r6[i])+','+str(r7[i])+','+str(r8[i])+','+str(imid[i]+1)+',0\n'
+
+a=open('rotfile.csv','w')
+a.write(s2)
+a.close()
+
+a=open('accfile.csv','w')
+a.write(s1)
+a.close()
+
 
 #Functions
 def FindStaticBias(Elements, Size=25):

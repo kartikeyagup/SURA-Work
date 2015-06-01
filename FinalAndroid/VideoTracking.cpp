@@ -20,9 +20,9 @@ void RemoveLightColors(Mat &img)
 	}
 }
 
-std::vector<std::pair<int,int>> GetBrightPoints(Mat &img)
+std::vector<std::pair<int,int> > GetBrightPoints(Mat &img)
 {
-	std::vector<std::pair<int,int>> ans;
+	std::vector<std::pair<int,int> > ans;
 	for (int i=0; i< img.rows ; i++)
 	{
 		for (int j=0; j<img.cols ; j++)
@@ -37,9 +37,9 @@ std::vector<std::pair<int,int>> GetBrightPoints(Mat &img)
 	return ans;
 }
 
-std::vector<std::pair<double,double>> FilterVector(std::vector<std::pair<int,int>> inpvector)
+std::vector<std::pair<double,double> > FilterVector(std::vector<std::pair<int,int> > inpvector)
 {
-	std::vector<std::pair<double,double>> ansvect;
+	std::vector<std::pair<double,double> > ansvect;
 	std::vector<int> countvect;
 	for (int i=0; i<inpvector.size() ; i++)
 	{
@@ -72,9 +72,9 @@ std::vector<std::pair<double,double>> FilterVector(std::vector<std::pair<int,int
 	return ansvect;
 }
 
-std::vector<std::pair<double,double>> GetSpeeds(std::vector<std::pair<int,int>> prevframe,std::vector<std::pair<int,int>> curframe, double timeelapsed)
+std::vector<std::pair<double,double> > GetSpeeds(std::vector<std::pair<int,int> > prevframe,std::vector<std::pair<int,int> > curframe, double timeelapsed)
 {
-	std::vector<std::pair<double,double>> ansspeeds;
+	std::vector<std::pair<double,double> > ansspeeds;
 
 	if (prevframe.size() != curframe.size())
 	{
@@ -133,7 +133,7 @@ int main( int argc, char** argv )
     }
 	
 	RemoveLightColors(image);
-	std::vector<std::pair<double,double>> ans1= FilterVector(GetBrightPoints(image));
+	std::vector<std::pair<double,double> > ans1= FilterVector(GetBrightPoints(image));
 	
 	for (int i=0; i<ans1.size() ; i++)
 	{
