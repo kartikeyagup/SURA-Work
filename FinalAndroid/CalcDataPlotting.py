@@ -39,6 +39,21 @@ filename='1432897681787SensorFusion3data.csv'
 # filename='1432898327107SensorFusion3data.csv'
 # filename='1432900102716SensorFusion3data.csv'
 # filename='1432900964264SensorFusion3data.csv'
+filename='1433158602549SensorFusion3data.csv'
+filename='1433158662786SensorFusion3data.csv'
+filename='1433158704380SensorFusion3data.csv'
+filename='1433161336159SensorFusion3data.csv'
+
+
+filename='1433160480109SensorFusion3data.csv'
+filename='1433160544422SensorFusion3data.csv'
+filename='1433160512502SensorFusion3data.csv'
+filename='1433161395113SensorFusion3data.csv'
+filename='1433161451561SensorFusion3data.csv'
+
+# filename='1433158775075SensorFusion3data.csv'
+# filename='1433158867822SensorFusion3data.csv'
+# filename='1433158898907SensorFusion3data.csv'
 fileread=[]
 with open(filename,'rb') as csvfile:
 	spamreader= csv.reader(csvfile)
@@ -201,64 +216,64 @@ def FixVelocity(acc,timearr,motionzonearr):
 				ans[j]= ans[j-1]+ x
 				prevtime=timearr[j]
 		prevtime =timearr[elem[0]]
-		ans2= copy.deepcopy(ans)
-		finalv= ans2[elem[1]-1]
-		m = 2*finalv/(totaltime**2)
-		for j in xrange (elem[0],elem[1]):
-			ans2[j] -= 0.5*m*((timearr[j]-prevtime)**2)
-		totalvel=0.0
-		print totalvel
-		for i in xrange(elem[0],elem[1]):
-			# print ans[i]
-			totalvel +=ans2[i]
-		print totalvel
-		if (totalvel>0):
-			if (totalacc>0):
-				print "upward graph extension needed"
-				# # Final speed positive and upward graph
-				# prevslope=(ans[elem[1]-1]-ans[elem[1]-10])/9
-				# prevslope= - abs(prevslope)
-				# curr=elem[1]
-				# while (curr<len(timearr)):
-				# 	ans[curr] = ans[curr-1]+prevslope
-				# 	if (ans[curr]<=0):
-				# 		ans[curr]=0.0 
-				# 		break;
-				# 	curr+=1
-			elif (totalacc<0):
-				print "upward graph truncation"
-				curr=elem[1] -1 
-				while (ans[curr]<0):
-					ans[curr] = -ans[curr]
-					curr -=1
-				finalv = ans[elem[1]-1]
-				m=finalv/(timearr[elem[1]]-timearr[curr])
-				for j in xrange(curr,elem[1]):
-					ans[j] -= m*(timearr[j]-timearr[curr])
-		elif (totalvel<0):
-			if (totalacc>0):
-				# Final speed positive and downward
-				print "downward graph truncation"
-				prevslope=(ans[elem[1]-1]-ans[elem[1]-5])/4
-				curr= elem[1] -1 
-				while (ans[curr]>0):
-					ans[curr]= -ans[curr]
-					curr -=1
-				finalv = ans[elem[1]-1]
-				m=finalv/(timearr[elem[1]]-timearr[curr])
-				for j in xrange(curr,elem[1]):
-					ans[j] -= m*(timearr[j]-timearr[curr])
-			elif (totalacc<0):
-				print "downward graph extension"
-				# prevslope=(ans[elem[1]-1]-ans[elem[1]-10])/9
-				# curr=elem[1]
-				# prevslope=abs(prevslope)
-				# while (curr<len(timearr)):
-				# 	ans[curr] = ans[curr-1]+prevslope
-				# 	if (ans[curr]>=0):
-				# 		ans[curr]=0.0 
-				# 		break;
-				# 	curr +=1
+		# ans2= copy.deepcopy(ans)
+		# finalv= ans2[elem[1]-1]
+		# m = 2*finalv/(totaltime**2)
+		# for j in xrange (elem[0],elem[1]):
+		# 	ans2[j] -= 0.5*m*((timearr[j]-prevtime)**2)
+		# totalvel=0.0
+		# print totalvel
+		# for i in xrange(elem[0],elem[1]):
+		# 	# print ans[i]
+		# 	totalvel +=ans2[i]
+		# print totalvel
+		# if (totalvel>0):
+		# 	if (totalacc>0):
+		# 		print "upward graph extension needed"
+		# 		# # Final speed positive and upward graph
+		# 		# prevslope=(ans[elem[1]-1]-ans[elem[1]-10])/9
+		# 		# prevslope= - abs(prevslope)
+		# 		# curr=elem[1]
+		# 		# while (curr<len(timearr)):
+		# 		# 	ans[curr] = ans[curr-1]+prevslope
+		# 		# 	if (ans[curr]<=0):
+		# 		# 		ans[curr]=0.0 
+		# 		# 		break;
+		# 		# 	curr+=1
+		# 	elif (totalacc<0):
+		# 		print "upward graph truncation"
+		# 		curr=elem[1] -1 
+		# 		while (ans[curr]<0):
+		# 			ans[curr] = -ans[curr]
+		# 			curr -=1
+		# 		finalv = ans[elem[1]-1]
+		# 		m=finalv/(timearr[elem[1]]-timearr[curr])
+		# 		for j in xrange(curr,elem[1]):
+		# 			ans[j] -= m*(timearr[j]-timearr[curr])
+		# elif (totalvel<0):
+		# 	if (totalacc>0):
+		# 		# Final speed positive and downward
+		# 		print "downward graph truncation"
+		# 		prevslope=(ans[elem[1]-1]-ans[elem[1]-5])/4
+		# 		curr= elem[1] -1 
+		# 		while (ans[curr]>0):
+		# 			ans[curr]= -ans[curr]
+		# 			curr -=1
+		# 		finalv = ans[elem[1]-1]
+		# 		m=finalv/(timearr[elem[1]]-timearr[curr])
+		# 		for j in xrange(curr,elem[1]):
+		# 			ans[j] -= m*(timearr[j]-timearr[curr])
+		# 	elif (totalacc<0):
+		# 		print "downward graph extension"
+		# 		# prevslope=(ans[elem[1]-1]-ans[elem[1]-10])/9
+		# 		# curr=elem[1]
+		# 		# prevslope=abs(prevslope)
+		# 		# while (curr<len(timearr)):
+		# 		# 	ans[curr] = ans[curr-1]+prevslope
+		# 		# 	if (ans[curr]>=0):
+		# 		# 		ans[curr]=0.0 
+		# 		# 		break;
+		# 		# 	curr +=1
 	return ans
 
 def GetDistance(timearr,velarray):
@@ -290,7 +305,7 @@ calcdy1=GetDistance(timearr,calcvy1)
 calcvy0=GetVelocity(timearr,GetMotionZones(motiony),ay,0)
 calcdy0=GetDistance(timearr,calcvy0)
 
-calcvz1=GetVelocity(timearr,GetMotionZones(motionz),az,1)
+calcvz1=GetVelocity(timearr,GetMotionZones(motionz),az,3)
 calcdz1=GetDistance(timearr,calcvz1)
 calcvz0=GetVelocity(timearr,GetMotionZones(motionz),az,0)
 calcdz0=GetDistance(timearr,calcvz0)
@@ -365,14 +380,14 @@ plt.plot(ax)
 
 plt.subplot(3,3,2)
 plt.ylabel('ay')
+plt.plot(raway,color='yellow')
 plt.plot(ay)
-plt.plot(raway)
 # plt.plot(praty)
 
 plt.subplot(3,3,3)
 plt.ylabel('az')
+plt.plot(rawaz,color='yellow')
 plt.plot(az)
-plt.plot(rawaz)
 # plt.plot(pratz)
 
 
@@ -433,68 +448,74 @@ plt.plot(fixeddz)
 # # plt.xlabel('Time : (100=1s)')
 # plt.plot(mz)
 
-# plt.figure(2)
+plt.figure(2)
 
-# # print timearr[-1]
-# # print np.trapz(wx,timearr)/timearr[-1]
-# # print np.trapz(wy,timearr)/timearr[-1]
-# # print np.trapz(wz,timearr)/timearr[-1]
-
-
-# plt.subplot(3,3,1)
-# plt.ylabel('ax')
-# # plt.plot(ax)
-# plt.plot(rawax,color='yellow')
-# plt.plot(pratx)
-
-# plt.subplot(3,3,2)
-# plt.ylabel('ay')
-# # plt.plot(ay)
-# plt.plot(raway)
-# plt.plot(praty)
-
-# plt.subplot(3,3,3)
-# plt.ylabel('az')
-# # plt.plot(az)
-# plt.plot(rawaz)
-# plt.plot(pratz)
+# print timearr[-1]
+# print np.trapz(wx,timearr)/timearr[-1]
+# print np.trapz(wy,timearr)/timearr[-1]
+# print np.trapz(wz,timearr)/timearr[-1]
 
 
-# plt.subplot(3,3,4)
-# plt.ylabel('vx')
-# plt.plot(soccervx0)
-# plt.plot(soccervx1)
-# plt.plot(soccervx2)
+plt.subplot(3,3,1)
+plt.ylabel('ax')
+# plt.plot(ax)
+plt.plot(rawax,color='yellow')
+plt.plot(pratx)
 
-# plt.subplot(3,3,5)
-# plt.ylabel('vy')
-# plt.plot(soccervy0)
-# plt.plot(soccervy1)
-# plt.plot(soccervy2)
+plt.subplot(3,3,2)
+plt.ylabel('ay')
+# plt.plot(ay)
+plt.plot(raway)
+plt.plot(praty)
 
-# plt.subplot(3,3,6)
-# plt.ylabel('vz')
-# plt.plot(soccervz0)
-# plt.plot(soccervz1)
-# plt.plot(soccervz2)
+plt.subplot(3,3,3)
+plt.ylabel('az')
+# plt.plot(az)
+plt.plot(rawaz)
+plt.plot(pratz)
 
-# plt.subplot(3,3,7)
-# plt.ylabel('dx')
-# plt.plot(soccerdx0)
-# plt.plot(soccerdx1)
-# plt.plot(soccerdx2)
 
-# plt.subplot(3,3,8)
-# plt.ylabel('dy')
-# plt.plot(soccerdy0)
-# plt.plot(soccerdy1)
-# plt.plot(soccerdy2)
+plt.subplot(3,3,4)
+plt.ylabel('vx')
+plt.plot(soccervx0)
+plt.plot(soccervx1)
+plt.plot(soccervx2)
+plt.plot(fixedvx)
 
-# plt.subplot(3,3,9)
-# plt.ylabel('dz')
-# plt.plot(soccerdz0)
-# plt.plot(soccerdz1)
-# plt.plot(soccerdz2)
+plt.subplot(3,3,5)
+plt.ylabel('vy')
+plt.plot(soccervy0)
+plt.plot(soccervy1)
+plt.plot(soccervy2)
+plt.plot(fixedvy)
+
+plt.subplot(3,3,6)
+plt.ylabel('vz')
+plt.plot(soccervz0)
+plt.plot(soccervz1)
+plt.plot(soccervz2)
+plt.plot(fixedvz)
+
+plt.subplot(3,3,7)
+plt.ylabel('dx')
+plt.plot(soccerdx0)
+plt.plot(soccerdx1)
+plt.plot(soccerdx2)
+plt.plot(fixeddx)
+
+plt.subplot(3,3,8)
+plt.ylabel('dy')
+plt.plot(soccerdy0)
+plt.plot(soccerdy1)
+plt.plot(soccerdy2)
+plt.plot(fixeddy)
+
+plt.subplot(3,3,9)
+plt.ylabel('dz')
+plt.plot(soccerdz0)
+plt.plot(soccerdz1)
+plt.plot(soccerdz2)
+plt.plot(fixeddz)
 
 # plt.subplot(4,3,10)
 # plt.ylabel('mx (m)')

@@ -4,7 +4,14 @@ import csv
 import matplotlib.pyplot as plt
 
 #File input part
-filename='1432897681787SensorFusion3.csv'
+filename='1433158662786SensorFusion3.csv'
+filename='1433158704380SensorFusion3.csv'
+filename='1433160480109SensorFusion3.csv'
+filename='1433160544422SensorFusion3.csv'
+filename='1433160512502SensorFusion3.csv'
+filename='1433161336159SensorFusion3.csv'
+filename='1433161395113SensorFusion3.csv'
+filename='1433161451561SensorFusion3.csv'
 fileread=[]
 with open(filename,'rb') as csvfile:
 	spamreader= csv.reader(csvfile)
