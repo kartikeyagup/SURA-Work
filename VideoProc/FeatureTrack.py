@@ -52,7 +52,7 @@ cv2.waitKey(100000)
 # # matches23 = bf.match(des2,des3,k=2)
 # # matches31 = bf.match(des3,des1,k=2)
 
-# matches12 = bf.knnMatch(des1,des2,k=2)
+# matches12 = bfb.knnMatch(des1,des2,k=2)
 # matches23 = bf.knnMatch(des2,des3,k=2)
 # matches31 = bf.knnMatch(des3,des1,k=2)
 

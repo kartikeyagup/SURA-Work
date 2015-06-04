@@ -19,7 +19,7 @@ for i in xrange(5):
 	# cv2.circle(blank_image, pointspos[i], 4, (0,255,0))
 
 previd=0
-for j in xrange(1000):
+for j in xrange(100):
 	# print j
 	for i in xrange(5):
 		if i==0:

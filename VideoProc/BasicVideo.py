@@ -15,6 +15,23 @@ def GetSum(image,type,i):
 			ans += image[i][j]
 	return ans 
 
+def SolveEqn(A,B,C,D,E,F):
+	# Ax + By + Cz =0
+	# Dx + Ey + Fz = 0
+	t1 = A*E - B*D
+	t2 = B*F - E*C 
+	t3 = D*C - F*A 
+	alpha = t2/t1
+	beta = t3/t1
+	k = (alpha**2 + beta**2 +1 )**0.5
+	return (alpha/k,beta/k,1/k)
+	# z is always positive
+
+def GenerateEquation(R,P1,P2):
+	# P1 is in the 1st point
+	# P2 is in the 2nd frame 
+	return 5
+
 def find_car(image,type1):
 	""" Finds red blob (hopefully only one, the rc car) in an image
 	"""
@@ -42,7 +59,7 @@ def find_car(image,type1):
 
 
 	#find the car by looking for red, with high saturation
-	ret,red=cv2.threshold(imcons, 128, 255, cv2.THRESH_BINARY )
+	ret,red=cv2.threshold(imcons, 110, 255, cv2.THRESH_BINARY )
 	ret,sat=cv2.threshold(sat, 128, 255, cv2.THRESH_BINARY )
 	#AND the two thresholds, finding the car
 	car=cv2.multiply(red, sat)
@@ -86,8 +103,10 @@ def find_car(image,type1):
 # cap= cv2.VideoCapture("1433237712482vid.mp4")
 # cap=cv2.VideoCapture("1433238177764vid.mp4")
 # cap=cv2.VideoCapture("1433238967763vid.mp4")
-cap=cv2.VideoCapture("1433239750654vid.mp4")
+# cap=cv2.VideoCapture("1433239750654vid.mp4")
 # cap= cv2.VideoCapture("drop.avi")
+cap = cv2.VideoCapture("1433412822895vid.mp4")
+cap = cv2.VideoCapture("1433413418567vid.mp4")
 
 pointsred=[]
 pointsgreen=[]
@@ -110,13 +129,13 @@ fnumber=-1
 ftoload=0
 while(ftoload<100):
 	# Capture frame-by-frame
-	# ret, frame = cap.read()
-	frame=cv2.imread("photos/photo_"+str(ftoload)+".jpg")
-	fnumber+=1
-	ftoload+=1
+	ret, frame = cap.read()
+	# frame=cv2.imread("photos/photo_"+str(ftoload)+".jpg")
+	fnumber+=1	
+	# ftoload+=1
 	# print ret,fnumber
-	# if not(ret):
-	# 	break
+	if not(ret):
+		break
 
 	car_rect_red = find_car(frame,0)
 	car_rect_blue = find_car(frame,1)
