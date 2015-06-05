@@ -1,7 +1,10 @@
 import numpy as np
 import cv2
 import time
+import csv
+import copy
 import matplotlib.pyplot as plt
+
 
 def GetSum(image,type,i):
 	s1=image.shape[1::-1]
@@ -15,16 +18,22 @@ def GetSum(image,type,i):
 			ans += image[i][j]
 	return ans 
 
+
 def SolveEqn((A,B,C),(D,E,F)):
 	# Ax + By + Cz =0
 	# Dx + Ey + Fz = 0
+	print str(A)+"x+"+str(B)+"y+"+str(C)+"z=0"
+	print str("D")+"x+"+str(E)+"y+"+str(F)+"z=0"
 	t1 = A*E - B*D
 	t2 = B*F - E*C 
 	t3 = D*C - F*A 
-	alpha = t2/t1
-	beta = t3/t1
-	k = (alpha**2 + beta**2 +1 )**0.5
-	return (alpha/k,beta/k,1/k)
+	alpha = t2
+	beta = t3
+	k = (alpha**2 + beta**2 + t1**2) **0.5
+	if k==0:
+		return (0,0,0)
+	else:
+	 	return (alpha/k,beta/k,t1/k)
 	# z is always positive
 
 def GenerateEquation(R,P1,P2):
@@ -34,16 +43,59 @@ def GenerateEquation(R,P1,P2):
 	coeffx =  R[2]*P1[1]*P2[0] + R[5]*P1[1]*P2[1] + R[8]*P1[1] - R[1] - R[4] - R[7]
 	coeffy = -R[2]*P1[0]*P2[0] - R[5]*P1[0]*P2[1] - R[8]*P1[0] + R[0] + R[3] + R[6]
 	coeffz =  R[1]*P1[0]*P2[0] + R[4]*P1[0]*P2[1] + R[7]*P1[0] - R[0]*P1[1]*P2[0] -R[3]*P1[1]*P2[1] - R[6]*P1[1]
-	return (coeffx,coeffy,coeffz)
+	return (coeffx,coeffy,coeffz)	
 
 def GetRelativeRotation(R1,R2):
 	a= np.matrix([R1[0:3],R1[3:6],R1[6:9]])
 	b= np.matrix([R2[0:3],R2[3:6],R2[6:9]])
 	b = b.transpose()
-	c= a*b 
-	return list(c)
+	c= a*b
+	return sum(c.tolist(),[])
 
-print GetRelativeRotation([1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8])
+
+def DoEverything(Rmat1,Rmat2,P1i,P2i,P1f,P2f):
+	# Takes in the rotation matrices at 2 frames and the coordinates of 2 points in both frames
+	# Returns the Translation vector (unit) between the 2 frames
+	RMatRel=GetRelativeRotation(Rmat1, Rmat2)	
+	eq1= GenerateEquation(RMatRel, P1i, P1f)
+	eq2= GenerateEquation(RMatRel, P2i, P2f)
+	return SolveEqn(eq1,eq2)
+
+def AddTup(X,(d,e,f)):
+	if X==None:
+		return (d,e,f) 
+	else:
+		return (X[0]+d,X[1]+e,X[2]+f)
+
+
+def EverythingFor3Points(Rmat1,Rmat2,P1i,P2i,P3i,P1f,P2f,P3f):
+	validp=[]
+	if P1i != None and P1f!= None:
+		validp.append([P1i,P1f])
+	if P2i != None and P2f!= None:
+		validp.append([P2i,P2f])
+	if P3i != None and P3f!= None:
+		validp.append([P3i,P3f])
+	sofar=None
+	for i in xrange(len(validp)):
+		for j in xrange(i+1,len(validp)):
+			ans1=DoEverything(Rmat1, Rmat2, validp[i][0], validp[j][0], validp[i][1], validp[j][1])
+			sofar = AddTup(sofar,ans1) 
+	if sofar!=None:
+		sofar=(sofar[0]/len(validp),sofar[1]/len(validp),sofar[2]/len(validp))
+	return sofar
+
+def ProcessList(l):
+	#Takes in the list of [fnumber,time, rotmat,pred,pblue,pgreen]
+	#Returns a list of time and instantaneous displacement vectors
+	ans=[]
+	for i in xrange(1,len(l)):
+		f1=l[i-1]
+		f2=l[i]
+		ans.append([(f1[1]+f2[1])/2,EverythingFor3Points(f1[2],f2[2],f1[3],f1[4],f1[5],f2[3],f2[4],f2[5])])
+	return ans
+
+# print GetRelativeRotation([1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8])
 # a1= [1,2,3,4,5,6,7,8,9]
 
 # print a1[0:3]
@@ -128,28 +180,44 @@ def find_car(image,type1):
 # cap = cv2.VideoCapture("1433412822895vid.mp4")
 # cap = cv2.VideoCapture("1433413418567vid.mp4")
 cap = cv2.VideoCapture("1433480886878vid.mp4")
+# cap = cv2.VideoCapture("1433493031044vid.mp4")
+
+filename= '1433480886878SensorFusion3.csv'
+# filename='1433493031044SensorFusion3.csv'
+
+fileread=[]
+with open(filename,'rb') as csvfile:
+	spamreader= csv.reader(csvfile)
+	for row in spamreader:
+		fileread.append(row)
+timed =map(lambda x: map(float,x),fileread[1:])
+
+
+[timearr,r0,r1,r2,r3,r4,r5,r6,r7,r8,wr0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,wr8,ax,ay,az,gx,gy,gz,gyx,gyy,gyz,mgx,mgy,mgz,imid,gp0,gp1,gp2,gp3]=map(list, zip(*timed))
+
+totalframes = cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT)
+fps = cap.get(cv2.cv.CV_CAP_PROP_FPS)
+# print a1/a2
+
+rotmat=list(map(list,zip(*[r0,r1,r2,r3,r4,r5,r6,r7,r8])))
+avgtime=timearr[-1]/len(timearr)
+
+print avgtime, fps, len(timearr)
+
+def getnthindex(framenum,avgtime,fps):
+	# Assuming that the frames are at sync from t=0 and the sensor recording goes further than expected
+	return int((framenum/fps)/avgtime)
 
 pointsred=[]
 pointsgreen=[]
 pointsblue=[]
+rotmatricesframes=[]
 
-# while True:
-#     flag, frame = cap.read()
-#     print flag
-#     if flag == 0:
-#         # break
-#         x=5
-#     else:
-#     	cv2.imshow("Video", frame)
-#     	key_pressed = cv2.waitKey(10)    #Escape to exit
-#     	if key_pressed == 27:
-#     	    break
 t1=time.time()
 
 fnumber=-1
 ftoload=0
 while(ftoload<100):
-	# Capture frame-by-frame
 	ret, frame = cap.read()
 	# frame=cv2.imread("photos/photo_"+str(ftoload)+".jpg")
 	fnumber+=1	
@@ -162,17 +230,22 @@ while(ftoload<100):
 	car_rect_blue = find_car(frame,1)
 	car_rect_green = find_car(frame,2)
 
+	middlred = middleblue= middlegreen= None
 	# print car_rect, " is found"
 	if (car_rect_red != (0,0,0,0)):
-		middle = (((car_rect_red[0] + car_rect_red[1] )/ 2), (car_rect_red[2] + car_rect_red[3])/2)
-		pointsred.append([middle,fnumber])
+		middlered = (((car_rect_red[0] + car_rect_red[1] )/ 2), (car_rect_red[2] + car_rect_red[3])/2)
+		pointsred.append([middlered,fnumber])
 	if (car_rect_blue != (0,0,0,0)):
-		middle = (((car_rect_blue[0] + car_rect_blue[1] )/ 2), (car_rect_blue[2] + car_rect_blue[3])/2)
-		pointsblue.append([middle,fnumber])
+		middleblue = (((car_rect_blue[0] + car_rect_blue[1] )/ 2), (car_rect_blue[2] + car_rect_blue[3])/2)
+		pointsblue.append([middleblue,fnumber])
 	if (car_rect_green != (0,0,0,0)):
-		middle = (((car_rect_green[0] + car_rect_green[1] )/ 2), (car_rect_green[2] + car_rect_green[3])/2)
-		pointsgreen.append([middle,fnumber])
+		middlegreen = (((car_rect_green[0] + car_rect_green[1] )/ 2), (car_rect_green[2] + car_rect_green[3])/2)
+		pointsgreen.append([middlegreen,fnumber])
 	
+	rotmatricesframes.append([fnumber,(fnumber*1.0/fps),rotmat[getnthindex(fnumber,avgtime,fps)],middlered,middleblue,middlegreen])
+
+	print fnumber,fnumber/fps,fnumber/(fps*avgtime)
+
 	# if points == []:
 	# else:
 		# if abs(points[-1][0] - middle[0]) > 5 and abs(points[-1][1] - middle[1]) > 10:
@@ -187,20 +260,16 @@ while(ftoload<100):
 	for point in pointsblue:
 		cv2.circle(frame, point[0], 3, (255, 0, 0),-1)
 
-	# cv.WriteFrame(writer, original)
-
-	# cv.ShowImage('Analysed', frame)
-	# Our operations on the frame come here
-	# gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-	# Display the resulting frame
-	# if (ret):
 	cv2.imshow('frame', frame)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
 
+# print rotmatricesframes
+
+print ProcessList(rotmatricesframes)
+
 t2=time.time()
-print t2-t1
+# print t2-t1
 
 speedpointsr=[[0,0]]
 speedpointsb=[[0,0]]
@@ -217,6 +286,12 @@ framearrb=[pointsblue[0][1]]
 pointsxg=[pointsgreen[0][0][0]]
 pointsyg=[pointsgreen[0][0][1]]
 framearrg=[pointsgreen[0][1]]
+
+
+[velxr,velyr] = map(list,zip(*speedpointsr))
+[velxg,velyg] = map(list,zip(*speedpointsg))
+[velxb,velyb] = map(list,zip(*speedpointsb))
+
 
 for i in xrange(1,len(pointsred)):
 	elem = pointsred[i][0]
@@ -244,11 +319,11 @@ for i in xrange(1,len(pointsgreen)):
 	pointsyg.append(pointsgreen[i][0][1])
 	a=[elem[0]-prev[0],elem[1]-prev[1]]
 	speedpointsg.append(a)
-# print speedpoints
 
-[velxr,velyr] = map(list,zip(*speedpointsr))
-[velxg,velyg] = map(list,zip(*speedpointsg))
-[velxb,velyb] = map(list,zip(*speedpointsb))
+
+
+
+# print rotmat
 
 # # print velx
 # # print framearr
@@ -256,47 +331,47 @@ for i in xrange(1,len(pointsgreen)):
 # cap.release()
 cv2.destroyAllWindows()
 
-plt.figure(0)
-plt.subplot(2,2,1)
-plt.plot(pointsxr)
-# plt.plot(pointsx)
+# plt.figure(0)
+# plt.subplot(2,2,1)
+# plt.plot(pointsxr)
+# # plt.plot(pointsx)
 
-plt.subplot(2,2,2)
-plt.plot(pointsyr)
+# plt.subplot(2,2,2)
+# plt.plot(pointsyr)
 
-plt.subplot(2,2,3)
-plt.plot(velxr)
+# plt.subplot(2,2,3)
+# plt.plot(velxr)
 
-plt.subplot(2,2,4)
-plt.plot(velyr)
+# plt.subplot(2,2,4)
+# plt.plot(velyr)
 
-plt.figure(1)
-plt.subplot(2,2,1)
-plt.plot(pointsxg)
-# plt.plot(pointsx)
+# plt.figure(1)
+# plt.subplot(2,2,1)
+# plt.plot(pointsxg)
+# # plt.plot(pointsx)
 
-plt.subplot(2,2,2)
-plt.plot(pointsyg)
+# plt.subplot(2,2,2)
+# plt.plot(pointsyg)
 
-plt.subplot(2,2,3)
-plt.plot(velxg)
+# plt.subplot(2,2,3)
+# plt.plot(velxg)
 
-plt.subplot(2,2,4)
-plt.plot(velyg)
+# plt.subplot(2,2,4)
+# plt.plot(velyg)
 
 
-plt.figure(2)
-plt.subplot(2,2,1)
-plt.plot(pointsxb)
-# plt.plot(pointsx)
+# plt.figure(2)
+# plt.subplot(2,2,1)
+# plt.plot(pointsxb)
+# # plt.plot(pointsx)
 
-plt.subplot(2,2,2)
-plt.plot(pointsyb)
+# plt.subplot(2,2,2)
+# plt.plot(pointsyb)
 
-plt.subplot(2,2,3)
-plt.plot(velxb)
+# plt.subplot(2,2,3)
+# plt.plot(velxb)
 
-plt.subplot(2,2,4)
-plt.plot(velyb)
+# plt.subplot(2,2,4)
+# plt.plot(velyb)
 
-plt.show()
+# plt.show()
