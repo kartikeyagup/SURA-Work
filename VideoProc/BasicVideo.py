@@ -28,9 +28,26 @@ def SolveEqn(A,B,C,D,E,F):
 	# z is always positive
 
 def GenerateEquation(R,P1,P2):
-	# P1 is in the 1st point
-	# P2 is in the 2nd frame 
-	return 5
+	# P1 is in the 1st point (y1, y2)
+	# P2 is in the 2nd frame (y1 dash,y2 dash)
+	# R is the 1*9 representation of rotation matrix
+	coeffx =  R[2]*P1[1]*P2[0] + R[5]*P1[1]*P2[1] + R[8]*P1[1] - R[1] - R[4] - R[7]
+	coeffy = -R[2]*P1[0]*P2[0] - R[5]*P1[0]*P2[1] - R[8]*P1[0] + R[0] + R[3] + R[6]
+	coeffz =  R[1]*P1[0]*P2[0] + R[4]*P1[0]*P2[1] + R[7]*P1[0] - R[0]*P1[1]*P2[0] -R[3]*P1[1]*P2[1] - R[6]*P1[1]
+	return (coeffx,coeffy,coeffz)
+
+def GetRelativeRotation(R1,R2):
+	a= np.matrix([R1[0:3],R1[3:6],R1[6:9]])
+	b= np.matrix([R2[0:3],R2[3:6],R2[6:9]])
+	b = b.transpose()
+	c= a*b 
+	return list(c)
+
+print GetRelativeRotation([1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8])
+# a1= [1,2,3,4,5,6,7,8,9]
+
+# print a1[0:3]
+# print np.matrix(a1[0:3],a1[3:6])
 
 def find_car(image,type1):
 	""" Finds red blob (hopefully only one, the rc car) in an image
@@ -59,11 +76,14 @@ def find_car(image,type1):
 
 
 	#find the car by looking for red, with high saturation
+	blackret, black = cv2.threshold(red1, 128, 255, cv2.THRESH_BINARY)
+
 	ret,red=cv2.threshold(imcons, 110, 255, cv2.THRESH_BINARY )
 	ret,sat=cv2.threshold(sat, 128, 255, cv2.THRESH_BINARY )
 	#AND the two thresholds, finding the car
 	car=cv2.multiply(red, sat)
 
+	black= cv2.multiply(black, sat)
 	#remove noise, highlighting the car
 	kernel = np.ones((2,2),np.uint8)
 	kernelexp = np.ones((1,1),np.uint8)
@@ -71,7 +91,7 @@ def find_car(image,type1):
 	car=cv2.dilate(car,kernelexp, iterations=1)
 	# cv2.imshow("processed", cv2.flip(cv2.transpose(car),1))
 
-	cv2.imshow('car',car)
+	cv2.imshow('car',black)
 
 	#return a bounding box
 	image1, contours = cv2.findContours(car, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
@@ -99,14 +119,15 @@ def find_car(image,type1):
 
 
 
-# cap = cv2.VideoCapture(0)
+# cap= cv2.VideoCapture(0)
 # cap= cv2.VideoCapture("1433237712482vid.mp4")
 # cap=cv2.VideoCapture("1433238177764vid.mp4")
 # cap=cv2.VideoCapture("1433238967763vid.mp4")
 # cap=cv2.VideoCapture("1433239750654vid.mp4")
 # cap= cv2.VideoCapture("drop.avi")
-cap = cv2.VideoCapture("1433412822895vid.mp4")
-cap = cv2.VideoCapture("1433413418567vid.mp4")
+# cap = cv2.VideoCapture("1433412822895vid.mp4")
+# cap = cv2.VideoCapture("1433413418567vid.mp4")
+cap = cv2.VideoCapture("1433480886878vid.mp4")
 
 pointsred=[]
 pointsgreen=[]
