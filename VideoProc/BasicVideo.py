@@ -95,11 +95,21 @@ def ProcessList(l):
 		ans.append([(f1[1]+f2[1])/2,EverythingFor3Points(f1[2],f2[2],f1[3],f1[4],f1[5],f2[3],f2[4],f2[5])])
 	return ans
 
-# print GetRelativeRotation([1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8])
-# a1= [1,2,3,4,5,6,7,8,9]
+def GetDotProduct(a,b):
+	# TODO: fix for 0,0,0 and 0,0,0
+	return abs(a[0]*b[0]+a[1]*b[1]+a[2]*b[2])
 
-# print a1[0:3]
-# print np.matrix(a1[0:3],a1[3:6])
+def ConvertVelocity(vx,vy,vz):
+	# Normalises the velocity to give its unit vector
+	balance=(vx**2 + vy**2 + vz**2)**0.5
+	if (balance==0):
+		return (0,0,0)
+	else:
+		return (vx/balance,vy/balance,vz/balance)
+
+#TODO: Get code from CalcDataPlotting.py for velocity calculation
+#TODO: Match the directions of velocity for the motion and rest zones
+#TODO: Plot graph between the angle
 
 def find_car(image,type1):
 	""" Finds red blob (hopefully only one, the rc car) in an image
@@ -170,20 +180,19 @@ def find_car(image,type1):
 	# return cv2.rectangle(image, (leftmost,bottommost), (rightmost,topmost), (0,255,0))
 
 
-
-# cap= cv2.VideoCapture(0)
-# cap= cv2.VideoCapture("1433237712482vid.mp4")
-# cap=cv2.VideoCapture("1433238177764vid.mp4")
-# cap=cv2.VideoCapture("1433238967763vid.mp4")
-# cap=cv2.VideoCapture("1433239750654vid.mp4")
-# cap= cv2.VideoCapture("drop.avi")
+# cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture("1433237712482vid.mp4")
+# cap = cv2.VideoCapture("1433238177764vid.mp4")
+# cap = cv2.VideoCapture("1433238967763vid.mp4")
+# cap = cv2.VideoCapture("1433239750654vid.mp4")
+# cap = cv2.VideoCapture("drop.avi")
 # cap = cv2.VideoCapture("1433412822895vid.mp4")
 # cap = cv2.VideoCapture("1433413418567vid.mp4")
 cap = cv2.VideoCapture("1433480886878vid.mp4")
 # cap = cv2.VideoCapture("1433493031044vid.mp4")
 
-filename= '1433480886878SensorFusion3.csv'
-# filename='1433493031044SensorFusion3.csv'
+filename = '1433480886878SensorFusion3.csv'
+# filename ='1433493031044SensorFusion3.csv'
 
 fileread=[]
 with open(filename,'rb') as csvfile:
@@ -197,7 +206,6 @@ timed =map(lambda x: map(float,x),fileread[1:])
 
 totalframes = cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT)
 fps = cap.get(cv2.cv.CV_CAP_PROP_FPS)
-# print a1/a2
 
 rotmat=list(map(list,zip(*[r0,r1,r2,r3,r4,r5,r6,r7,r8])))
 avgtime=timearr[-1]/len(timearr)
