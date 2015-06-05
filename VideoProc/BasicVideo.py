@@ -15,7 +15,7 @@ def GetSum(image,type,i):
 			ans += image[i][j]
 	return ans 
 
-def SolveEqn(A,B,C,D,E,F):
+def SolveEqn((A,B,C),(D,E,F)):
 	# Ax + By + Cz =0
 	# Dx + Ey + Fz = 0
 	t1 = A*E - B*D
