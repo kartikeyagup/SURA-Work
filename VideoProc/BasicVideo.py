@@ -22,8 +22,8 @@ def GetSum(image,type,i):
 def SolveEqn((A,B,C),(D,E,F)):
 	# Ax + By + Cz =0
 	# Dx + Ey + Fz = 0
-	print str(A)+"x+"+str(B)+"y+"+str(C)+"z=0"
-	print str("D")+"x+"+str(E)+"y+"+str(F)+"z=0"
+	# print str(A)+"x+"+str(B)+"y+"+str(C)+"z=0"
+	# print str(D)+"x+"+str(E)+"y+"+str(F)+"z=0"
 	t1 = A*E - B*D
 	t2 = B*F - E*C 
 	t3 = D*C - F*A 
@@ -67,7 +67,6 @@ def AddTup(X,(d,e,f)):
 	else:
 		return (X[0]+d,X[1]+e,X[2]+f)
 
-
 def EverythingFor3Points(Rmat1,Rmat2,P1i,P2i,P3i,P1f,P2f,P3f):
 	validp=[]
 	if P1i != None and P1f!= None:
@@ -97,9 +96,13 @@ def ProcessList(l):
 
 def GetDotProduct(a,b):
 	# TODO: fix for 0,0,0 and 0,0,0
-	return abs(a[0]*b[0]+a[1]*b[1]+a[2]*b[2])
+	# TODO: take None into account as well
+	if (a==None) or (b==None):
+		return -1
+	else:
+		return abs(a[0]*b[0]+a[1]*b[1]+a[2]*b[2])
 
-def ConvertVelocity(vx,vy,vz):
+def ConvertVelocity((vx,vy,vz)):
 	# Normalises the velocity to give its unit vector
 	balance=(vx**2 + vy**2 + vz**2)**0.5
 	if (balance==0):
@@ -107,7 +110,6 @@ def ConvertVelocity(vx,vy,vz):
 	else:
 		return (vx/balance,vy/balance,vz/balance)
 
-#TODO: Get code from CalcDataPlotting.py for velocity calculation
 #TODO: Match the directions of velocity for the motion and rest zones
 #TODO: Plot graph between the angle
 
@@ -204,6 +206,205 @@ timed =map(lambda x: map(float,x),fileread[1:])
 
 [timearr,r0,r1,r2,r3,r4,r5,r6,r7,r8,wr0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,wr8,ax,ay,az,gx,gy,gz,gyx,gyy,gyz,mgx,mgy,mgz,imid,gp0,gp1,gp2,gp3]=map(list, zip(*timed))
 
+filename = '1433480886878SensorFusion3data.csv'
+fileread=[]
+with open(filename,'rb') as csvfile:
+	spamreader= csv.reader(csvfile)
+	for row in spamreader:
+		fileread.append(row)
+
+def funcConv(x):
+	return x=='true'
+
+timed =map(lambda x: map(float,x[:-9] + x[-6:]) + map(funcConv, x[-9:-6]),fileread[1:])
+[sno,timearr1,imid,ax1,ay1,az1,vx,vy,vz,dx,dy,dz,rawax,raway,rawaz,pratx,praty,pratz,motionx,motiony,motionz]=map(list, zip(*timed))
+
+
+def GetMotionZones(boolarr):
+	# print boolarr
+	ans=[]
+	state=False
+	prevval=0
+	for i in xrange(len(boolarr)):
+		if boolarr[i]:
+			if not(state):
+				state=True
+				prevval=i
+		else:
+			if state:
+				state=False
+				ans.append([prevval,i])
+	if state:
+		ans.append([prevval,len(boolarr)-1])
+	return ans
+
+def GetVelocity(timearr,motionzonearr,acc,type):
+	ans=[0.0]*len(acc)
+	for elem in motionzonearr:
+		totalacc=0.0
+		prevtime=timearr[elem[0]]
+		totaltime=timearr[elem[1]]-timearr[elem[0]]
+		for j in xrange(elem[0],elem[1]):
+			if (j>0):
+				x= acc[j]*(timearr[j]-prevtime)
+				totalacc +=x
+				ans[j]= ans[j-1]+ x
+				prevtime=timearr[j]
+		prevtime =timearr[elem[0]]
+		if (type==0):
+			corrfact=totalacc/totaltime
+			for j in xrange(elem[0],elem[1]):
+				ans[j] -= corrfact
+		elif (type==1):
+			finalv= ans[elem[1]-1]
+			m=finalv/totaltime
+			for j in xrange(elem[0],elem[1]):
+				ans[j] -= m*(timearr[j]-prevtime)
+		elif (type==2):
+			finalv= ans[elem[1]-1]
+			m = 2*finalv/(totaltime**2)
+			for j in xrange (elem[0],elem[1]):
+				ans[j] -= 0.5*m*((timearr[j]-prevtime)**2)
+	return ans
+
+def FixVelocity(acc,timearr,motionzonearr):
+	ans=[0.0]*len(acc)
+	for elem in motionzonearr:
+		totalacc=0.0
+		prevtime=timearr[elem[0]]
+		totaltime=timearr[elem[1]]-timearr[elem[0]]
+		for j in xrange(elem[0],elem[1]):
+			if (j>0):
+				x= acc[j]*(timearr[j]-prevtime)
+				totalacc +=x
+				ans[j]= ans[j-1]+ x
+				prevtime=timearr[j]
+		prevtime =timearr[elem[0]]
+		# ans2= copy.deepcopy(ans)
+		# finalv= ans2[elem[1]-1]
+		# m = 2*finalv/(totaltime**2)
+		# for j in xrange (elem[0],elem[1]):
+		# 	ans2[j] -= 0.5*m*((timearr[j]-prevtime)**2)
+		# totalvel=0.0
+		# print totalvel
+		# for i in xrange(elem[0],elem[1]):
+		# 	# print ans[i]
+		# 	totalvel +=ans2[i]
+		# print totalvel
+		# if (totalvel>0):
+		# 	if (totalacc>0):
+		# 		print "upward graph extension needed"
+		# 		# # Final speed positive and upward graph
+		# 		# prevslope=(ans[elem[1]-1]-ans[elem[1]-10])/9
+		# 		# prevslope= - abs(prevslope)
+		# 		# curr=elem[1]
+		# 		# while (curr<len(timearr)):
+		# 		# 	ans[curr] = ans[curr-1]+prevslope
+		# 		# 	if (ans[curr]<=0):
+		# 		# 		ans[curr]=0.0 
+		# 		# 		break;
+		# 		# 	curr+=1
+		# 	elif (totalacc<0):
+		# 		print "upward graph truncation"
+		# 		curr=elem[1] -1 
+		# 		while (ans[curr]<0):
+		# 			ans[curr] = -ans[curr]
+		# 			curr -=1
+		# 		finalv = ans[elem[1]-1]
+		# 		m=finalv/(timearr[elem[1]]-timearr[curr])
+		# 		for j in xrange(curr,elem[1]):
+		# 			ans[j] -= m*(timearr[j]-timearr[curr])
+		# elif (totalvel<0):
+		# 	if (totalacc>0):
+		# 		# Final speed positive and downward
+		# 		print "downward graph truncation"
+		# 		prevslope=(ans[elem[1]-1]-ans[elem[1]-5])/4
+		# 		curr= elem[1] -1 
+		# 		while (ans[curr]>0):
+		# 			ans[curr]= -ans[curr]
+		# 			curr -=1
+		# 		finalv = ans[elem[1]-1]
+		# 		m=finalv/(timearr[elem[1]]-timearr[curr])
+		# 		for j in xrange(curr,elem[1]):
+		# 			ans[j] -= m*(timearr[j]-timearr[curr])
+		# 	elif (totalacc<0):
+		# 		print "downward graph extension"
+		# 		# prevslope=(ans[elem[1]-1]-ans[elem[1]-10])/9
+		# 		# curr=elem[1]
+		# 		# prevslope=abs(prevslope)
+		# 		# while (curr<len(timearr)):
+		# 		# 	ans[curr] = ans[curr-1]+prevslope
+		# 		# 	if (ans[curr]>=0):
+		# 		# 		ans[curr]=0.0 
+		# 		# 		break;
+		# 		# 	curr +=1
+	return ans
+
+def GetDistance(timearr,velarray):
+	ans=[0.0]*len(timearr)
+	prevtime=timearr[0]
+	for i in xrange(1,len(timearr)):
+		ans[i]=ans[i-1] + velarray[i]*(timearr[i]-prevtime)
+		prevtime = timearr[i]
+	# print "distance is: ", ans[-1]
+	return ans
+
+
+
+
+calcvx1=GetVelocity(timearr1,GetMotionZones(motionx),ax,1)
+calcdx1=GetDistance(timearr1,calcvx1)
+calcvx0=GetVelocity(timearr1,GetMotionZones(motionx),ax,0)
+calcdx0=GetDistance(timearr1,calcvx0)
+
+calcvy1=GetVelocity(timearr1,GetMotionZones(motiony),ay,1)
+calcdy1=GetDistance(timearr1,calcvy1)
+calcvy0=GetVelocity(timearr1,GetMotionZones(motiony),ay,0)
+calcdy0=GetDistance(timearr1,calcvy0)
+
+calcvz1=GetVelocity(timearr1,GetMotionZones(motionz),az,1)
+calcdz1=GetDistance(timearr1,calcvz1)
+calcvz0=GetVelocity(timearr1,GetMotionZones(motionz),az,0)
+calcdz0=GetDistance(timearr1,calcvz0)
+
+
+soccervx2=GetVelocity(timearr1,GetMotionZones(motionx),pratx,2)
+soccerdx2=GetDistance(timearr1,soccervx2)
+soccervx1=GetVelocity(timearr1,GetMotionZones(motionx),pratx,1)
+soccerdx1=GetDistance(timearr1,soccervx1)
+soccervx0=GetVelocity(timearr1,GetMotionZones(motionx),pratx,0)
+soccerdx0=GetDistance(timearr1,soccervx0)
+
+soccervy2=GetVelocity(timearr1,GetMotionZones(motiony),praty,2)
+soccerdy2=GetDistance(timearr1,soccervy2)
+soccervy1=GetVelocity(timearr1,GetMotionZones(motiony),praty,1)
+soccerdy1=GetDistance(timearr1,soccervy1)
+soccervy0=GetVelocity(timearr1,GetMotionZones(motiony),praty,0)
+soccerdy0=GetDistance(timearr1,soccervy0)
+
+soccervz2=GetVelocity(timearr1,GetMotionZones(motionz),pratz,2)
+soccerdz2=GetDistance(timearr1,soccervz2)
+soccervz1=GetVelocity(timearr1,GetMotionZones(motionz),pratz,1)
+soccerdz1=GetDistance(timearr1,soccervz1)
+soccervz0=GetVelocity(timearr1,GetMotionZones(motionz),pratz,0)
+soccerdz0=GetDistance(timearr1,soccervz0)
+
+fixedvx = FixVelocity(ax,timearr1, GetMotionZones(motionx))
+fixedvy = FixVelocity(ay,timearr1, GetMotionZones(motiony))
+fixedvz = FixVelocity(az,timearr1, GetMotionZones(motionz))
+fixeddx = GetDistance(timearr1,fixedvx)
+fixeddy = GetDistance(timearr1,fixedvy)
+fixeddz = GetDistance(timearr1,fixedvz)
+
+kgv2 = map(list, zip(*[vx,vy,vz]))
+kgv1 = map(list, zip(*[calcvx1,calcvy1,calcvz1]))
+kgv0 = map(list, zip(*[calcvx0,calcvy0,calcvz0]))
+
+soccerv2 = map(list, zip(*[soccervx2,soccervy2,soccervz2]))
+soccerv1 = map(list, zip(*[soccervx1,soccervy1,soccervz1]))
+soccerv0 = map(list, zip(*[soccervx0,soccervy0,soccervz0]))
+
+
 totalframes = cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT)
 fps = cap.get(cv2.cv.CV_CAP_PROP_FPS)
 
@@ -215,6 +416,9 @@ print avgtime, fps, len(timearr)
 def getnthindex(framenum,avgtime,fps):
 	# Assuming that the frames are at sync from t=0 and the sensor recording goes further than expected
 	return int((framenum/fps)/avgtime)
+
+def getnthindextime(timeframe,avgtime):
+	return int(timeframe/avgtime)
 
 pointsred=[]
 pointsgreen=[]
@@ -252,7 +456,7 @@ while(ftoload<100):
 	
 	rotmatricesframes.append([fnumber,(fnumber*1.0/fps),rotmat[getnthindex(fnumber,avgtime,fps)],middlered,middleblue,middlegreen])
 
-	print fnumber,fnumber/fps,fnumber/(fps*avgtime)
+	# print fnumber,fnumber/fps,fnumber/(fps*avgtime)
 
 	# if points == []:
 	# else:
@@ -272,9 +476,63 @@ while(ftoload<100):
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
 
-# print rotmatricesframes
+cv2.destroyAllWindows()
 
-print ProcessList(rotmatricesframes)
+def GetVelList(processedflist,velocityarr,avgtimeofsig):
+	a = [0]*len(processedflist)
+	for i in xrange(len(processedflist)):
+		a[i]=velocityarr[getnthindextime(processedflist[i][0],avgtimeofsig)]
+	return a
+
+processedlist= ProcessList(rotmatricesframes)
+# print processedlist[0:50]
+
+kg0vellist= map(ConvertVelocity,GetVelList(processedlist, kgv0, avgtime))
+kg1vellist= map(ConvertVelocity,GetVelList(processedlist, kgv1, avgtime))
+kg2vellist= map(ConvertVelocity,GetVelList(processedlist, kgv2, avgtime))
+
+soccer0vellist= map(ConvertVelocity,GetVelList(processedlist, soccerv0, avgtime))
+soccer1vellist= map(ConvertVelocity,GetVelList(processedlist, soccerv1, avgtime))
+soccer2vellist= map(ConvertVelocity,GetVelList(processedlist, soccerv2, avgtime))
+
+def MappingOverVelocities(proframedata,procveldata):
+	ans=[0]*len(proframedata)
+	for i in xrange(len(ans)):
+		# print i, proframedata[i],procveldata[i]
+		ans[i]=[proframedata[i][0],GetDotProduct(proframedata[i][1],procveldata[i])]
+	return ans
+
+mappedkg0 = MappingOverVelocities(processedlist, kg0vellist)
+mappedkg1 = MappingOverVelocities(processedlist, kg1vellist)
+mappedkg2 = MappingOverVelocities(processedlist, kg2vellist)
+
+mappedsoccer0 = MappingOverVelocities(processedlist, soccer0vellist)
+mappedsoccer1 = MappingOverVelocities(processedlist, soccer1vellist)
+mappedsoccer2 = MappingOverVelocities(processedlist, soccer2vellist)
+
+plt.figure(0)
+plt.subplot(3,2,1)
+plt.plot(map(lambda x: x[0],mappedkg0),map(lambda x: x[1],mappedkg0))
+
+plt.subplot(3,2,2)
+plt.plot(map(lambda x: x[0],mappedkg1),map(lambda x: x[1],mappedkg1))
+
+plt.subplot(3,2,3)
+plt.plot(map(lambda x: x[0],mappedkg2),map(lambda x: x[1],mappedkg2))
+
+plt.subplot(3,2,4)
+plt.plot(map(lambda x: x[0],mappedsoccer0),map(lambda x: x[1],mappedsoccer0))
+
+plt.subplot(3,2,5)
+plt.plot(map(lambda x: x[0],mappedsoccer1),map(lambda x: x[1],mappedsoccer1))
+
+plt.subplot(3,2,6)
+plt.plot(map(lambda x: x[0],mappedsoccer2),map(lambda x: x[1],mappedsoccer2))
+
+
+plt.show()
+
+
 
 t2=time.time()
 # print t2-t1
@@ -337,7 +595,6 @@ for i in xrange(1,len(pointsgreen)):
 # # print framearr
 # # When everything done, release the capture
 # cap.release()
-cv2.destroyAllWindows()
 
 # plt.figure(0)
 # plt.subplot(2,2,1)
