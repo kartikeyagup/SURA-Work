@@ -190,14 +190,14 @@ def find_car(image,type1):
 # cap = cv2.VideoCapture("1433412822895vid.mp4")
 # cap = cv2.VideoCapture("1433413418567vid.mp4")
 cap = cv2.VideoCapture("1433480886878vid.mp4")
-cap = cv2.VideoCapture("1433493031044vid.mp4")
-cap = cv2.VideoCapture("1433746759196vid.mp4")
-cap = cv2.VideoCapture("1433747391108vid.mp4")
-
+# cap = cv2.VideoCapture("1433493031044vid.mp4")
+# cap = cv2.VideoCapture("1433746759196vid.mp4")
+# cap = cv2.VideoCapture("1433747391108vid.mp4")
+# 6, 6.79
 filename = '1433480886878SensorFusion3.csv'
-filename = '1433493031044SensorFusion3.csv'
-filename = '1433746759196SensorFusion3.csv'
-filename = '1433747391108SensorFusion3.csv'
+# filename = '1433493031044SensorFusion3.csv'
+# filename = '1433746759196SensorFusion3.csv'
+# filename = '1433747391108SensorFusion3.csv'
 
 fileread=[]
 with open(filename,'rb') as csvfile:
@@ -210,8 +210,8 @@ timed =map(lambda x: map(float,x),fileread[1:])
 [timearr,r0,r1,r2,r3,r4,r5,r6,r7,r8,wr0,wr1,wr2,wr3,wr4,wr5,wr6,wr7,wr8,ax,ay,az,gx,gy,gz,gyx,gyy,gyz,mgx,mgy,mgz,imid,gp0,gp1,gp2,gp3]=map(list, zip(*timed))
 
 filename = '1433480886878SensorFusion3data.csv'
-filename = '1433746759196SensorFusion3data.csv'
-filename = '1433747391108SensorFusion3data.csv'
+# filename = '1433746759196SensorFusion3data.csv'
+# filename = '1433747391108SensorFusion3data.csv'
 fileread=[]
 with open(filename,'rb') as csvfile:
 	spamreader= csv.reader(csvfile)
@@ -416,7 +416,8 @@ fps = cap.get(cv2.cv.CV_CAP_PROP_FPS)
 rotmat=list(map(list,zip(*[r0,r1,r2,r3,r4,r5,r6,r7,r8])))
 avgtime=timearr[-1]/len(timearr)
 
-print avgtime, fps, len(timearr)
+# print avgtime, fps, len(timearr)
+print (totalframes*1.0)/fps, timearr[-1] 
 
 def getnthindex(framenum,avgtime,fps):
 	# Assuming that the frames are at sync from t=0 and the sensor recording goes further than expected
