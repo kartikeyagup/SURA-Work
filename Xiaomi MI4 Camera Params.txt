@@ -1,0 +1,84 @@
+[[  1.47725696e+03   0.00000000e+00   6.27100358e+02]
+ [  0.00000000e+00   1.49362220e+03   3.48264596e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00490.jpg... ok RMS: 1.74281382473 camera matrix:
+[[  1.47757266e+03   0.00000000e+00   6.26671386e+02]
+ [  0.00000000e+00   1.49405168e+03   3.48375390e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00491.jpg... chessboard not found
+processing ..\photos2\image_00492.jpg... chessboard not found
+processing ..\photos2\image_00493.jpg... ok RMS: 1.74794481123 camera matrix:
+[[  1.47790609e+03   0.00000000e+00   6.26912167e+02]
+ [  0.00000000e+00   1.49438724e+03   3.47916467e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00494.jpg... chessboard not found
+processing ..\photos2\image_00495.jpg... chessboard not found
+processing ..\photos2\image_00496.jpg... chessboard not found
+processing ..\photos2\image_00497.jpg... ok RMS: 1.74468897826 camera matrix:
+[[  1.47791875e+03   0.00000000e+00   6.26504337e+02]
+ [  0.00000000e+00   1.49444952e+03   3.47893976e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00498.jpg... ok RMS: 1.74152905022 camera matrix:
+[[  1.47811399e+03   0.00000000e+00   6.26188929e+02]
+ [  0.00000000e+00   1.49469370e+03   3.47778822e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00499.jpg... ok RMS: 1.73834352338 camera matrix:
+[[  1.47835853e+03   0.00000000e+00   6.26099646e+02]
+ [  0.00000000e+00   1.49495992e+03   3.47543952e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00500.jpg... chessboard not found
+processing ..\photos2\image_00501.jpg... chessboard not found
+processing ..\photos2\image_00502.jpg... chessboard not found
+processing ..\photos2\image_00503.jpg... chessboard not found
+processing ..\photos2\image_00504.jpg... ok RMS: 1.73640351472 camera matrix:
+[[  1.47863279e+03   0.00000000e+00   6.25981175e+02]
+ [  0.00000000e+00   1.49524975e+03   3.47312324e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00505.jpg... ok RMS: 1.73817923919 camera matrix:
+[[  1.47892108e+03   0.00000000e+00   6.25850742e+02]
+ [  0.00000000e+00   1.49553980e+03   3.47113506e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00506.jpg... chessboard not found
+processing ..\photos2\image_00507.jpg... ok RMS: 1.7397711139 camera matrix:
+[[  1.47917027e+03   0.00000000e+00   6.25734429e+02]
+ [  0.00000000e+00   1.49577207e+03   3.46885478e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00508.jpg... ok RMS: 1.7398200875 camera matrix:
+[[  1.47940420e+03   0.00000000e+00   6.25718426e+02]
+ [  0.00000000e+00   1.49599162e+03   3.46647297e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00509.jpg... ok RMS: 1.74683215123 camera matrix:
+[[  1.47946446e+03   0.00000000e+00   6.25407147e+02]
+ [  0.00000000e+00   1.49603316e+03   3.46660582e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00510.jpg... ok RMS: 1.75245240635 camera matrix:
+[[  1.47942738e+03   0.00000000e+00   6.24844718e+02]
+ [  0.00000000e+00   1.49595781e+03   3.46705412e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00511.jpg... ok RMS: 1.75246804908 camera matrix:
+[[  1.47975172e+03   0.00000000e+00   6.24721607e+02]
+ [  0.00000000e+00   1.49627113e+03   3.46415760e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00512.jpg... chessboard not found
+processing ..\photos2\image_00513.jpg... ok RMS: 1.75306775478 camera matrix:
+[[  1.48023037e+03   0.00000000e+00   6.24689966e+02]
+ [  0.00000000e+00   1.49675966e+03   3.46042365e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00514.jpg... ok RMS: 1.75373846381 camera matrix:
+[[  1.48065883e+03   0.00000000e+00   6.24679470e+02]
+ [  0.00000000e+00   1.49719074e+03   3.45693734e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00515.jpg... ok RMS: 1.75027464018 camera matrix:
+[[  1.48079846e+03   0.00000000e+00   6.24403565e+02]
+ [  0.00000000e+00   1.49732437e+03   3.45594443e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00516.jpg... chessboard not found
+processing ..\photos2\image_00517.jpg... ok RMS: 1.75512142981 camera matrix:
+[[  1.48091295e+03   0.00000000e+00   6.24215627e+02]
+ [  0.00000000e+00   1.49741906e+03   3.45509380e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00518.jpg... ok RMS: 1.75167962275 camera matrix:
+[[  1.48110104e+03   0.00000000e+00   6.23964896e+02]
+ [  0.00000000e+00   1.49760547e+03   3.45393591e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00519.jpg... chessboard not found
+processing ..\photos2\image_00520.jpg... chessboard not found
+processing ..\photos2\image_00521.jpg... ok RMS: 1.74846577994 camera matrix:
+[[  1.48114610e+03   0.00000000e+00   6.23739026e+02]
+ [  0.00000000e+00   1.49763202e+03   3.45344287e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] processing ..\photos2\image_00522.jpg... chessboard not found
+processing ..\photos2\image_00523.jpg... ok RMS: 1.7526516904 camera matrix:
+[[  1.48144632e+03   0.00000000e+00   6.23876638e+02]
+ [  0.00000000e+00   1.49792196e+03   3.45081503e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]] Now starting processing
+obj points 151
+img points 151
+RMS: 1.7526516904
+camera matrix:
+[[  1.48144632e+03   0.00000000e+00   6.23876638e+02]
+ [  0.00000000e+00   1.49792196e+03   3.45081503e+02]
+ [  0.00000000e+00   0.00000000e+00   1.00000000e+00]]
+distortion coefficients:  [  3.32868983e-01  -1.40088378e+00  -8.02287483e-03  -3.45431978e-04
+  -3.08741375e-01]

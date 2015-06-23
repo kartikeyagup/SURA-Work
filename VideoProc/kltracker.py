@@ -32,20 +32,26 @@ color = np.random.randint(0,255,(10000,3))
 # a=cv2.cv.CreateImage((500,500), cv2.CV_8UC1,1)
 # a=np.zeros(p)
 
-xc, yc, r = 348, 317, 45
-# size of the image
-print p.shape
-H, W,c  = p.shape
-# x and y coordinates per every pixel of the image
-x, y = np.meshgrid(np.arange(W), np.arange(H))
-# squared distance from the center of the circle
-d2 = (x - xc)**2 + (y - yc)**2
-# mask is True inside of the circle
-mask = d2 < r**2
+frame_gray = cv2.cvtColor(p, cv2.COLOR_BGR2GRAY)
 
-d2 = np.zeros(p.shape)
+mask = np.zeros_like(frame_gray)
+mask[:] = 255
+# for x, y in [np.int32(tr[-1]) for tr in self.tracks]:
+# cv2.circle(mask, (100, 200), 100, 0, -1)
+# cv2.circle(mask, (400, 200), 100, 0, -1)
+# cv2.circle(mask, (100, 400), 100, 0, -1)
+# cv2.circle(mask, (400, 400), 100, 0, -1)
+cv2.rectangle(mask, (100,100), (300,300), 0,-1)
 
-print d2.dtype
+
+# p = cv2.goodFeaturesToTrack(frame_gray, mask = mask, **feature_params)
+
+mask = 255 - mask
+
+cv2.imshow("mask", mask)
+
+
+# print d2.dtype
 
 # cv2.imshow("winname", a)
 k = cv2.waitKey(30) & 0xff
@@ -58,7 +64,7 @@ print cv2.CV_8UC1
 # Take first frame and find corners in it
 ret, old_frame = cap.read()
 old_gray = cv2.cvtColor(old_frame, cv2.COLOR_BGR2GRAY)
-p0 = cv2.goodFeaturesToTrack(old_gray, mask = d2, **feature_params)
+p0 = cv2.goodFeaturesToTrack(old_gray, mask = mask, **feature_params)
 
 print len(p0)
 
