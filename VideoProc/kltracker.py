@@ -110,4 +110,4 @@ while(1):
     # print p0
 
 cv2.destroyAllWindows()
-cap.release()
+cap.release()   
