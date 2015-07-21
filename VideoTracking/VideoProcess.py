@@ -9,8 +9,12 @@ fnumber='1436275811192'
 fnumber='1436350749688'
 fnumber='1436435833417'
 fnumber='1436509344762'
-fnumber='1437395006225'
-fnumber='1437460621901'
+# fnumber='1437395006225'
+# fnumber='1437460621901'
+# fnumber='1437460593277'
+# fnumber='1437469487121'
+# fnumber='1437473687034'
+fnumber='1437481365601'
 
 filenamedataprocessed = fnumber+'SensorFusion3data.csv'
 filenamedataraw = fnumber+ 'SensorFusion3.csv'
@@ -207,8 +211,8 @@ def GetEssentialMatrix(r,t):
 def MakeRMatrix(r):
 	if r == [0,0,0,0,0,0,0,0,0]:
 		r = [1,0,0,0,1,0,0,0,1]
-	# c1= [[r[0],r[1],r[2]],[r[3],r[4],r[5]],[r[6],r[7],r[8]]]
-	c1 =[[-r[1],-r[0],-r[2]],[-r[4],-r[3],-r[5]],[-r[7],-r[6],-r[8]]]
+	c1= [[r[0],r[1],r[2]],[r[3],r[4],r[5]],[r[6],r[7],r[8]]]
+	# c1 =[[-r[1],-r[0],-r[2]],[-r[4],-r[3],-r[5]],[-r[7],-r[6],-r[8]]]
 	return c1
 
 def normalize(a):
@@ -261,7 +265,6 @@ for i in xrange(len(vx)):
 	dy[i]=1000*dy[i]
 	dz[i]=1000*dz[i]
 
-
 calcvx1=GetVelocity(timearr1,GetMotionZones(motionx),ax,1)
 calcdx1=GetDistance(timearr1,calcvx1)
 calcvx0=GetVelocity(timearr1,GetMotionZones(motionx),ax,0)
@@ -313,7 +316,6 @@ soccerv2 = map(list, zip(*[soccervx2,soccervy2,soccervz2]))
 soccerv1 = map(list, zip(*[soccervx1,soccervy1,soccervz1]))
 soccerv0 = map(list, zip(*[soccervx0,soccervy0,soccervz0]))
 
-
 Kd0= map(list, zip(*[calcdx0,calcdy0,calcdz0]))
 Kd1= map(list, zip(*[calcdx1,calcdy1,calcdz1]))
 Kd2= map(list, zip(*[dx,dy,dz]))
@@ -342,22 +344,22 @@ for elem in sensornumbers:
 
 print "Done with sensor processing"
 
-EKG0=[]
-EKG1=[]
-EKG2=[]
-ES0=[]
-ES1=[]
-ES2=[]
+# EKG0=[]
+# EKG1=[]
+# EKG2=[]
+# ES0=[]
+# ES1=[]
+# ES2=[]
 
-for i in xrange(1,len(RT_KG0)):
-	# EKG0.append(GetCompleteEMatrix(RT_KG0[i-1][0],RT_KG0[i-1][1],RT_KG0[i][0],RT_KG0[i][1]))
-	EKG1.append(GetCompleteEMatrix(RT_KG1[i-1][0],RT_KG1[i-1][1],RT_KG1[i][0],RT_KG1[i][1]))
-	# EKG2.append(GetCompleteEMatrix(RT_KG2[i-1][0],RT_KG2[i-1][1],RT_KG2[i][0],RT_KG2[i][1]))
-	# ES0.append(GetCompleteEMatrix(RT_Soccer0[i-1][0],RT_Soccer0[i-1][1],RT_Soccer0[i][0],RT_Soccer0[i][1]))
-	# ES1.append(GetCompleteEMatrix(RT_Soccer1[i-1][0],RT_Soccer1[i-1][1],RT_Soccer1[i][0],RT_Soccer1[i][1]))
-	# ES2.append(GetCompleteEMatrix(RT_Soccer2[i-1][0],RT_Soccer2[i-1][1],RT_Soccer2[i][0],RT_Soccer2[i][1]))
+# for i in xrange(1,len(RT_KG0)):
+# 	# EKG0.append(GetCompleteEMatrix(RT_KG0[i-1][0],RT_KG0[i-1][1],RT_KG0[i][0],RT_KG0[i][1]))
+# 	EKG1.append(GetCompleteEMatrix(RT_KG1[i-1][0],RT_KG1[i-1][1],RT_KG1[i][0],RT_KG1[i][1]))
+# 	# EKG2.append(GetCompleteEMatrix(RT_KG2[i-1][0],RT_KG2[i-1][1],RT_KG2[i][0],RT_KG2[i][1]))
+# 	# ES0.append(GetCompleteEMatrix(RT_Soccer0[i-1][0],RT_Soccer0[i-1][1],RT_Soccer0[i][0],RT_Soccer0[i][1]))
+# 	# ES1.append(GetCompleteEMatrix(RT_Soccer1[i-1][0],RT_Soccer1[i-1][1],RT_Soccer1[i][0],RT_Soccer1[i][1]))
+# 	# ES2.append(GetCompleteEMatrix(RT_Soccer2[i-1][0],RT_Soccer2[i-1][1],RT_Soccer2[i][0],RT_Soccer2[i][1]))
 
-print "Number of frames", len(RT_KG1)
+# print "Number of frames", len(RT_KG1)
 
 K=[[  1.15137655e+03,   0.00000000e+00,   6.35646935e+02], [  0.00000000e+00,   1.14984595e+03,   3.36169128e+02], [  0.00000000e+00,   0.00000000e+00,   1.00000000e+00]]
 K= np.asarray(K)
@@ -400,13 +402,29 @@ def SolveEquations(r1,r2,P1,P2):
 		tycoeff.append(elem[1])
 		tzcoeff.append(-elem[2])
 	A= np.vstack([txcoeff,tycoeff]).T
-	tx1,ty1= np.linalg.lstsq(A, tzcoeff)[0]
+	solution=np.linalg.lstsq(A, tzcoeff) 
+	tx1,ty1= solution[0]
+	# print ((solution[1])**0.5)/len(A)
 	norm = (1+ tx1**2 + ty1**2)**0.5
 	transdir = [tx1/norm,ty1/norm,1/norm]
 	transdir = np.asarray(transdir).T
 	transdir_cor = np.dot(np.asarray(MakeRMatrix(r1)),transdir)
-	return transdir
+	return transdir_cor
 
+def ObtainFundament(r1,r2,t1,t2):
+	KinvT = Kinv.T
+	rnet= np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r1))),np.asarray(MakeRMatrix(r2)))
+	rentT = rnet.T
+	tnet = np.asarray(t2)-np.asarray(t1)
+	tnet = np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r1))),tnet.T)
+	# tnet = (np.asarray(normalize(tnet.T))).T
+	RtT = np.dot(rentT,tnet)
+	RtT= MakeTx(RtT)
+	rbig = np.dot(rnet,RtT)
+	ans = np.dot(KinvT,rbig)
+	ans = np.dot(ans,Kinv)
+	return ans
+	
 
 homogpoint1 = map(lambda x: getallhomog(x[0]), brokenpointpairs)
 homogpoint2 = map(lambda x: getallhomog(x[1]), brokenpointpairs)
@@ -417,14 +435,25 @@ homogpoint2 = map(lambda x: getallhomog(x[1]), brokenpointpairs)
 transmatrices = []
 sensortrans = []
 magmatrices = []
+fundamentalmatrices=[]
+
+# RT_KG1=RT_Soccer1
+
 # dottedup=[]
 for i in xrange(1,min(len(RT_KG1),len(homogpoint1))):
-	print i, len(RT_KG1),len(homogpoint1),len(homogpoint2)
+	# print i, len(RT_KG1),len(homogpoint1),len(homogpoint2)
 	transmatrices.append(SolveEquations(RT_KG1[i-1][0],RT_KG1[i][0],homogpoint1[i],homogpoint2[i]))
 	tnet = np.asarray(RT_KG1[i][1])-np.asarray(RT_KG1[i-1][1])
 	magmatrices.append(tnet[0]**2 + tnet[1]**2 + tnet[2]**2)
 	tnet = normalize(tnet)
 	sensortrans.append(tnet)
+
+for i in xrange(1,(len(RT_KG1))):
+	# print i, len(RT_KG1),len(homogpoint1),len(homogpoint2)
+	fundamentalmatrices.append(ObtainFundament(RT_KG1[i-1][0],RT_KG1[i][0],RT_KG1[i-1][1],RT_KG1[i][1]))
+	
+
+# print fundamentalmatrices
 
 def GetMagnitude(trans1,trans2,magnit):
 	answer=[]
@@ -433,9 +462,35 @@ def GetMagnitude(trans1,trans2,magnit):
 		answer.append([magnit[i],m1])
 	return answer
 
+def GetError(F,p1arr,p2arr):
+	errterm = 0
+	for i in xrange(len(p1arr)):
+		homogp1 = (np.asarray([p1arr[i][0],p1arr[i][1],1])).T
+		homogp2 = (np.asarray([p2arr[i][0],p2arr[i][1],1]))
+		valerror = np.dot(homogp2,F)
+		valerror = np.dot(valerror,homogp1)
+		# print valerror
+		errterm += valerror
+	return errterm/len(p1arr)
+
+point1 = map(lambda x: x[0], brokenpointpairs)
+point2 = map(lambda x: x[1], brokenpointpairs)
+
+print len(fundamentalmatrices),len(point1)
+
+errterms=[]
+for i in xrange(len(fundamentalmatrices)):
+	errterms.append(GetError(fundamentalmatrices[i],point1[i],point2[i]))
+
+print errterms
+
+print len(point1),len(point2),len(fundamentalmatrices)
+
 Magnited= GetMagnitude(sensortrans, transmatrices, magmatrices)
 
 # print Magnited
+# for elem in Magnited:
+# 	print elem
 
 boolvals = map(lambda x: x[0]>0, Magnited)
 vals = map(lambda x: abs(x[1]), Magnited)
@@ -443,14 +498,14 @@ vals = map(lambda x: abs(x[1]), Magnited)
 # print transmatrices
 # print sensortrans
 # print magmatrices
-fmatrices = map(lambda x: cv2.findFundamentalMat(np.asarray(x[0]),np.asarray(x[1]))[0], brokenpointpairs)
+# fmatrices = map(lambda x: cv2.findFundamentalMat(np.asarray(x[0]),np.asarray(x[1]))[0], brokenpointpairs)
 
-ematrices = map(lambda x: K.T *x*K, fmatrices)
+# ematrices = map(lambda x: K.T *x*K, fmatrices)
 # print "number of e matrices", len(ematrices)
 
-ekg0 = map(lambda x: x[0][0], EKG1)
+# ekg0 = map(lambda x: x[0][0], EKG1)
 # print ekg0
-e0 = map(lambda x: x[0][0], ematrices)
+# e0 = map(lambda x: x[0][0], ematrices)
 # prin	t e0
 
 # print ematrices
@@ -479,6 +534,51 @@ plt.subplot(1,1,1)
 plt.plot(vals,color='blue')
 plt.plot(boolvals,color='red')
 
+plt.figure(3)
+plt.subplot(3,1,1)
+plt.plot(map(lambda x: (x[0]), transmatrices),color='green')
+plt.plot(map(lambda x: x[0], sensortrans),color='blue')
+plt.plot(boolvals, color='red')
+
+plt.subplot(3,1,2)
+plt.plot(map(lambda x: (x[1]), transmatrices),color='green')
+plt.plot(map(lambda x: x[1], sensortrans),color='blue')
+plt.plot(boolvals, color='red')
+
+plt.subplot(3,1,3)
+plt.plot(map(lambda x: (x[2]), transmatrices),color='green')
+plt.plot(map(lambda x: x[2], sensortrans),color='blue')
+plt.plot(boolvals, color='red')
+
+print RT_KG1
+
+plt.figure(4)
+plt.subplot(3,3,1)
+plt.plot(map(lambda x:x[0][0],RT_KG1))
+
+plt.subplot(3,3,2)
+plt.plot(map(lambda x:x[0][1],RT_KG1))
+
+plt.subplot(3,3,3)
+plt.plot(map(lambda x:x[0][2],RT_KG1))
+
+plt.subplot(3,3,4)
+plt.plot(map(lambda x:x[0][3],RT_KG1))
+
+plt.subplot(3,3,5)
+plt.plot(map(lambda x:x[0][4],RT_KG1))
+
+plt.subplot(3,3,6)
+plt.plot(map(lambda x:x[0][5],RT_KG1))
+
+plt.subplot(3,3,7)
+plt.plot(map(lambda x:x[0][6],RT_KG1))
+
+plt.subplot(3,3,8)
+plt.plot(map(lambda x:x[0][7],RT_KG1))
+
+plt.subplot(3,3,9)
+plt.plot(map(lambda x:x[0][8],RT_KG1))
 
 
 plt.figure(1)
