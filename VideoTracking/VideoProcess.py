@@ -375,6 +375,40 @@ brokenpointpairs= breakintopointpairs(mappeddata)
 # print len(x[0][0])
 # print len(x[0][1])
 
+# print mappeddata[0]
+
+def findElem(x,y,data):
+	for i in xrange(len(data)/2):
+		if(x==data[2*i] and y==data[2*i+1]):
+			return 2*i
+	return -1
+
+
+def getCorrPoints(data):
+	ans=[]
+	if(len(data)>0):
+		for i in xrange(len(data[0])/2):
+			x1=data[0][2*i]
+			y1=data[0][2*i+1]
+			state=1
+			pos=2*i
+			for j in xrange(1,len(data)/2):
+				x2=data[2*j-1][pos]
+				y2=data[2*j-1][pos+1]
+				pos=findElem(x2,y2,data[2*j])
+				if(pos<0):
+					state=0
+					break
+
+			if(state==1):
+				ans.append([x1,y1,data[len(data)-1][pos],data[len(data)-1][pos+1]])
+	return ans
+	
+print"************"
+print len(getCorrPoints(mappeddata))
+print len(mappeddata[len(mappeddata)-1])
+print"************"
+
 def gethomogpoint(a):
 	k= np.asarray([a[0],a[1],1]).T
 	return np.dot(Kinv,k)
