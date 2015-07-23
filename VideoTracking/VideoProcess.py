@@ -15,6 +15,8 @@ fnumber='1436509344762'
 # fnumber='1437469487121'
 # fnumber='1437473687034'
 fnumber='1437481365601'
+fnumber='1437486540228'
+fnumber='1437643001347'
 
 filenamedataprocessed = fnumber+'SensorFusion3data.csv'
 filenamedataraw = fnumber+ 'SensorFusion3.csv'
@@ -212,7 +214,7 @@ def MakeRMatrix(r):
 	if r == [0,0,0,0,0,0,0,0,0]:
 		r = [1,0,0,0,1,0,0,0,1]
 	c1= [[r[0],r[1],r[2]],[r[3],r[4],r[5]],[r[6],r[7],r[8]]]
-	# c1 =[[-r[1],-r[0],-r[2]],[-r[4],-r[3],-r[5]],[-r[7],-r[6],-r[8]]]
+	c1 =[[-r[1],-r[0],-r[2]],[-r[4],-r[3],-r[5]],[-r[7],-r[6],-r[8]]]
 	return c1
 
 def normalize(a):
@@ -362,8 +364,36 @@ print "Done with sensor processing"
 # print "Number of frames", len(RT_KG1)
 
 K=[[  1.15137655e+03,   0.00000000e+00,   6.35646935e+02], [  0.00000000e+00,   1.14984595e+03,   3.36169128e+02], [  0.00000000e+00,   0.00000000e+00,   1.00000000e+00]]
+# K[0][2]=0
+# K[1][2]=0
 K= np.asarray(K)
 Kinv = np.linalg.inv(K)
+
+
+def ObtainFundament(r1,r2,t1,t2):
+	KinvT = Kinv.T
+	rnet= np.dot(np.asarray(MakeRMatrix(r2)),np.linalg.inv(np.asarray(MakeRMatrix(r1))))
+	rentT = rnet.T
+	print "value1",np.dot(rnet,rentT)
+	tnet = np.asarray(t1)-np.asarray(t2)
+	tnet= np.asarray(normalize(tnet))
+	tnet = np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r1))),tnet.T)
+	# tnet = (np.asarray(normalize(tnet.T))).T
+	RtT = np.dot(rentT,tnet)
+	RtT= MakeTx(RtT)
+	Ematrix = np.dot(MakeTx(tnet),rnet)
+	fmat = np.dot(Ematrix,Kinv)
+	fmat = np.dot(KinvT,fmat)
+	rbig = np.dot(rnet,RtT)
+	ans = np.dot(KinvT,rbig)
+	ans = np.dot(ans,Kinv)
+	ansterm=ans[2][2]
+	# ans /= ansterm
+	normfact = fmat[2][2]
+	fmat /= normfact
+	# return fmat
+	return ans
+	
 
 
 brokenpointpairs= breakintopointpairs(mappeddata)
@@ -403,8 +433,87 @@ def getCorrPoints(data):
 			if(state==1):
 				ans.append([x1,y1,data[len(data)-1][pos],data[len(data)-1][pos+1]])
 	return ans
-	
+
+def GetError(F,p1arr,p2arr):
+	errterm = 0
+	for i in xrange(len(p1arr)):
+		homogp1 = (np.asarray([p1arr[i][0],p1arr[i][1],1])).T
+		homogp2 = (np.asarray([p2arr[i][0],p2arr[i][1],1]))
+		valerror = np.dot(homogp2,F)
+		valerror = np.dot(valerror,homogp1)
+		# print valerror
+		errterm += valerror
+	return errterm/len(p1arr)
+
+def drawlines(img1,img2,lines,pts1,pts2):
+	r,c = img1.shape
+	for r,pt1,pt2 in zip(lines,pts1,pts2):
+		color= tuple(np.random.randint(0,255,3).tolist())
+		x0,y0 = map(int,[0,-r[2]/r[1]])
+		x1,y1 = map(int, [c, -(r[2]+r[0]*c)/r[1] ])
+		cv2.line(img1,(x0,y0),(x1,y1),color,1)
+		cv2.circle(img1,tuple(pt1),5,color,-1)
+		cv2.circle(img2,tuple(pt2),5,color,-1)
+	return img1,img2
+
+
 print"************"
+correspoints = getCorrPoints(mappeddata)
+points1 = map(lambda x: (x[0],x[1]), correspoints)
+points2 = map(lambda x: (x[2],x[3]), correspoints)
+initimage= cv2.imread('0_image.jpg')
+
+# cv2.imshow("winnameinit", initimage)
+# cv2.waitKey(1)
+
+for p in points1:
+	cv2.circle(initimage, (int(p[0]),int(p[1])), 3, (255,0,0),-1)
+cv2.imshow("winnameinit", initimage)
+cv2.waitKey(1)
+
+finitimage= cv2.imread('1_image.jpg')
+
+# cv2.imshow("winnameinit", initimage)
+# cv2.waitKey(1)
+
+for p in points2:
+	cv2.circle(finitimage, (int(p[0]),int(p[1])), 3, (255,0,0),-1)
+cv2.imshow("winnameinitf", finitimage)
+cv2.waitKey(1)
+
+initimage=cv2.resize(initimage, (0,0), fx=0.5, fy=0.5)
+finitimage = cv2.resize(finitimage, (0,0), fx=0.5, fy=0.5)
+
+
+vis = np.concatenate((initimage, finitimage), axis=1)
+
+for i in xrange(0,len(points1)/10):
+	cv2.line(vis, (int(points1[i][0]/2),int(points1[i][1])/2), (int(points2[i][0]/2)+640,int(points2[i][1]/2)), (0,0,255))
+
+print "################"
+print points2
+print "################"
+
+cv2.imshow("merged", vis)
+cv2.waitKey(1)
+
+
+
+Rinit = RT_KG1[0][0]
+Rfinal= RT_KG1[-1][0]
+Tinit = RT_KG1[0][1]
+Tfinal= RT_KG1[-1][1]
+fundapython = cv2.findFundamentalMat(np.asarray(points1[0:len(points1)/1]), np.asarray(points2[0:len(points2)/1]))[0]
+fundamentalmat = ObtainFundament(Rinit, Rfinal, Tinit, Tfinal)
+errterm = GetError(fundamentalmat, points1, points2)
+
+print "our mat",fundamentalmat
+print "python mat",fundapython
+print "our error:",errterm
+print "python err",GetError(fundapython, points1[0:len(points1)/1], points2[0:len(points2)/1])
+
+print Rinit,Rfinal
+print Tinit,Tfinal
 print len(getCorrPoints(mappeddata))
 print len(mappeddata[len(mappeddata)-1])
 print"************"
@@ -445,20 +554,6 @@ def SolveEquations(r1,r2,P1,P2):
 	transdir_cor = np.dot(np.asarray(MakeRMatrix(r1)),transdir)
 	return transdir_cor
 
-def ObtainFundament(r1,r2,t1,t2):
-	KinvT = Kinv.T
-	rnet= np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r1))),np.asarray(MakeRMatrix(r2)))
-	rentT = rnet.T
-	tnet = np.asarray(t2)-np.asarray(t1)
-	tnet = np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r1))),tnet.T)
-	# tnet = (np.asarray(normalize(tnet.T))).T
-	RtT = np.dot(rentT,tnet)
-	RtT= MakeTx(RtT)
-	rbig = np.dot(rnet,RtT)
-	ans = np.dot(KinvT,rbig)
-	ans = np.dot(ans,Kinv)
-	return ans
-	
 
 homogpoint1 = map(lambda x: getallhomog(x[0]), brokenpointpairs)
 homogpoint2 = map(lambda x: getallhomog(x[1]), brokenpointpairs)
@@ -496,16 +591,7 @@ def GetMagnitude(trans1,trans2,magnit):
 		answer.append([magnit[i],m1])
 	return answer
 
-def GetError(F,p1arr,p2arr):
-	errterm = 0
-	for i in xrange(len(p1arr)):
-		homogp1 = (np.asarray([p1arr[i][0],p1arr[i][1],1])).T
-		homogp2 = (np.asarray([p2arr[i][0],p2arr[i][1],1]))
-		valerror = np.dot(homogp2,F)
-		valerror = np.dot(valerror,homogp1)
-		# print valerror
-		errterm += valerror
-	return errterm/len(p1arr)
+
 
 point1 = map(lambda x: x[0], brokenpointpairs)
 point2 = map(lambda x: x[1], brokenpointpairs)
