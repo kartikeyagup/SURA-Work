@@ -376,7 +376,7 @@ def ObtainFundament(r1,r2,t1,t2):
 	rentT = rnet.T
 	print "value1",np.dot(rnet,rentT)
 	tnet = np.asarray(t1)-np.asarray(t2)
-	tnet= np.asarray(normalize(tnet))
+	# tnet= np.asarray(normalize(tnet))
 	tnet = np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r1))),tnet.T)
 	# tnet = (np.asarray(normalize(tnet.T))).T
 	RtT = np.dot(rentT,tnet)
