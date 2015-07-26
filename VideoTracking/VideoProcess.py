@@ -508,7 +508,7 @@ for i in xrange(0,len(points1)/10):
 	cv2.line(vis, (int((dimx/2+points1[i][0])/2),int((dimy/2-points1[i][1]))/2), (int((dimx/2+points2[i][0])/2)+640,int((dimy/2-points2[i][1])/2)), (0,0,255))
 
 print "################"
-print points2
+# print points2
 print "################"
 
 cv2.imshow("merged", vis)
@@ -554,10 +554,10 @@ print "python mat",fundapython
 print "our error:",errterm
 print "python err",GetError(fundapython, points1[0:len(points1)/1], points2[0:len(points2)/1])
 
-print Rinit,Rfinal
-print Tinit,Tfinal
-print len(getCorrPoints(mappeddata))
-print len(mappeddata[len(mappeddata)-1])
+# print Rinit,Rfinal
+# print Tinit,Tfinal
+# print len(getCorrPoints(mappeddata))
+# print len(mappeddata[len(mappeddata)-1])
 print"************"
 
 def gethomogpoint(a):
@@ -712,7 +712,7 @@ plt.plot(map(lambda x: (x[2]), transmatrices),color='green')
 plt.plot(map(lambda x: x[2], sensortrans),color='blue')
 plt.plot(boolvals, color='red')
 
-print RT_KG1
+# print RT_KG1
 
 plt.figure(4)
 plt.subplot(3,3,1)
