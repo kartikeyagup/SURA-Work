@@ -17,6 +17,7 @@ fnumber='1436509344762'
 fnumber='1437481365601'
 fnumber='1437486540228'
 fnumber='1437643001347'
+fnumber='1437906696848'
 
 filenamedataprocessed = fnumber+'SensorFusion3data.csv'
 filenamedataraw = fnumber+ 'SensorFusion3.csv'
@@ -37,6 +38,12 @@ with open(filenameframemap,'rb') as csvfile:
 	spamreader= csv.reader(csvfile)
 	for row in spamreader:
 		framesensorread.append(row)
+
+deltatarray =[0]
+for i in xrange(2,len(framesensorread)):
+	deltatarray.append(int(framesensorread[i][2])-int(framesensorread[i-1][2]))
+
+print "delta t", deltatarray
 
 framesensor = map(lambda x: [int(x[0]),int(x[1])], framesensorread[1:])
 
@@ -334,6 +341,13 @@ RT_KG0 = []
 RT_Soccer0 = []
 RT_KG2 = []
 RT_Soccer2 = []
+VA_KG0=[]
+VA_KG1=[]
+VA_KG2=[]
+VA_Soccer0=[]
+VA_Soccer1=[]
+VA_Soccer2=[]
+
 
 for elem in sensornumbers:
 	# print elem, len(rotmatrices)
@@ -344,6 +358,48 @@ for elem in sensornumbers:
 	RT_Soccer0.append([Rot,Sd0[elem]])
 	RT_Soccer1.append([Rot,Sd1[elem]])
 	RT_Soccer2.append([Rot,Sd2[elem]])
+	VA_KG0.append([kgv0[elem],[ax[elem],ay[elem],az[elem]]])
+	VA_KG1.append([kgv1[elem],[ax[elem],ay[elem],az[elem]]])
+	VA_KG2.append([kgv2[elem],[ax[elem],ay[elem],az[elem]]])
+	VA_Soccer0.append([soccerv0[elem],[pratx[elem],praty[elem],pratz[elem]]])				
+	VA_Soccer1.append([soccerv1[elem],[pratx[elem],praty[elem],pratz[elem]]])			
+	VA_Soccer2.append([soccerv2[elem],[pratx[elem],praty[elem],pratz[elem]]])					
+
+# print "len of rt: ", len(RT_KG1)
+
+
+def CorrectVelDirection(velocity,direction):
+	magnitude = (velocity[0]**2+velocity[1]**2+velocity[2]**2)**0.5
+	m1=0
+	if abs(velocity[0])>abs(velocity[1]) and abs(velocity[0])>abs(velocity[2]):
+		m1=0
+	elif abs(velocity[1])>abs(velocity[0]) and abs(velocity[1])>abs(velocity[2]):
+		m1=1
+	direction[0] *=magnitude
+	direction[1] *=magnitude
+	direction[2] *=magnitude
+	signorig= velocity[m1]>0
+	signfinal= direction[m1]>0
+	if signfinal!=signorig:
+		direction[0] *= -1
+		direction[1] *= -1
+		direction[2] *= -1
+	return direction
+
+def MakeZMatrix(velocity,direction,acc):
+	ans=[0,0,0,0,0,0]
+	velcor = CorrectVelDirection(velocity, direction)
+	ans[0]=velcor[0]
+	ans[1]=velcor[1]
+	ans[2]=velcor[2]
+	ans[3]=acc[0]
+	ans[4]=acc[1]
+	ans[5]=acc[2]
+	return np.asarray(ans).T
+
+
+
+print "len deltat",len(deltatarray),"len va",len(VA_KG0)
 
 print "Done with sensor processing"
 
@@ -395,9 +451,19 @@ def ObtainFundament(r1,r2,t1,t2):
 	# return fmat
 	return ans
 
+def GetTR(fmat):
+	ans = np.dot(fmat,K)
+	ans = np.dot(K.T,ans)
+	return ans
 
+def GetT(fmat,r1,r2):
+	a1=GetTR(fmat)
+	rnet= np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r2))),(np.asarray(MakeRMatrix(r1))))
+	rinv = np.linalg.inv(rnet)
+	return np.dot(a1,rinv)
 
 brokenpointpairs= breakintopointpairs(mappeddata)
+print "broken point pairs length", len(brokenpointpairs)
 # print brokenpointpairs[0][0]
 # print brokenpointpairs[0][1]
 
@@ -478,7 +544,7 @@ dimy = 720
 for i in xrange(len(points1)):
 	points1[i]=((points1[i][0]-dimx/2),(dimy/2-points1[i][1]))
 	points2[i]=((points2[i][0]-dimx/2),(dimy/2-points2[i][1]))
-initimage= cv2.imread('0_image.jpg')
+initimage= cv2.imread(fnumber+'_0_image.jpg')
 
 # cv2.imshow("winnameinit", initimage)
 # cv2.waitKey(1)
@@ -488,7 +554,7 @@ for p in points1:
 cv2.imshow("winnameinit", initimage)
 cv2.waitKey(1)
 
-finitimage= cv2.imread('1_image.jpg')
+finitimage= cv2.imread(fnumber+'_1_image.jpg')
 
 # cv2.imshow("winnameinit", initimage)
 # cv2.waitKey(1)
@@ -523,10 +589,8 @@ Tfinal= RT_KG1[-1][1]
 fundapython = cv2.findFundamentalMat(np.asarray(points1[0:len(points1)/1]), np.asarray(points2[0:len(points2)/1]))[0]
 fundamentalmat = ObtainFundament(Rinit, Rfinal, Tinit, Tfinal)
 errterm = GetError(fundamentalmat, points1, points2)
-
-
-
-
+print "tmat python", GetT(fundapython, Rinit, Rfinal)
+print "tmat ours", GetT(fundamentalmat, Rinit, Rfinal)
 
 pts1=np.asarray(points1[0:len(points1)/10])
 pts2=np.asarray(points2[0:len(points1)/10])
@@ -561,7 +625,7 @@ print "python err",GetError(fundapython, points1[0:len(points1)/1], points2[0:le
 print"************"
 
 def gethomogpoint(a):
-	k= np.asarray([a[0],a[1],1]).T
+	k= np.asarray([a[0]-640,360-a[1],1]).T
 	return np.dot(Kinv,k)
 
 def getallhomog(arr):
@@ -575,7 +639,7 @@ def GenerateCoeffs(R,p1,p2):
 	return (tx,ty,tz)
 
 def SolveEquations(r1,r2,P1,P2):
-	rnet= np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r1))),np.asarray(MakeRMatrix(r2)))
+	rnet= np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r2))),np.asarray(MakeRMatrix(r1)))
 	coeffs=[]
 	for i in xrange(len(P1)):
 		coeffs.append(GenerateCoeffs(rnet,P1[i],P2[i]))
@@ -601,7 +665,7 @@ homogpoint1 = map(lambda x: getallhomog(x[0]), brokenpointpairs)
 homogpoint2 = map(lambda x: getallhomog(x[1]), brokenpointpairs)
 # print SolveEquations(RT_KG1[0][0], RT_KG1[1][0] , homogpoint1[0], homogpoint2[0])
 
-# print len(RT_KG1),len(homogpoint1),len(homogpoint2)
+print "lengths of different matrices",len(RT_KG1),len(homogpoint1),len(homogpoint2)
 
 transmatrices = []
 sensortrans = []
@@ -619,9 +683,9 @@ for i in xrange(1,min(len(RT_KG1),len(homogpoint1))):
 	tnet = normalize(tnet)
 	sensortrans.append(tnet)
 
-for i in xrange(1,(len(RT_KG1))):
-	# print i, len(RT_KG1),len(homogpoint1),len(homogpoint2)
-	fundamentalmatrices.append(ObtainFundament(RT_KG1[i-1][0],RT_KG1[i][0],RT_KG1[i-1][1],RT_KG1[i][1]))
+# for i in xrange(1,(len(RT_KG1))):
+# 	# print i, len(RT_KG1),len(homogpoint1),len(homogpoint2)
+# 	fundamentalmatrices.append(ObtainFundament(RT_KG1[i-1][0],RT_KG1[i][0],RT_KG1[i-1][1],RT_KG1[i][1]))
 	
 
 # print fundamentalmatrices
@@ -638,19 +702,74 @@ def GetMagnitude(trans1,trans2,magnit):
 point1 = map(lambda x: x[0], brokenpointpairs)
 point2 = map(lambda x: x[1], brokenpointpairs)
 
-print len(fundamentalmatrices),len(point1)
+# print len(fundamentalmatrices),len(point1)
 
-errterms=[]
-for i in xrange(len(fundamentalmatrices)):
-	errterms.append(GetError(fundamentalmatrices[i],point1[i],point2[i]))
+# errterms=[]
+# for i in xrange(len(fundamentalmatrices)):
+# 	errterms.append(GetError(fundamentalmatrices[i],point1[i],point2[i]))
 
-print errterms
+# print errterms
 
-print len(point1),len(point2),len(fundamentalmatrices)
+# print len(point1),len(point2),len(fundamentalmatrices)
 
 Magnited= GetMagnitude(sensortrans, transmatrices, magmatrices)
 
-# print Magnited
+print "&&&&&&&&&&&&&&&&&&&&&&&"
+print "Starting kalman filter"
+
+RArray=[[0.1,0,0,0,0,0],[0,0.1,0,0,0,0],[0,0,0.1,0,0,0],[0,0,0,0.1,0,0],[0,0,0,0,0.1,0],[0,0,0,0,0,0.1]]
+RMat = np.asarray(RArray)
+
+def getA(deltat):
+	t1= np.identity(6)
+	t1[0][3]=deltat
+	t1[1][4]=deltat
+	t1[2][5]=deltat
+	return t1
+
+XMat=np.asarray([0,0,0,0,0,0]).T
+speeds=[]
+PMat = np.identity(6)
+
+print deltatarray
+print sensortrans
+sensortrans=[[0,0,0]]+sensortrans
+for i in xrange(len(sensortrans)):
+	Amat = getA(deltatarray[i])
+	XMat = np.dot(Amat,XMat)
+	PMat = np.dot(PMat,Amat.T)
+	PMat = np.dot(Amat,PMat)
+	PkPlusR = PMat+RMat
+	PkPlusRInv = np.linalg.inv(PkPlusR)
+	Gk = np.dot(PMat,PkPlusRInv)
+	Zmat=MakeZMatrix(VA_KG1[i][0], sensortrans[i], VA_KG1[i][1])
+	Zmat = Zmat - XMat
+	Zmat = np.dot(Gk,Zmat)
+	XMat= XMat+Zmat
+	L1 = np.identity(6)- Gk
+	PMat = np.dot(L1,PMat)
+	speeds.append(XMat)
+
+# print speeds
+
+[speedx,speedy,speedz,accx,accy,accz] = zip(*speeds)
+print VA_KG1
+origv,origa = zip(*VA_KG1)
+[origspx,origspy,origspz]=zip(*origv)
+[origax,origay,origaz]=zip(*origa)
+
+print "speedx",speedx,"speedy",speedy
+
+
+print len(deltatarray),len(sensortrans),len(VA_KG1)
+
+# Kalman part now
+
+
+print "Done with kalman"
+print "&&&&&&&&&&&&&&&&&&&&&&&"
+
+print Magnited
 # for elem in Magnited:
 # 	print elem
 
@@ -689,6 +808,38 @@ print "soccer 2: ", (soccerdx2[-1]**2+ soccerdy2[-1]**2 + soccerdz2[-1]**2)**0.5
 # print "soccer 2: ", (dx[-1]**2+ dy[-1]**2 + dz[-1]**2)**0.5
 
 print "fixed: ", (fixeddx[-1]**2+ fixeddy[-1]**2 + fixeddz[-1]**2)**0.5
+
+
+plt.figure(5)
+plt.subplot(2,3,1)
+plt.plot(speedx)
+plt.plot(origspx)
+plt.ylabel("speed x")
+
+plt.subplot(2,3,2)
+plt.plot(speedy)
+plt.plot(origspy)
+plt.ylabel("speed y")
+
+plt.subplot(2,3,3)
+plt.plot(speedz)
+plt.plot(origspz)
+plt.ylabel("speed z")
+
+plt.subplot(2,3,4)
+plt.plot(accx)
+plt.plot(origax)
+plt.ylabel("acc x")
+
+plt.subplot(2,3,5)
+plt.plot(accy)
+plt.plot(origay)
+plt.ylabel("acc y")
+
+plt.subplot(2,3,6)
+plt.plot(accz)
+plt.plot(origaz)
+plt.ylabel("acc z")
 
 
 plt.figure(2)
