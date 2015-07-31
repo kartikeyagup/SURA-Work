@@ -18,6 +18,7 @@ fnumber='1437481365601'
 fnumber='1437486540228'
 fnumber='1437643001347'
 fnumber='1437906696848'
+fnumber='1438327422377'
 
 filenamedataprocessed = fnumber+'SensorFusion3data.csv'
 filenamedataraw = fnumber+ 'SensorFusion3.csv'
@@ -197,6 +198,11 @@ def GetDistance(timearr,velarray):
 	# print "distance is: ", ans[-1]
 	return ans
 
+def GetDist2(timearr,velarr):
+	ans=[0.0]*len(timearr)
+	for i in xrange(1,len(velarr)):
+		ans[i]=ans[i-1] + velarr[i]*timearr[i]/1000
+	return ans
 
 def breakupintopoints(r1):
 	ans=[]
@@ -370,7 +376,7 @@ for elem in sensornumbers:
 
 def CorrectVelDirection(velocity,direction):
 	magnitude = (velocity[0]**2+velocity[1]**2+velocity[2]**2)**0.5
-	m1=0
+	m1=2
 	if abs(velocity[0])>abs(velocity[1]) and abs(velocity[0])>abs(velocity[2]):
 		m1=0
 	elif abs(velocity[1])>abs(velocity[0]) and abs(velocity[1])>abs(velocity[2]):
@@ -717,14 +723,14 @@ Magnited= GetMagnitude(sensortrans, transmatrices, magmatrices)
 print "&&&&&&&&&&&&&&&&&&&&&&&"
 print "Starting kalman filter"
 
-RArray=[[0.1,0,0,0,0,0],[0,0.1,0,0,0,0],[0,0,0.1,0,0,0],[0,0,0,0.1,0,0],[0,0,0,0,0.1,0],[0,0,0,0,0,0.1]]
+RArray=[[0.01,0,0,0,0,0],[0,0.01,0,0,0,0],[0,0,0.01,0,0,0],[0,0,0,0.1,0,0],[0,0,0,0,0.1,0],[0,0,0,0,0,1]]
 RMat = np.asarray(RArray)
 
 def getA(deltat):
 	t1= np.identity(6)
-	t1[0][3]=deltat
-	t1[1][4]=deltat
-	t1[2][5]=deltat
+	t1[0][3]=0.001*deltat
+	t1[1][4]=0.001*deltat
+	t1[2][5]=0.001*deltat
 	return t1
 
 XMat=np.asarray([0,0,0,0,0,0]).T
@@ -753,7 +759,8 @@ for i in xrange(len(sensortrans)):
 # print speeds
 
 [speedx,speedy,speedz,accx,accy,accz] = zip(*speeds)
-print VA_KG1
+[r,t]= zip(*RT_KG1)
+[distx,disty,distz]=zip(*t)
 origv,origa = zip(*VA_KG1)
 [origspx,origspy,origspz]=zip(*origv)
 [origax,origay,origaz]=zip(*origa)
@@ -761,7 +768,12 @@ origv,origa = zip(*VA_KG1)
 print "speedx",speedx,"speedy",speedy
 
 
-print len(deltatarray),len(sensortrans),len(VA_KG1)
+print len(deltatarray),len(sensortrans),len(VA_KG1),len(VA_KG1),len(speedx)
+
+distancex=GetDist2(deltatarray,speedx)
+distancey=GetDist2(deltatarray,speedy)
+distancez=GetDist2(deltatarray,speedz)
+
 
 # Kalman part now
 
@@ -811,35 +823,50 @@ print "fixed: ", (fixeddx[-1]**2+ fixeddy[-1]**2 + fixeddz[-1]**2)**0.5
 
 
 plt.figure(5)
-plt.subplot(2,3,1)
+plt.subplot(3,3,1)
 plt.plot(speedx)
 plt.plot(origspx)
 plt.ylabel("speed x")
 
-plt.subplot(2,3,2)
+plt.subplot(3,3,2)
 plt.plot(speedy)
 plt.plot(origspy)
 plt.ylabel("speed y")
 
-plt.subplot(2,3,3)
+plt.subplot(3,3,3)
 plt.plot(speedz)
 plt.plot(origspz)
 plt.ylabel("speed z")
 
-plt.subplot(2,3,4)
+plt.subplot(3,3,4)
 plt.plot(accx)
 plt.plot(origax)
 plt.ylabel("acc x")
 
-plt.subplot(2,3,5)
+plt.subplot(3,3,5)
 plt.plot(accy)
 plt.plot(origay)
 plt.ylabel("acc y")
 
-plt.subplot(2,3,6)
+plt.subplot(3,3,6)
 plt.plot(accz)
 plt.plot(origaz)
 plt.ylabel("acc z")
+
+plt.subplot(3,3,7)
+plt.ylabel("distance x")
+plt.plot(distancex)
+plt.plot(distx)
+
+plt.subplot(3,3,8)
+plt.ylabel("distance y")
+plt.plot(distancey)
+plt.plot(disty)
+
+plt.subplot(3,3,9)
+plt.ylabel("distance z")
+plt.plot(distancez)
+plt.plot(distz)
 
 
 plt.figure(2)
