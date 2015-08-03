@@ -215,6 +215,7 @@ def MakeRMatrix(r):
 		r = [1,0,0,0,1,0,0,0,1]
 	c1= [[r[0],r[1],r[2]],[r[3],r[4],r[5]],[r[6],r[7],r[8]]]
 	c1 =[[-r[1],-r[0],-r[2]],[-r[4],-r[3],-r[5]],[-r[7],-r[6],-r[8]]]
+	c1= [[r[3],r[4],r[5]],[-r[0],-r[1],-r[2]],[r[6],r[7],r[8]]]
 	return c1
 
 def normalize(a):
@@ -241,31 +242,31 @@ def GetCorresSensorNumber(fno):
 def GetSensorNumbers():
 	return map(lambda x: x[1], framesensor)
 
-for i in xrange(len(ax)):
-	ax[i]=1000*ax[i]
+# for i in xrange(len(ax)):
+# 	ax[i]=1000*ax[i]
 
-for i in xrange(len(ay)):
-	ay[i]=1000*ay[i]
+# for i in xrange(len(ay)):
+# 	ay[i]=1000*ay[i]
 
-for i in xrange(len(az)):
-	az[i]=1000*az[i]
+# for i in xrange(len(az)):
+# 	az[i]=1000*az[i]
 
-for i in xrange(len(pratx)):
-	pratx[i]=1000*pratx[i]
+# for i in xrange(len(pratx)):
+# 	pratx[i]=1000*pratx[i]
 
-for i in xrange(len(praty)):
-	praty[i]=1000*praty[i]
+# for i in xrange(len(praty)):
+# 	praty[i]=1000*praty[i]
 
-for i in xrange(len(pratz)):
-	pratz[i]=1000*pratz[i]
+# for i in xrange(len(pratz)):
+# 	pratz[i]=1000*pratz[i]
 
-for i in xrange(len(vx)):
-	vx[i]=1000*vx[i]
-	vy[i]=1000*vy[i]
-	vz[i]=1000*vz[i]
-	dx[i]=1000*dx[i]
-	dy[i]=1000*dy[i]
-	dz[i]=1000*dz[i]
+# for i in xrange(len(vx)):
+# 	vx[i]=1000*vx[i]
+# 	vy[i]=1000*vy[i]
+# 	vz[i]=1000*vz[i]
+# 	dx[i]=1000*dx[i]
+# 	dy[i]=1000*dy[i]
+# 	dz[i]=1000*dz[i]
 
 calcvx1=GetVelocity(timearr1,GetMotionZones(motionx),ax,1)
 calcdx1=GetDistance(timearr1,calcvx1)
@@ -364,36 +365,36 @@ print "Done with sensor processing"
 # print "Number of frames", len(RT_KG1)
 
 K=[[  1.15137655e+03,   0.00000000e+00,   6.35646935e+02], [  0.00000000e+00,   1.14984595e+03,   3.36169128e+02], [  0.00000000e+00,   0.00000000e+00,   1.00000000e+00]]
-# K[0][2]=0
-# K[1][2]=0
+K[0][2]=0
+K[1][2]=0
 K= np.asarray(K)
 Kinv = np.linalg.inv(K)
 
 
 def ObtainFundament(r1,r2,t1,t2):
 	KinvT = Kinv.T
-	rnet= np.dot(np.asarray(MakeRMatrix(r2)),np.linalg.inv(np.asarray(MakeRMatrix(r1))))
+	rnet= np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r2))),(np.asarray(MakeRMatrix(r1))))
 	rentT = rnet.T
 	# print "value1",np.dot(rnet,rentT)
 	tnet = np.asarray(t1)-np.asarray(t2)
 	# tnet= np.asarray(normalize(tnet))
-	tnet = np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r1))),tnet.T)
+	tnet = np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r2))),tnet.T)
 	# tnet = (np.asarray(normalize(tnet.T))).T
 	RtT = np.dot(rentT,tnet)
 	RtT= MakeTx(RtT)
-	Ematrix = np.dot(MakeTx(tnet),rnet)
-	fmat = np.dot(Ematrix,Kinv)
-	fmat = np.dot(KinvT,fmat)
+	# Ematrix = np.dot(MakeTx(tnet),rnet)
+	# fmat = np.dot(Ematrix,Kinv)
+	# fmat = np.dot(KinvT,fmat)
 	rbig = np.dot(rnet,RtT)
 	ans = np.dot(KinvT,rbig)
 	ans = np.dot(ans,Kinv)
-	ansterm=ans[2][2]
+	# ansterm=ans[2][2]
 	# ans /= ansterm
-	normfact = fmat[2][2]
-	fmat /= normfact
+	# normfact = fmat[2][2]
+	# fmat /= normfact
 	# return fmat
 	return ans
-	
+
 
 
 brokenpointpairs= breakintopointpairs(mappeddata)
@@ -445,15 +446,24 @@ def GetError(F,p1arr,p2arr):
 		errterm += valerror
 	return errterm/len(p1arr)
 
-def drawlines(img1,img2,lines,pts1,pts2):
-	r,c = 720,1280
-	for r,pt1,pt2 in zip(lines,pts1,pts2):
+def CCTN(p):
+	return (640+p[0],360-p[1])
+
+def drawlines(img1,img2,lines1,lines2,pts1,pts2):
+	c=640
+	d=-640
+	for r,m,pt1,pt2 in zip(lines1,lines2,pts1,pts2):
 		color= tuple(np.random.randint(0,255,3).tolist())
 		x0,y0 = map(int,[0,-r[2]/r[1]])
 		x1,y1 = map(int, [c, -(r[2]+r[0]*c)/r[1] ])
-		cv2.line(img1,(x0,y0),(x1,y1),color,1)
-		cv2.circle(img1,(int(pt1[0]),int(pt1[1])),5,color,-1)
-		cv2.circle(img2,(int(pt2[0]),int(pt2[1])),5,color,-1)
+		x2,y2 = map(int, [d, -(r[2]+r[0]*d)/r[1] ])
+		ax0,ay0 = map(int,[0,-m[2]/m[1]])
+		ax1,ay1 = map(int, [c, -(m[2]+m[0]*c)/m[1] ])
+		ax2,ay2 = map(int, [d, -(m[2]+m[0]*d)/m[1] ])
+		cv2.line(img1,CCTN((x1,y1)),CCTN((x2,y2)),color,1)
+		cv2.line(img2,CCTN((ax1,ay1)),CCTN((ax2,ay2)),color,1)
+		cv2.circle(img1,CCTN((int(pt1[0]),int(pt1[1]))),5,color,-1)
+		cv2.circle(img2,CCTN((int(pt2[0]),int(pt2[1]))),5,color,-1)
 	return img1,img2
 
 
@@ -461,13 +471,20 @@ print"************"
 correspoints = getCorrPoints(mappeddata)
 points1 = map(lambda x: (x[0],x[1]), correspoints)
 points2 = map(lambda x: (x[2],x[3]), correspoints)
+
+dimx = 1280
+dimy = 720
+
+for i in xrange(len(points1)):
+	points1[i]=((points1[i][0]-dimx/2),(dimy/2-points1[i][1]))
+	points2[i]=((points2[i][0]-dimx/2),(dimy/2-points2[i][1]))
 initimage= cv2.imread('0_image.jpg')
 
 # cv2.imshow("winnameinit", initimage)
 # cv2.waitKey(1)
 
 for p in points1:
-	cv2.circle(initimage, (int(p[0]),int(p[1])), 3, (255,0,0),-1)
+	cv2.circle(initimage, (int(dimx/2+p[0]),int(dimy/2-p[1])), 3, (255,0,0),-1)
 cv2.imshow("winnameinit", initimage)
 cv2.waitKey(1)
 
@@ -477,21 +494,21 @@ finitimage= cv2.imread('1_image.jpg')
 # cv2.waitKey(1)
 
 for p in points2:
-	cv2.circle(finitimage, (int(p[0]),int(p[1])), 3, (255,0,0),-1)
+	cv2.circle(finitimage, (int(dimx/2+p[0]),int(dimy/2-p[1])), 3, (255,0,0),-1)
 cv2.imshow("winnameinitf", finitimage)
 cv2.waitKey(1)
 
-initimage=cv2.resize(initimage, (0,0), fx=0.5, fy=0.5)
-finitimage = cv2.resize(finitimage, (0,0), fx=0.5, fy=0.5)
+initimage1=cv2.resize(initimage, (0,0), fx=0.5, fy=0.5)
+finitimage1 = cv2.resize(finitimage, (0,0), fx=0.5, fy=0.5)
 
 
-vis = np.concatenate((initimage, finitimage), axis=1)
+vis = np.concatenate((initimage1, finitimage1), axis=1)
 
 for i in xrange(0,len(points1)/10):
-	cv2.line(vis, (int(points1[i][0]/2),int(points1[i][1])/2), (int(points2[i][0]/2)+640,int(points2[i][1]/2)), (0,0,255))
+	cv2.line(vis, (int((dimx/2+points1[i][0])/2),int((dimy/2-points1[i][1]))/2), (int((dimx/2+points2[i][0])/2)+640,int((dimy/2-points2[i][1])/2)), (0,0,255))
 
 print "################"
-print points2
+# print points2
 print "################"
 
 cv2.imshow("merged", vis)
@@ -503,35 +520,82 @@ Rinit = RT_KG1[0][0]
 Rfinal= RT_KG1[-1][0]
 Tinit = RT_KG1[0][1]
 Tfinal= RT_KG1[-1][1]
-fundapython= cv2.findFundamentalMat(np.asarray(points1[0:len(points1)/1]), np.asarray(points2[0:len(points2)/1]))[0]
+fundapython = cv2.findFundamentalMat(np.asarray(points1[0:len(points1)/1]), np.asarray(points2[0:len(points2)/1]))[0]
 fundamentalmat = ObtainFundament(Rinit, Rfinal, Tinit, Tfinal)
+l1= fundamentalmat.T
+l1=l1.copy()
 errterm = GetError(fundamentalmat, points1, points2)
 
-pts1=np.asarray(points1[0:len(points1)/1])
-pts2=np.asarray(points2[0:len(points1)/1])
-lines1=cv2.cv.fromarray(np.zeros((len(points1)/1,3)))
-lines2=cv2.cv.fromarray(np.zeros((len(points2)/1,3)))
 
-cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts2), 2,cv2.cv.fromarray(fundapython),lines1)
-cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts1), 1,cv2.cv.fromarray(fundapython),lines2)
 
-print lines1
+
+
+pts1=np.asarray(points1[0:4])
+pts2=np.asarray(points2[0:4])
+lines1=cv2.cv.fromarray(np.zeros((4,3)))
+lines2=cv2.cv.fromarray(np.zeros((4,3)))
+lines3=cv2.cv.fromarray(np.zeros((4,3)))
+lines4=cv2.cv.fromarray(np.zeros((4,3)))
+
+cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts2), 2,cv2.cv.fromarray(l1),lines1)
+cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts1), 1,cv2.cv.fromarray(l1),lines2)
+cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts2), 2,cv2.cv.fromarray(fundapython),lines3)
+cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts1), 1,cv2.cv.fromarray(fundapython),lines4)
+
+
+def MulPointMat(points2,mat):
+	a=points2[0]*mat[0][0]+points2[1]*mat[0][1]+1*mat[0][2]
+	b=points2[0]*mat[1][0]+points2[1]*mat[1][1]+1*mat[1][2]
+	c=points2[0]*mat[2][0]+points2[1]*mat[2][1]+1*mat[2][2]
+	print "****"
+	return [a,b,c]
+
+manlines1=[]
+manlines2=[]
+manlines3=[]
+manlines4=[]
+
+for elem in pts2:
+	a=MulPointMat(elem,l1)
+	manlines1.append(a)
+for elem in pts1:
+	a=MulPointMat(elem,l1)
+	manlines2.append(a)
+
+for elem in pts2:
+	a=MulPointMat(elem,fundapython)
+	manlines3.append(a)
+for elem in pts1:
+	a=MulPointMat(elem,fundapython)
+	manlines4.append(a)
+
+
 lines1= np.asarray(lines1)
+lines2= np.asarray(lines2)
+lines3= np.asarray(lines3)
+lines4= np.asarray(lines4)
 print lines1
+print lines3
+MulPointMat(points2[0],fundapython)
 
-img1,img2 = drawlines(initimage,finitimage,lines1,np.asarray(points1[0:len(points1)/1]),np.asarray(points1[0:len(points2)/1]))
+img1,img2 = drawlines(initimage,finitimage,manlines1,manlines2,pts1,pts2)
+# img3,img4 = drawlines(initimage,finitimage,lines3,lines4,pts1,pts2)
 
-cv2.imshow("elines",img1)
+cv2.imshow("elines1",img1)
+cv2.imshow("elines2",img2)
 
-print "our mat",fundamentalmat
+
+
+
+# print "our mat",fundamentalmat
 print "python mat",fundapython
 print "our error:",errterm
 print "python err",GetError(fundapython, points1[0:len(points1)/1], points2[0:len(points2)/1])
 
-print Rinit,Rfinal
-print Tinit,Tfinal
-print len(getCorrPoints(mappeddata))
-print len(mappeddata[len(mappeddata)-1])
+# print Rinit,Rfinal
+# print Tinit,Tfinal
+# print len(getCorrPoints(mappeddata))
+# print len(mappeddata[len(mappeddata)-1])
 print"************"
 
 def gethomogpoint(a):
@@ -686,7 +750,7 @@ plt.plot(boolvals,color='red')
 # plt.plot(map(lambda x: x[2], sensortrans),color='blue')
 # plt.plot(boolvals, color='red')
 
-# print RT_KG1
+# # print RT_KG1
 
 # plt.figure(4)
 # plt.subplot(3,3,1)

@@ -19,6 +19,7 @@ fnumber='1437486540228'
 fnumber='1437643001347'
 fnumber='1437906696848'
 fnumber='1438327422377'
+fnumber='1438600180528'
 
 filenamedataprocessed = fnumber+'SensorFusion3data.csv'
 filenamedataraw = fnumber+ 'SensorFusion3.csv'
@@ -551,7 +552,6 @@ for i in xrange(len(points1)):
 	points1[i]=((points1[i][0]-dimx/2),(dimy/2-points1[i][1]))
 	points2[i]=((points2[i][0]-dimx/2),(dimy/2-points2[i][1]))
 initimage= cv2.imread(fnumber+'_0_image.jpg')
-
 # cv2.imshow("winnameinit", initimage)
 # cv2.waitKey(1)
 
@@ -560,6 +560,7 @@ for p in points1:
 cv2.imshow("winnameinit", initimage)
 cv2.waitKey(1)
 
+initimage2= initimage
 finitimage= cv2.imread(fnumber+'_1_image.jpg')
 
 # cv2.imshow("winnameinit", initimage)
@@ -569,6 +570,7 @@ for p in points2:
 	cv2.circle(finitimage, (int(dimx/2+p[0]),int(dimy/2-p[1])), 3, (255,0,0),-1)
 cv2.imshow("winnameinitf", finitimage)
 cv2.waitKey(1)
+finitimage2= finitimage
 
 initimage1=cv2.resize(initimage, (0,0), fx=0.5, fy=0.5)
 finitimage1 = cv2.resize(finitimage, (0,0), fx=0.5, fy=0.5)
@@ -723,7 +725,7 @@ Magnited= GetMagnitude(sensortrans, transmatrices, magmatrices)
 print "&&&&&&&&&&&&&&&&&&&&&&&"
 print "Starting kalman filter"
 
-RArray=[[0.01,0,0,0,0,0],[0,0.01,0,0,0,0],[0,0,0.01,0,0,0],[0,0,0,0.1,0,0],[0,0,0,0,0.1,0],[0,0,0,0,0,1]]
+RArray=[[0.01,0,0,0,0,0],[0,0.01,0,0,0,0],[0,0,0.01,0,0,0],[0,0,0,0.01,0,0],[0,0,0,0,0.01,0],[0,0,0,0,0,0.01]]
 RMat = np.asarray(RArray)
 
 def getA(deltat):
@@ -765,6 +767,22 @@ origv,origa = zip(*VA_KG1)
 [origspx,origspy,origspz]=zip(*origv)
 [origax,origay,origaz]=zip(*origa)
 
+speedx= list(speedx)
+speedy= list(speedy)
+speedz= list(speedz)
+
+for elem in xrange(len(speedx)):
+	if(origspx[elem]==0):
+		speedx[elem]=0
+
+for elem in xrange(len(speedy)):
+	if(origspy[elem]==0):
+		speedy[elem]=0
+
+for elem in xrange(len(speedz)):
+	if(origspz[elem]==0):
+		speedz[elem]=0
+
 print "speedx",speedx,"speedy",speedy
 
 
@@ -784,6 +802,46 @@ print "&&&&&&&&&&&&&&&&&&&&&&&"
 print Magnited
 # for elem in Magnited:
 # 	print elem
+Rinit = RT_KG1[0][0]
+Rfinal= RT_KG1[-1][0]
+Tinit = [0,0,0]
+Tfinal= [distancex[-1],distancey[-1], distancez[-1]]
+fundamentalmat2 = ObtainFundament(Rinit, Rfinal, Tinit, Tfinal)
+errterm = GetError(fundamentalmat2, points1, points2)
+
+pts1=np.asarray(points1[0:len(points1)/10])
+pts2=np.asarray(points2[0:len(points1)/10])
+lines1=cv2.cv.fromarray(np.zeros((len(points1)/10,3)))
+lines2=cv2.cv.fromarray(np.zeros((len(points2)/10,3)))
+
+cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts2), 2,cv2.cv.fromarray(fundamentalmat2),lines1)
+cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts1), 1,cv2.cv.fromarray(fundamentalmat2),lines2)
+
+# print lines1
+lines1= np.asarray(lines1)
+lines2= np.asarray(lines2)
+# print lines1
+
+img3,img4 = drawlines(initimage2,finitimage2,lines1,lines2,pts1,pts2)
+
+cv2.imshow("elines3",img3)
+cv2.imshow("elines4",img4)
+
+
+
+
+print "our mat",fundamentalmat
+print "python mat",fundapython
+print "our error:",errterm
+print "python err",GetError(fundapython, points1[0:len(points1)/1], points2[0:len(points2)/1])
+
+# print Rinit,Rfinal
+# print Tinit,Tfinal
+# print len(getCorrPoints(mappeddata))
+# print len(mappeddata[len(mappeddata)-1])
+print"************"
+
+
 
 boolvals = map(lambda x: x[0]>0, Magnited)
 vals = map(lambda x: abs(x[1]), Magnited)
