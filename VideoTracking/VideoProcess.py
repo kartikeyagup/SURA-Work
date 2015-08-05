@@ -539,6 +539,44 @@ def drawlines(img1,img2,lines1,lines2,pts1,pts2):
 		cv2.circle(img2,CCTN((int(pt2[0]),int(pt2[1]))),5,color,-1)
 	return img1,img2
 
+def SolveEquations(r1,r2,P1,P2):
+	rnet= np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r2))),np.asarray(MakeRMatrix(r1)))
+	coeffs=[]
+	for i in xrange(len(P1)):
+		coeffs.append(GenerateCoeffs(rnet,P1[i],P2[i]))
+	txcoeff=[]
+	tycoeff=[]
+	tzcoeff=[]
+	for elem in coeffs:
+		txcoeff.append(elem[0])
+		tycoeff.append(elem[1])
+		tzcoeff.append(-elem[2])
+	A= np.vstack([txcoeff,tycoeff]).T
+	solution=np.linalg.lstsq(A, tzcoeff) 
+	tx1,ty1= solution[0]
+	# print ((solution[1])**0.5)/len(A)
+	norm = (1+ tx1**2 + ty1**2)**0.5
+	transdir = [tx1/norm,ty1/norm,1/norm]
+	transdir = np.asarray(transdir).T
+	transdir_cor = np.dot(np.asarray(MakeRMatrix(r1)),transdir)
+	return transdir_cor
+
+def gethomogpoint(a):
+	k= np.asarray([a[0]-640,360-a[1],1]).T
+	return np.dot(Kinv,k)
+
+def getallhomog(arr):
+	return map(lambda x: gethomogpoint(x), arr)
+
+
+
+def GenerateCoeffs(R,p1,p2):
+	tx= (+p1[0]*p2[2]*R[1][0]  -p1[0]*p2[1]*R[2][0] -p1[1]*p2[1]*R[2][1] + p1[1]*p2[2]*R[1][1] - p1[2]*p2[1]*R[2][2] + p1[2]*p2[2]*R[1][2])
+	ty= (+p1[0]*p2[0]*R[2][0]  -p1[0]*p2[2]*R[0][0] +p1[1]*p2[0]*R[2][1] - p1[1]*p2[2]*R[0][1] + p1[2]*p2[0]*R[2][2] - p1[2]*p2[2]*R[0][2])
+	tz= (-p1[0]*p2[0]*R[1][0]  +p1[0]*p2[1]*R[0][0] -p1[1]*p2[0]*R[2][1] + p1[1]*p2[1]*R[0][1] - p1[2]*p2[0]*R[1][2] + p1[2]*p2[1]*R[0][2])
+	return (tx,ty,tz)
+
+
 
 print"************"
 correspoints = getCorrPoints(mappeddata)
@@ -641,41 +679,6 @@ print "python err",GetError(fundapython, points1[0:len(points1)/1], points2[0:le
 # print len(mappeddata[len(mappeddata)-1])
 print"************"
 
-def gethomogpoint(a):
-	k= np.asarray([a[0]-640,360-a[1],1]).T
-	return np.dot(Kinv,k)
-
-def getallhomog(arr):
-	return map(lambda x: gethomogpoint(x), arr)
-
-
-def GenerateCoeffs(R,p1,p2):
-	tx= (+p1[0]*p2[2]*R[1][0]  -p1[0]*p2[1]*R[2][0] -p1[1]*p2[1]*R[2][1] + p1[1]*p2[2]*R[1][1] - p1[2]*p2[1]*R[2][2] + p1[2]*p2[2]*R[1][2])
-	ty= (+p1[0]*p2[0]*R[2][0]  -p1[0]*p2[2]*R[0][0] +p1[1]*p2[0]*R[2][1] - p1[1]*p2[2]*R[0][1] + p1[2]*p2[0]*R[2][2] - p1[2]*p2[2]*R[0][2])
-	tz= (-p1[0]*p2[0]*R[1][0]  +p1[0]*p2[1]*R[0][0] -p1[1]*p2[0]*R[2][1] + p1[1]*p2[1]*R[0][1] - p1[2]*p2[0]*R[1][2] + p1[2]*p2[1]*R[0][2])
-	return (tx,ty,tz)
-
-def SolveEquations(r1,r2,P1,P2):
-	rnet= np.dot(np.linalg.inv(np.asarray(MakeRMatrix(r2))),np.asarray(MakeRMatrix(r1)))
-	coeffs=[]
-	for i in xrange(len(P1)):
-		coeffs.append(GenerateCoeffs(rnet,P1[i],P2[i]))
-	txcoeff=[]
-	tycoeff=[]
-	tzcoeff=[]
-	for elem in coeffs:
-		txcoeff.append(elem[0])
-		tycoeff.append(elem[1])
-		tzcoeff.append(-elem[2])
-	A= np.vstack([txcoeff,tycoeff]).T
-	solution=np.linalg.lstsq(A, tzcoeff) 
-	tx1,ty1= solution[0]
-	# print ((solution[1])**0.5)/len(A)
-	norm = (1+ tx1**2 + ty1**2)**0.5
-	transdir = [tx1/norm,ty1/norm,1/norm]
-	transdir = np.asarray(transdir).T
-	transdir_cor = np.dot(np.asarray(MakeRMatrix(r1)),transdir)
-	return transdir_cor
 
 
 homogpoint1 = map(lambda x: getallhomog(x[0]), brokenpointpairs)
