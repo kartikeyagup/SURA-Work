@@ -596,7 +596,13 @@ Tinit = RT_KG1[0][1]
 Tfinal= RT_KG1[-1][1]
 fundapython = cv2.findFundamentalMat(np.asarray(points1[0:len(points1)/1]), np.asarray(points2[0:len(points2)/1]))[0]
 fundamentalmat = ObtainFundament(Rinit, Rfinal, Tinit, Tfinal)
+
+initfinaltransdir2pt= SolveEquations(Rinit,Rfinal,getallhomog(points1),getallhomog(points2))
+fundamental2pt = ObtainFundament(Rinit, Rfinal, [0,0,0], initfinaltransdir2pt)
+
+
 errterm = GetError(fundamentalmat, points1, points2)
+err2pt = GetError(fundamental2pt, points1, points2)
 print "tmat python", GetT(fundapython, Rinit, Rfinal)
 print "tmat ours", GetT(fundamentalmat, Rinit, Rfinal)
 
@@ -623,7 +629,10 @@ cv2.imshow("elines2",img2)
 
 print "our mat",fundamentalmat
 print "python mat",fundapython
+print "2pt mat",fundamental2pt
 print "our error:",errterm
+print "2 point alone error", err2pt 
+
 print "python err",GetError(fundapython, points1[0:len(points1)/1], points2[0:len(points2)/1])
 
 # print Rinit,Rfinal
