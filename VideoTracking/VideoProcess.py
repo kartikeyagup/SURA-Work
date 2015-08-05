@@ -657,10 +657,10 @@ lines1= np.asarray(lines1)
 lines2= np.asarray(lines2)
 # print lines1
 
-img1,img2 = drawlines(initimage,finitimage,lines1,lines2,pts1,pts2)
+# img1,img2 = drawlines(initimage,finitimage,lines1,lines2,pts1,pts2)
 
-cv2.imshow("elines1",img1)
-cv2.imshow("elines2",img2)
+# cv2.imshow("elines1",img1)
+# cv2.imshow("elines2",img2)
 
 
 
@@ -826,8 +826,8 @@ pts2=np.asarray(points2[0:len(points1)/10])
 lines1=cv2.cv.fromarray(np.zeros((len(points1)/10,3)))
 lines2=cv2.cv.fromarray(np.zeros((len(points2)/10,3)))
 
-cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts2), 2,cv2.cv.fromarray(fundamentalmat2),lines1)
-cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts1), 1,cv2.cv.fromarray(fundamentalmat2),lines2)
+cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts2), 2,cv2.cv.fromarray(fundamental2pt),lines1)
+cv2.cv.ComputeCorrespondEpilines(cv2.cv.fromarray(pts1), 1,cv2.cv.fromarray(fundamental2pt),lines2)
 
 # print lines1
 lines1= np.asarray(lines1)
