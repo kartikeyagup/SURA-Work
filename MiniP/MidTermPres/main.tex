@@ -130,16 +130,20 @@
 
 \begin{frame}{Present Progress}{}
 	\begin{enumerate}
-		\item Processed position and orientation estimate from sensors- available ASAP
-		\item Tracking and correspondence generation running in real time at 8 fps on 640*480 resolution on phone
-		\item Triangulation working on phone with R,T data from sensors and tracked data.
+		\item Position and orientation estimate from sensors.
+    \item Refinement and smoothening of sensor data. 
+    \item Calculating Rotation Matrix (R) and Translation Matrix (T) using the refined data.
+    \item All this done as soon as a particular frame is captured.
+		\item Tracking and correspondence generation running in real time at 8 fps on 640*480 resolution on phone.
+		\item Triangulation working on phone using the calculated R,T and tracked data.
 	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Difficulties}{}
 	\begin{itemize}
-		\item Incorrect point tracking taking place leading to improper triangulation (Put in image of correct and incorrect tracks)
-		\item Sensor data can at times drift leading to incorrect extrinsic parameters estimations. (Bundle adjustment will resolve this error).
+		\item Incorrect point tracking taking place leading to improper triangulation \\-Put in image of correct and incorrect tracks.
+    \vspace{5mm}
+		\item Sensor data can at times drift leading to incorrect extrinsic parameters estimations. \\-Bundle adjustment will resolve this error.
 	\end{itemize}
 \end{frame}
 
