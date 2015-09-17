@@ -106,10 +106,12 @@
   \titlepage
 \end{frame}
 
-% \begin{frame}{Outline}
+\begin{frame}{Objective}
   % \tableofcontents
   % You might wish to add the option [pausesections]
-% \end{frame}
+  3D Reconstruction on an IMU enabled mobile device.
+
+\end{frame}
 
 % Section and subsections will appear in the presentation overview
 % and table of contents.
@@ -139,12 +141,38 @@
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}{Difficulties}{}
-	\begin{itemize}
-		\item Incorrect point tracking taking place leading to improper triangulation \\-Put in image of correct and incorrect tracks.
-    \vspace{5mm}
-		\item Sensor data can at times drift leading to incorrect extrinsic parameters estimations. \\-Bundle adjustment will resolve this error.
-	\end{itemize}
+\begin{frame}{Difficulties}{Incorrect Tracking}
+  % \begin{itemize}
+    Errors in point tracking at times thereby leading to improper triangulation 
+    % \end{itemize}
+    \begin{figure}[ht!]
+      % \centering
+      % \begin{subfigure}{.5\textwidth}
+          \centering
+          \includegraphics[width=1.0\linewidth]{00018.jpg}
+          \caption{Incorrect Correspondence}
+          % \label{fig:sub1}
+      % \end{subfigure}%
+    \end{figure}
+    \begin{figure}
+      % \begin{subfigure}{.5\textwidth}
+          \centering
+          \includegraphics[width=1.0\linewidth]{00027.jpg}
+          \caption{Correct Correspondence}
+          % \label{fig:sub2}
+      % \end{subfigure}
+      % \caption{3D reconstruction}
+      % \label{figstart}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Difficulties}{Sensor Errors}
+  \begin{itemize}
+    \item
+    Sensor data can at times drift leading to incorrect extrinsic parameters estimations and hence erroneous sparse reconstruction.
+    \item   Bundle adjustment will resolve this error.
+  \end{itemize}
+
 \end{frame}
 
 \begin{frame}{Whats next}{}
@@ -152,7 +180,7 @@
 		\item Improving the tracking obtained from the KL tracker using Kalman filter
 		\item Optimizing the data processing to improve the FPS. 
     \item Test and optimize bundle adjustment to run on the phone
-		\item Dense tracking using GPU and correspondence for dense 3D reconstruction.
+		\item Dense tracking and correspondence generation using GPU for dense 3D reconstruction.
 	\end{itemize}
 \end{frame}
 

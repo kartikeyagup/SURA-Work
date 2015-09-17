@@ -280,6 +280,13 @@ INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmss8.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmss8.tfm
 INPUT C:/Users/kartikeya/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/MiniP/MidTermPres/00018.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/MiniP/MidTermPres/00018.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/MiniP/MidTermPres/00018.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/MiniP/MidTermPres/00027.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/MiniP/MidTermPres/00027.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/MiniP/MidTermPres/00027.jpg
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmss9.tfm
 INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmss17.tfm
 OUTPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/MiniP/MidTermPres/main.nav
 OUTPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/MiniP/MidTermPres/main.toc
@@ -289,4 +296,5 @@ INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss10.pfb
 INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss12.pfb
 INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss17.pfb
 INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss9.pfb
 INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb
