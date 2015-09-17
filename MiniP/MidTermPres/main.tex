@@ -134,7 +134,7 @@
     \item Refinement and smoothening of sensor data. 
     \item Calculating Rotation Matrix (R) and Translation Matrix (T) using the refined data.
     \item All this done as soon as a particular frame is captured.
-		\item Tracking and correspondence generation running in real time at 8 fps on 640*480 resolution on phone.
+		\item Tracking and correspondence generation running in real time at 8 FPS on 640*480 resolution on phone.
 		\item Triangulation working on phone using the calculated R,T and tracked data.
 	\end{enumerate}
 \end{frame}
@@ -150,7 +150,8 @@
 \begin{frame}{Whats next}{}
 	\begin{itemize}
 		\item Improving the tracking obtained from the KL tracker using Kalman filter
-		\item Test and optimize bundle adjustment to run on the phone
+		\item Optimizing the data processing to improve the FPS. 
+    \item Test and optimize bundle adjustment to run on the phone
 		\item Dense tracking using GPU and correspondence for dense 3D reconstruction.
 	\end{itemize}
 \end{frame}
