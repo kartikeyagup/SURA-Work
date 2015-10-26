@@ -222,4 +222,75 @@
 		    \item Access to the vision lab.
 		    % \item Access to a computer in Vision Lab.
 		    \end{itemize}
+	\newpage
+	\section{Report}
+		\textbf{``To get accurate position and orientation estimate based on readings of IMU sensors in smart-phones.''}
+		\\
+		\begin{itemize}
+			\item \textit{Initialisation}:\\ Started by making an Android application on Android Studio. The following sensor were deployed:
+				\begin{itemize}
+				\item Accelerometer
+				\item Gravity
+				\item Gyroscope
+				\item Magnetic Field
+				\end{itemize} 
+			The application consisted of five buttons on the screen with the view from camera on the background
+				\begin{itemize}
+				\item Start: To begin the process of data collection from sensors and video capture from the camera
+				\item Quit: To quit the application
+				\item Image Click: To take various images of the concerned object after pressing Start
+				\item Clear: To clear Cache
+				\item About: About the application
+				\end{itemize}
+			On pressing the start button, the following data is received from the sensors and stored for further processing. Writing of data is done when the gravity sensor is active since it is the most frequent sensor.
+				\begin{itemize}
+				\item Acceleration
+				\item Magnetic field
+				\item Gravity
+				\item Gyroscope
+				\item Rotation Matrix from inbuilt Android function using gravity and magnetic field (Calculated)
+				\item Rotation Matrix from gyroscope (Calculated)
+				\item ImageID corresponding to this data
+				\end{itemize}
+
+			\item \textit{Data Processing}:\\ Calculation of Rotation is started in parallel with collection of data. After all the data is collected, the following are done (in order):
+				\begin{itemize}
+				\item Acceleration Frame is changed from Ground Frame to Camera Frame
+				\item Gravity is removed from the acceleration data
+				\item \textit{Static Bias Removal}:\\Assuming the device was at rest before the first image was clicked, static bias in the acceleration is removed. First, the mean of acceleration values before the first image was clicked is calculated and then subtracted from all the acceleration values.
+				\item \textit{Smooth Acceleration}:\\
+				Two types of smoothening techniques were tried i.e Gaussian Filter and `LOESS' local regression. `LOESS' local regression produced better results and hence was incorporated. 
+				\item \textit{Motion Zones Identification}:\\ A data point was said to be a motion point if in its neighborhood lied a point having significant acceleration compared to the standard deviation of the acceleration points before the first image was clicked. All the contagious data points were clubbed together and identified as zones. Points outside these zones having non-zero acceleration were declared as rest points and hence noise was removed.
+				\item \textit{Velocity and Distance Calculation}:\\ Velocity and distance were calculated taking account only the accelerations in the identified motion zones.
+				\end{itemize}
+		\end{itemize}
+		*write about the results obtained*
+		\\
+		\vspace{3mm}
+		\\
+		\textbf{``To use the camera feed in smart-phones to enhance the position estimate based on visual tracking of objects.''}
+		\\
+		\vspace{3mm}
+		\\
+		Exploited the video feed from the camera to generate correspondences through visual tracking of points. It was done in the following way.
+		\begin{itemize}
+		\item Feature points were identified in the first frame
+		\item These points were tracked in the following video frame using KL Tracker.
+		\item As a result, from the first frame a chain of points was established till the next image was captured and hence correspondences were identified
+		\item Also, to improve tracking, more feature points were added after every 10 frames so that enough points are available.
+		\end{itemize}
+		To identify the FPS required for this method to work, an offline program was run on various FPS. It was seen that FPS above 6-7 was able to produce accurate correspondences.\\
+		This process turned out to be extremely fast and efficient. 
+		\\
+		\vspace{6mm}
+		\\
+		\textbf{``To do sparse 3D reconstruction based on sensor fusion data and computer vision techniques.''}
+		\\
+		\vspace{3mm}
+		\\
+		After establishing correspondences between different image clicks, Triangulation was done using the previously calculated Rotation and Translation Matrices in the following way
+		\begin{itemize}
+		\item Converting the Rotation Matrix (Sensor Frame) to Rotation Matrix (Camera Frame)
+		\item Using Triangulation Equation
+		\end{itemize}
 \end{document}
