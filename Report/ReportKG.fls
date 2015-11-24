@@ -1,0 +1,175 @@
+PWD C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report
+INPUT C:/Users/kartikeya/AppData/Local/MiKTeX/2.9/miktex/data/le/pdftex/pdflatex.fmt
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ReportKG.tex
+OUTPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ReportKG.log
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/article.cls
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/article.cls
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/size10.clo
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/size10.clo
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/inputenc.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/inputenc.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/utf8.def
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/utf8.def
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/t1enc.dfu
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/t1enc.dfu
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/ot1enc.dfu
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/ot1enc.dfu
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/omsenc.dfu
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/omsenc.dfu
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/graphicx.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/graphicx.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/keyval.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/keyval.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/graphics.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/graphics.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/trig.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/trig.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/00miktex/graphics.cfg
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/00miktex/graphics.cfg
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/pdftex-def/pdftex.def
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/pdftex-def/pdftex.def
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/infwarerr.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/infwarerr.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/ltxcmds.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/ltxcmds.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/titlepic/titlepic.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/titlepic/titlepic.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/caption/caption.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/caption/caption.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/caption/caption3.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/caption/caption3.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/caption/subcaption.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/caption/subcaption.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/listings/listings.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/listings/listings.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/listings/lstmisc.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/listings/lstmisc.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/listings/listings.cfg
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/listings/listings.cfg
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/color.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/color.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/00miktex/color.cfg
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/00miktex/color.cfg
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsmath.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsmath.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amstext.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amstext.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsgen.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsgen.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsbsy.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsbsy.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsopn.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsopn.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/float/float.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/float/float.sty
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ReportKG.aux
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ReportKG.aux
+OUTPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ReportKG.aux
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/context/base/supp-pdf.mkii
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/context/base/supp-pdf.mkii
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmr12.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmbx12.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmti10.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmbxti10.tfm
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/sparse_chariot.png
+OUTPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ReportKG.pdf
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/sparse_chariot.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/sparse_chariot.png
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmr9.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/dense_chariot.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/dense_chariot.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/dense_chariot.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/traditional_pipeline2.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/traditional_pipeline2.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/traditional_pipeline2.png
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/omscmr.fd
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/omscmr.fd
+INPUT C:/Users/kartikeya/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmr12.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmbx12.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmbx10.tfm
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/img317.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/img317.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/img317.png
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/listings/lstlang1.sty
+INPUT C:/Users/kartikeya/AppData/Roaming/MiKTeX/2.9/tex/latex/listings/lstlang1.sty
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmr8.tfm
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/omlcmr.fd
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/omlcmr.fd
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmmi8.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmr6.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmmi6.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmsy8.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmsy6.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/rawacc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/rawacc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/rawacc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/procacc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/procacc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/procacc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/basicproc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/basicproc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/basicproc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ourproc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ourproc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ourproc.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/rot.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/rot.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/rot.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/motion.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/motion.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/motion.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/00018.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/00018.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/00018.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/00027.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/00027.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/00027.jpg
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmbx7.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/cm/cmbx5.tfm
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_0_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_0_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_0_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_1_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_1_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_1_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_2_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_2_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_2_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_3_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_3_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_3_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_4_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_4_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_4_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_5_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_5_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_5_image.jpg
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_sensors.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_sensors.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_sensors.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_bundler.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_bundler.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/1_bundler.png
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ReportKG.bbl
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ReportKG.bbl
+INPUT C:/Users/kartikeya/Desktop/GIT Stuff/SURA-Work/Report/ReportKG.aux
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb

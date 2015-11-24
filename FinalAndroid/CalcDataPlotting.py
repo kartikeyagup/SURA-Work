@@ -7,13 +7,13 @@ import statsmodels.api as sm
 #File input part
 # filename='1432883613575SensorFusion3data.csv'
 # filename='1432883832602SensorFusion3data.csv'
-filename='1432881097788SensorFusion3data.csv'
-filename='1432884052928SensorFusion3data.csv'
-filename='1432884114117SensorFusion3data.csv'
-filename='1432885404575SensorFusion3data.csv'
-filename='1432885522031SensorFusion3data.csv'
+# filename='1432881097788SensorFusion3data.csv'
+# filename='1432884052928SensorFusion3data.csv'
+# filename='1432884114117SensorFusion3data.csv'
+# filename='1432885404575SensorFusion3data.csv'
+# filename='1432885522031SensorFusion3data.csv'
 filename='1432885913255SensorFusion3data.csv'
-filename='1432886079901SensorFusion3data.csv'
+# filename='1432886079901SensorFusion3data.csv'
 # Vertical 30
 # filename='1432889188319SensorFusion3data.csv'
 # filename='1432889234657SensorFusion3data.csv'
@@ -27,34 +27,35 @@ filename='1432886079901SensorFusion3data.csv'
 # filename='1432894467420SensorFusion3data.csv'
 # filename='1432895270143SensorFusion3data.csv'
 # nexus
-filename='1432895787434SensorFusion3data.csv'
-filename='1432895836475SensorFusion3data.csv'
-filename='1432895904865SensorFusion3data.csv'
-filename='1432896359064SensorFusion3data.csv'
-filename='1432896471375SensorFusion3data.csv'
+# filename='1432895787434SensorFusion3data.csv'
+# filename='1432895836475SensorFusion3data.csv'
+# filename='1432895904865SensorFusion3data.csv'
+# filename='1432896359064SensorFusion3data.csv'
+# filename='1432896471375SensorFusion3data.csv'
 # filename='1432896755115SensorFusion3data.csv'
-filename='1432897681787SensorFusion3data.csv'
+# filename='1432897681787SensorFusion3data.csv'
 # filename='1432897957228SensorFusion3data.csv' 
 # filename='1432898279391SensorFusion3data.csv'
 # filename='1432898327107SensorFusion3data.csv'
 # filename='1432900102716SensorFusion3data.csv'
 # filename='1432900964264SensorFusion3data.csv'
-filename='1433158602549SensorFusion3data.csv'
-filename='1433158662786SensorFusion3data.csv'
-filename='1433158704380SensorFusion3data.csv'
-filename='1433161336159SensorFusion3data.csv'
+# filename='1433158602549SensorFusion3data.csv'
+# filename='1433158662786SensorFusion3data.csv'
+# filename='1433158704380SensorFusion3data.csv'
+# filename='1433161336159SensorFusion3data.csv'
 
  
-filename='1433160480109SensorFusion3data.csv'
-filename='1433160544422SensorFusion3data.csv'
-filename='1433160512502SensorFusion3data.csv'
-filename='1433161395113SensorFusion3data.csv'
-filename='1433161451561SensorFusion3data.csv'
+# filename='1433160480109SensorFusion3data.csv'
+# filename='1433160544422SensorFusion3data.csv'
+# filename='1433160512502SensorFusion3data.csv'
+# filename='1433161395113SensorFusion3data.csv'
+# filename='1433161451561SensorFusion3data.csv'
 
 # filename='1433158775075SensorFusion3data.csv'
 # filename='1433158867822SensorFusion3data.csv'
 # filename='1433158898907SensorFusion3data.csv'
-filename= '1433493580541SensorFusion3data.csv'
+# filename= '1433493580541SensorFusion3data.csv'
+filename ='1445605807900SensorFusion3data.csv'
 fileread=[]
 with open(filename,'rb') as csvfile:
 	spamreader= csv.reader(csvfile)
@@ -364,6 +365,12 @@ print "fixed: ", (fixeddx[-1]**2+ fixeddy[-1]**2 + fixeddz[-1]**2)**0.5
 # plt.plot(pratx,color='blue')
 # # plt.plot(matax3,color='red')
 # # plt.plot(lowy,color='green')
+
+plt.figure(3)
+plt.subplot(1,1,1)
+plt.ylabel('procx')
+# plt.plot(rawax,color='yellow')
+plt.plot(pratx)
 
 plt.figure(1)
 

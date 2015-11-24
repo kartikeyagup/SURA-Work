@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+
+\bibitem{zissermanfeatures}
+A.~Zisserman R.~Hartley.
+\newblock Multiple view geometry in computer vision, ch. 9 epipolar geometry
+  and the fundamental matrix.
+\newblock pages 239--252, 2004.
+
+\bibitem{zisserman}
+A.~Zisserman R.~Hartley.
+\newblock Multiple view geometry in computer vision, ch 10 3d reconstruction of
+  cameras and structure.
+\newblock pages 262--276, 2004.
+
+\bibitem{LocalReg}
+C.~Loader William S.~Cleveland.
+\newblock Smoothing by local regression: Principles and methods.
+\newblock {\em AT\&T Bell Laboratories}.
+
+\bibitem{goodfeatures}
+C.~Tomasi J.~Shi.
+\newblock {Good Features to Track}.
+\newblock 1994.
+
+\bibitem{KLT}
+T~Kanade Bruce D.~Lucas.
+\newblock {An Iterative Image Registration Technique with an Application to
+  Stereo Vision}.
+\newblock 1981.
+
+\end{thebibliography}
